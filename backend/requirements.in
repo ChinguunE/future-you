@@ -1,0 +1,8 @@
+# Top-level production dependencies. Exact versions are pinned in requirements.txt
+# (generated with `pip freeze`). Keys are NOT needed at runtime — the app serves snapshots.
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+numpy
+scipy

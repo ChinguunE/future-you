@@ -1,0 +1,22 @@
+name: Keep API warm
+
+# Render's free tier sleeps after ~15 min idle. This pings /health every ~10 min
+# so a visitor rarely hits a cold start. Best-effort only (free Render may still sleep).
+# Inert until you set the repo variable API_HEALTH_URL to your Render URL + /health.
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /health
+        run: |
+          if [ -z "${{ vars.API_HEALTH_URL }}" ]; then
+            echo "API_HEALTH_URL repo variable not set yet — skipping."
+            exit 0
+          fi
+          curl -fsS --max-time 60 "${{ vars.API_HEALTH_URL }}" && echo " — pinged OK"

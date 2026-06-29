@@ -1,0 +1,1119 @@
+{
+  "library": "Family Portfolio Builder — illustration library",
+  "style": "Flat hand-drawn 'marshmallow' vector: chunky rounded bodies, dot eyes, deep teal-charcoal outline, flat fills (green #54B49C, coral #F07854, gold #FCA848, sky #6CB4F0, grape #9C9CF0), transparent background, no shadows.",
+  "format": "SVG (scalable, themeable, tiny) for all illustrations; PNG only for the 8 goal icons. Internal SVG ids are namespaced per file, so several may be inlined on one page without collisions.",
+  "mascot": "The green two-leaf 'Sprout' is the companion character — its poses live in mascot/.",
+  "count": 85,
+  "categories": {
+    "brand": 1,
+    "characters": 5,
+    "concepts": 12,
+    "goals": 8,
+    "mascot": 29,
+    "money": 5,
+    "scenes": 2,
+    "sectors": 10,
+    "sky": 11,
+    "switzerland": 2
+  },
+  "items": [
+    {
+      "id": "brand/logo",
+      "file": "illustrations/brand/logo.svg",
+      "category": "brand",
+      "title": "App logo (Sprout)",
+      "description": "The Sprout mascot as the app logo / wordmark mark.",
+      "useWhen": "the header logo, the favicon, the loading screen",
+      "tags": [
+        "logo",
+        "brand",
+        "mascot"
+      ]
+    },
+    {
+      "id": "characters/blue-waving",
+      "file": "illustrations/characters/blue-waving.svg",
+      "category": "characters",
+      "title": "Blue friend waving",
+      "description": "Round blue character waving hello.",
+      "useWhen": "welcome screens, a friendly greeting, variety",
+      "tags": [
+        "welcome",
+        "wave",
+        "cast"
+      ]
+    },
+    {
+      "id": "characters/blue-with-coin",
+      "file": "illustrations/characters/blue-with-coin.svg",
+      "category": "characters",
+      "title": "Blue friend with coin",
+      "description": "Blue character holding a coin.",
+      "useWhen": "saving, a deposit, money moments",
+      "tags": [
+        "save",
+        "coin",
+        "cast"
+      ]
+    },
+    {
+      "id": "characters/grape",
+      "file": "illustrations/characters/grape.svg",
+      "category": "characters",
+      "title": "Grape friend",
+      "description": "Little purple grape character.",
+      "useWhen": "variety in the cast, a buddy on a screen",
+      "tags": [
+        "cast",
+        "purple",
+        "buddy"
+      ]
+    },
+    {
+      "id": "characters/green-with-coin",
+      "file": "illustrations/characters/green-with-coin.svg",
+      "category": "characters",
+      "title": "Green friend with coin",
+      "description": "Green character holding a coin.",
+      "useWhen": "saving, a contribution, money moments",
+      "tags": [
+        "save",
+        "coin",
+        "cast"
+      ]
+    },
+    {
+      "id": "characters/green-with-coins",
+      "file": "illustrations/characters/green-with-coins.svg",
+      "category": "characters",
+      "title": "Green friend with coins",
+      "description": "Green character cheering with coins.",
+      "useWhen": "growing savings, a good result",
+      "tags": [
+        "grow",
+        "coins",
+        "cast"
+      ]
+    },
+    {
+      "id": "concepts/balance",
+      "file": "illustrations/concepts/balance.svg",
+      "category": "concepts",
+      "title": "Balance",
+      "description": "A balance scale, evenly weighed.",
+      "useWhen": "explaining balance, fairness, weighing options",
+      "tags": [
+        "balance",
+        "weigh",
+        "scale"
+      ]
+    },
+    {
+      "id": "concepts/bounce-back",
+      "file": "illustrations/concepts/bounce-back.svg",
+      "category": "concepts",
+      "title": "Bounce back",
+      "description": "A gold coin on a coiled spring.",
+      "useWhen": "explaining recovery / resilience after a dip",
+      "tags": [
+        "recovery",
+        "resilience",
+        "bounce"
+      ]
+    },
+    {
+      "id": "concepts/compounding",
+      "file": "illustrations/concepts/compounding.svg",
+      "category": "concepts",
+      "title": "Compounding",
+      "description": "A tiny sprout grown into a big leafy tree bearing coins.",
+      "useWhen": "explaining compounding / growth over time",
+      "tags": [
+        "compounding",
+        "growth",
+        "timevalue"
+      ]
+    },
+    {
+      "id": "concepts/diversification",
+      "file": "illustrations/concepts/diversification.svg",
+      "category": "concepts",
+      "title": "Diversification",
+      "description": "Several baskets, each holding an egg.",
+      "useWhen": "explaining diversification / not all eggs in one basket",
+      "tags": [
+        "diversification",
+        "spread",
+        "risk"
+      ]
+    },
+    {
+      "id": "concepts/dividends",
+      "file": "illustrations/concepts/dividends.svg",
+      "category": "concepts",
+      "title": "Dividends",
+      "description": "A tree dropping coins like falling fruit.",
+      "useWhen": "explaining dividends / income from holdings",
+      "tags": [
+        "dividends",
+        "income",
+        "yield"
+      ]
+    },
+    {
+      "id": "concepts/etf",
+      "file": "illustrations/concepts/etf.svg",
+      "category": "concepts",
+      "title": "What is an ETF",
+      "description": "One basket holding many different little fruits.",
+      "useWhen": "explaining an ETF / fund as a basket of many holdings",
+      "tags": [
+        "etf",
+        "fund",
+        "basket"
+      ]
+    },
+    {
+      "id": "concepts/interest",
+      "file": "illustrations/concepts/interest.svg",
+      "category": "concepts",
+      "title": "Interest & returns",
+      "description": "A friendly document showing a percent sign.",
+      "useWhen": "explaining interest, returns, rates, the plan summary",
+      "tags": [
+        "interest",
+        "returns",
+        "percent"
+      ]
+    },
+    {
+      "id": "concepts/market-ups-and-downs",
+      "file": "illustrations/concepts/market-ups-and-downs.svg",
+      "category": "concepts",
+      "title": "Market ups & downs",
+      "description": "A smiling boat riding a wave that dips then rises.",
+      "useWhen": "explaining volatility and recovery",
+      "tags": [
+        "volatility",
+        "recovery",
+        "market"
+      ]
+    },
+    {
+      "id": "concepts/markets-app",
+      "file": "illustrations/concepts/markets-app.svg",
+      "category": "concepts",
+      "title": "Markets on a phone",
+      "description": "A smartphone showing a rising chart.",
+      "useWhen": "explaining how to invest via an app / broker, live markets",
+      "tags": [
+        "app",
+        "broker",
+        "markets"
+      ]
+    },
+    {
+      "id": "concepts/risk-vs-reward",
+      "file": "illustrations/concepts/risk-vs-reward.svg",
+      "category": "concepts",
+      "title": "Risk vs reward",
+      "description": "A friendly seesaw balancing a coin and a heart.",
+      "useWhen": "explaining the risk-return trade-off",
+      "tags": [
+        "risk",
+        "reward",
+        "tradeoff"
+      ]
+    },
+    {
+      "id": "concepts/stocks-vs-bonds",
+      "file": "illustrations/concepts/stocks-vs-bonds.svg",
+      "category": "concepts",
+      "title": "Stocks vs bonds",
+      "description": "A speedy hare beside a steady tortoise.",
+      "useWhen": "explaining stocks (fast, bumpy) vs bonds (slow, steady)",
+      "tags": [
+        "stocks",
+        "bonds",
+        "riskreturn"
+      ]
+    },
+    {
+      "id": "concepts/time-in-market",
+      "file": "illustrations/concepts/time-in-market.svg",
+      "category": "concepts",
+      "title": "Time in the market",
+      "description": "A clock gently hugging a growing plant.",
+      "useWhen": "explaining patience / time in the market",
+      "tags": [
+        "time",
+        "patience",
+        "horizon"
+      ]
+    },
+    {
+      "id": "goals/build-wealth",
+      "file": "illustrations/goals/build-wealth.png",
+      "category": "goals",
+      "title": "Build wealth",
+      "description": "A character growing a stack of coins.",
+      "useWhen": "the 'build long-term wealth' goal",
+      "tags": [
+        "goal",
+        "build-wealth"
+      ]
+    },
+    {
+      "id": "goals/childrens-future",
+      "file": "illustrations/goals/childrens-future.png",
+      "category": "goals",
+      "title": "Children's future",
+      "description": "Two characters together — family.",
+      "useWhen": "the 'children's future' goal",
+      "tags": [
+        "goal",
+        "childrens-future"
+      ]
+    },
+    {
+      "id": "goals/dream-purchase",
+      "file": "illustrations/goals/dream-purchase.png",
+      "category": "goals",
+      "title": "Dream purchase",
+      "description": "A little sailboat — a dream to buy.",
+      "useWhen": "the 'a dream purchase' goal (boat, car, trip)",
+      "tags": [
+        "goal",
+        "dream-purchase"
+      ]
+    },
+    {
+      "id": "goals/education",
+      "file": "illustrations/goals/education.png",
+      "category": "goals",
+      "title": "Education",
+      "description": "A graduate cap on a stack of books.",
+      "useWhen": "the 'education / studies' goal",
+      "tags": [
+        "goal",
+        "education"
+      ]
+    },
+    {
+      "id": "goals/home-deposit",
+      "file": "illustrations/goals/home-deposit.png",
+      "category": "goals",
+      "title": "Home deposit",
+      "description": "A character with a house and key.",
+      "useWhen": "the 'home / property deposit' goal",
+      "tags": [
+        "goal",
+        "home-deposit"
+      ]
+    },
+    {
+      "id": "goals/independence",
+      "file": "illustrations/goals/independence.png",
+      "category": "goals",
+      "title": "Independence",
+      "description": "A character planting their own flag.",
+      "useWhen": "the 'financial independence' goal",
+      "tags": [
+        "goal",
+        "independence"
+      ]
+    },
+    {
+      "id": "goals/retirement",
+      "file": "illustrations/goals/retirement.png",
+      "category": "goals",
+      "title": "Retirement",
+      "description": "A warm sun — relaxed retirement.",
+      "useWhen": "the 'retirement' goal",
+      "tags": [
+        "goal",
+        "retirement"
+      ]
+    },
+    {
+      "id": "goals/safety-net",
+      "file": "illustrations/goals/safety-net.png",
+      "category": "goals",
+      "title": "Safety net",
+      "description": "An umbrella over a coin.",
+      "useWhen": "the 'safety net / rainy-day fund' goal",
+      "tags": [
+        "goal",
+        "safety-net"
+      ]
+    },
+    {
+      "id": "mascot/arms-out",
+      "file": "illustrations/mascot/arms-out.svg",
+      "category": "mascot",
+      "title": "Sprout arms open",
+      "description": "Sprout with arms spread wide, welcoming.",
+      "useWhen": "a welcome, a reveal, presenting good news",
+      "tags": [
+        "welcome",
+        "open",
+        "friendly"
+      ]
+    },
+    {
+      "id": "mascot/balancing-beam",
+      "file": "illustrations/mascot/balancing-beam.svg",
+      "category": "mascot",
+      "title": "Sprout balancing",
+      "description": "Sprout balancing happily on a low beam.",
+      "useWhen": "the risk step, balance between safety and growth",
+      "tags": [
+        "balance",
+        "risk",
+        "steady"
+      ]
+    },
+    {
+      "id": "mascot/calm",
+      "file": "illustrations/mascot/calm.svg",
+      "category": "mascot",
+      "title": "Sprout calm",
+      "description": "Sprout standing calmly, eyes closed, relaxed.",
+      "useWhen": "'stay the course', staying calm in a dip, reassurance",
+      "tags": [
+        "calm",
+        "steady",
+        "reassure"
+      ]
+    },
+    {
+      "id": "mascot/catching-star",
+      "file": "illustrations/mascot/catching-star.svg",
+      "category": "mascot",
+      "title": "Sprout catching a star",
+      "description": "Sprout reaching up to catch a star.",
+      "useWhen": "setting a goal, aspirations, the goal step",
+      "tags": [
+        "goal",
+        "aspire",
+        "star"
+      ]
+    },
+    {
+      "id": "mascot/celebrating",
+      "file": "illustrations/mascot/celebrating.svg",
+      "category": "mascot",
+      "title": "Sprout celebrating",
+      "description": "Sprout celebrating amid confetti / flowers.",
+      "useWhen": "a big milestone, finishing the plan, summary success",
+      "tags": [
+        "celebrate",
+        "confetti",
+        "milestone"
+      ]
+    },
+    {
+      "id": "mascot/cheering",
+      "file": "illustrations/mascot/cheering.svg",
+      "category": "mascot",
+      "title": "Sprout cheering",
+      "description": "Sprout with both arms up, celebrating.",
+      "useWhen": "a win, a milestone reached, a positive result",
+      "tags": [
+        "celebrate",
+        "happy",
+        "success"
+      ]
+    },
+    {
+      "id": "mascot/climbing",
+      "file": "illustrations/mascot/climbing.svg",
+      "category": "mascot",
+      "title": "Sprout climbing steps",
+      "description": "Sprout climbing one small step at a time.",
+      "useWhen": "progress, building up contributions, 'one step at a time'",
+      "tags": [
+        "progress",
+        "steps",
+        "growth"
+      ]
+    },
+    {
+      "id": "mascot/coin-trail",
+      "file": "illustrations/mascot/coin-trail.svg",
+      "category": "mascot",
+      "title": "Sprout with coin trail",
+      "description": "Sprout following a trail of coins.",
+      "useWhen": "saving steadily, the path to a goal",
+      "tags": [
+        "save",
+        "path",
+        "coins"
+      ]
+    },
+    {
+      "id": "mascot/growth-arrow",
+      "file": "illustrations/mascot/growth-arrow.svg",
+      "category": "mascot",
+      "title": "Sprout with growth arrow",
+      "description": "Sprout watching a sprout-shaped rising arrow.",
+      "useWhen": "the growth / projection step, returns over time",
+      "tags": [
+        "growth",
+        "chart",
+        "up"
+      ]
+    },
+    {
+      "id": "mascot/holding-sign",
+      "file": "illustrations/mascot/holding-sign.svg",
+      "category": "mascot",
+      "title": "Sprout holding a sign",
+      "description": "Sprout holding a small blank sign (add your own label).",
+      "useWhen": "a callout, an empty label you fill in, a banner",
+      "tags": [
+        "sign",
+        "label",
+        "callout"
+      ]
+    },
+    {
+      "id": "mascot/jumping",
+      "file": "illustrations/mascot/jumping.svg",
+      "category": "mascot",
+      "title": "Sprout jumping for joy",
+      "description": "Sprout jumping happily with little rays.",
+      "useWhen": "excitement, a positive result, celebration",
+      "tags": [
+        "happy",
+        "jump",
+        "excited"
+      ]
+    },
+    {
+      "id": "mascot/jumping-alt",
+      "file": "illustrations/mascot/jumping-alt.svg",
+      "category": "mascot",
+      "title": "Sprout jumping (alt)",
+      "description": "Sprout jumping, alternate pose.",
+      "useWhen": "excitement, a positive result (variant)",
+      "tags": [
+        "happy",
+        "jump",
+        "alt"
+      ]
+    },
+    {
+      "id": "mascot/matterhorn",
+      "file": "illustrations/mascot/matterhorn.svg",
+      "category": "mascot",
+      "title": "Sprout at the Matterhorn",
+      "description": "Sprout beside a little Matterhorn with a Swiss flag.",
+      "useWhen": "the 'investing in Switzerland' step",
+      "tags": [
+        "switzerland",
+        "matterhorn",
+        "place"
+      ]
+    },
+    {
+      "id": "mascot/pointing",
+      "file": "illustrations/mascot/pointing.svg",
+      "category": "mascot",
+      "title": "Sprout pointing",
+      "description": "Sprout pointing to the side to highlight something.",
+      "useWhen": "drawing attention to a number, button or tip",
+      "tags": [
+        "point",
+        "highlight",
+        "guide"
+      ]
+    },
+    {
+      "id": "mascot/pushing-coin",
+      "file": "illustrations/mascot/pushing-coin.svg",
+      "category": "mascot",
+      "title": "Sprout pushing a coin",
+      "description": "Sprout pushing / rolling a big gold coin.",
+      "useWhen": "effort to save, making money work",
+      "tags": [
+        "effort",
+        "save",
+        "coin"
+      ]
+    },
+    {
+      "id": "mascot/pushing-coin-alt",
+      "file": "illustrations/mascot/pushing-coin-alt.svg",
+      "category": "mascot",
+      "title": "Sprout pushing a coin (alt)",
+      "description": "Sprout pushing a big coin, alternate pose.",
+      "useWhen": "effort to save, making money work (variant)",
+      "tags": [
+        "effort",
+        "save",
+        "coin",
+        "alt"
+      ]
+    },
+    {
+      "id": "mascot/reading",
+      "file": "illustrations/mascot/reading.svg",
+      "category": "mascot",
+      "title": "Sprout reading",
+      "description": "Sprout reading a little book.",
+      "useWhen": "learning, definitions, the glossary, education step",
+      "tags": [
+        "learn",
+        "read",
+        "explain"
+      ]
+    },
+    {
+      "id": "mascot/relaxing-deckchair",
+      "file": "illustrations/mascot/relaxing-deckchair.svg",
+      "category": "mascot",
+      "title": "Sprout relaxing",
+      "description": "Relaxed sprout in a sun-hat on a deckchair.",
+      "useWhen": "the retirement step, financial independence, ease",
+      "tags": [
+        "retirement",
+        "relax",
+        "independence"
+      ]
+    },
+    {
+      "id": "mascot/riding-wave",
+      "file": "illustrations/mascot/riding-wave.svg",
+      "category": "mascot",
+      "title": "Sprout riding a wave",
+      "description": "Sprout calmly riding a wave that dips then rises.",
+      "useWhen": "market ups and downs, riding out volatility",
+      "tags": [
+        "volatility",
+        "calm",
+        "ride"
+      ]
+    },
+    {
+      "id": "mascot/sleeping",
+      "file": "illustrations/mascot/sleeping.svg",
+      "category": "mascot",
+      "title": "Sprout sleeping",
+      "description": "Sprout sleeping peacefully with z z z.",
+      "useWhen": "long-term / passive investing, 'set and forget', empty state",
+      "tags": [
+        "rest",
+        "passive",
+        "longterm"
+      ]
+    },
+    {
+      "id": "mascot/thinking",
+      "file": "illustrations/mascot/thinking.svg",
+      "category": "mascot",
+      "title": "Sprout thinking",
+      "description": "Sprout with a finger to its chin, pondering.",
+      "useWhen": "a question, the risk quiz, 'let's think about this'",
+      "tags": [
+        "think",
+        "question",
+        "quiz"
+      ]
+    },
+    {
+      "id": "mascot/thinking-bubble",
+      "file": "illustrations/mascot/thinking-bubble.svg",
+      "category": "mascot",
+      "title": "Sprout with thought bubble",
+      "description": "Small sprout with a dotted thought bubble.",
+      "useWhen": "a tip, an idea, a 'did you know'",
+      "tags": [
+        "idea",
+        "tip",
+        "hint"
+      ]
+    },
+    {
+      "id": "mascot/thumbs-up",
+      "file": "illustrations/mascot/thumbs-up.svg",
+      "category": "mascot",
+      "title": "Sprout thumbs-up",
+      "description": "Sprout giving a thumbs-up.",
+      "useWhen": "confirming a good choice, encouragement",
+      "tags": [
+        "approve",
+        "encourage",
+        "positive"
+      ]
+    },
+    {
+      "id": "mascot/watering",
+      "file": "illustrations/mascot/watering.svg",
+      "category": "mascot",
+      "title": "Sprout watering a plant",
+      "description": "Sprout watering a tiny plant.",
+      "useWhen": "starting to invest, nurturing savings, regular contributions",
+      "tags": [
+        "grow",
+        "nurture",
+        "save"
+      ]
+    },
+    {
+      "id": "mascot/with-clock-plant",
+      "file": "illustrations/mascot/with-clock-plant.svg",
+      "category": "mascot",
+      "title": "Sprout with clock & plant",
+      "description": "Sprout beside a clock and a growing plant.",
+      "useWhen": "time in the market, patience, long horizons",
+      "tags": [
+        "time",
+        "patience",
+        "longterm"
+      ]
+    },
+    {
+      "id": "mascot/with-globe",
+      "file": "illustrations/mascot/with-globe.svg",
+      "category": "mascot",
+      "title": "Sprout holding a globe",
+      "description": "Sprout holding a little spinning globe.",
+      "useWhen": "the industries / global diversification step",
+      "tags": [
+        "global",
+        "industries",
+        "world"
+      ]
+    },
+    {
+      "id": "mascot/with-magnifier",
+      "file": "illustrations/mascot/with-magnifier.svg",
+      "category": "mascot",
+      "title": "Sprout with magnifier",
+      "description": "Sprout peering through a magnifying glass.",
+      "useWhen": "exploring details, 'how risky is it', research",
+      "tags": [
+        "inspect",
+        "detail",
+        "research"
+      ]
+    },
+    {
+      "id": "mascot/with-pie-chart",
+      "file": "illustrations/mascot/with-pie-chart.svg",
+      "category": "mascot",
+      "title": "Sprout presenting a pie",
+      "description": "Sprout proudly presenting a donut / pie chart.",
+      "useWhen": "the plan / allocation step, showing the mix",
+      "tags": [
+        "allocation",
+        "plan",
+        "pie"
+      ]
+    },
+    {
+      "id": "mascot/with-trophy",
+      "file": "illustrations/mascot/with-trophy.svg",
+      "category": "mascot",
+      "title": "Sprout with trophy",
+      "description": "Sprout holding a small trophy.",
+      "useWhen": "'well done', goal achieved, completion",
+      "tags": [
+        "trophy",
+        "achieve",
+        "welldone"
+      ]
+    },
+    {
+      "id": "money/emergency-fund",
+      "file": "illustrations/money/emergency-fund.svg",
+      "category": "money",
+      "title": "Emergency fund",
+      "description": "An umbrella sheltering a piggy bank.",
+      "useWhen": "explaining an emergency fund / safety buffer",
+      "tags": [
+        "emergency",
+        "umbrella",
+        "safety"
+      ]
+    },
+    {
+      "id": "money/monthly-saving",
+      "file": "illustrations/money/monthly-saving.svg",
+      "category": "money",
+      "title": "Monthly saving",
+      "description": "A calendar with a coin and a heart.",
+      "useWhen": "regular monthly contributions, scheduling savings",
+      "tags": [
+        "monthly",
+        "recurring",
+        "schedule"
+      ]
+    },
+    {
+      "id": "money/piggy-bank",
+      "file": "illustrations/money/piggy-bank.svg",
+      "category": "money",
+      "title": "Piggy bank",
+      "description": "A friendly piggy bank.",
+      "useWhen": "savings in general, a savings pot",
+      "tags": [
+        "piggybank",
+        "save",
+        "pot"
+      ]
+    },
+    {
+      "id": "money/piggy-bank-coin",
+      "file": "illustrations/money/piggy-bank-coin.svg",
+      "category": "money",
+      "title": "Piggy bank + coin",
+      "description": "A piggy bank receiving a coin.",
+      "useWhen": "saving, making a deposit",
+      "tags": [
+        "piggybank",
+        "save",
+        "deposit"
+      ]
+    },
+    {
+      "id": "money/savings-jar",
+      "file": "illustrations/money/savings-jar.svg",
+      "category": "money",
+      "title": "Savings jar",
+      "description": "A jar filling with coins.",
+      "useWhen": "building up savings over time, a goal pot",
+      "tags": [
+        "jar",
+        "save",
+        "goal"
+      ]
+    },
+    {
+      "id": "scenes/goal-reached",
+      "file": "illustrations/scenes/goal-reached.svg",
+      "category": "scenes",
+      "title": "Goal reached",
+      "description": "A flag planted on a little grassy hill.",
+      "useWhen": "reaching a goal, the summary / finish screen",
+      "tags": [
+        "finish",
+        "goal",
+        "summary"
+      ]
+    },
+    {
+      "id": "scenes/welcome",
+      "file": "illustrations/scenes/welcome.svg",
+      "category": "scenes",
+      "title": "Welcome scene",
+      "description": "Sun and soft clouds — a warm opening scene.",
+      "useWhen": "the welcome / first screen header",
+      "tags": [
+        "welcome",
+        "header",
+        "opening"
+      ]
+    },
+    {
+      "id": "sectors/clean-energy",
+      "file": "illustrations/sectors/clean-energy.svg",
+      "category": "sectors",
+      "title": "Clean energy",
+      "description": "A leaf holding a lightning bolt.",
+      "useWhen": "clean energy / renewables theme",
+      "tags": [
+        "energy",
+        "renewables",
+        "green"
+      ]
+    },
+    {
+      "id": "sectors/consumer-discretionary",
+      "file": "illustrations/sectors/consumer-discretionary.svg",
+      "category": "sectors",
+      "title": "Consumer discretionary",
+      "description": "A cheerful shopping-bag character.",
+      "useWhen": "the Consumer Discretionary sector (nice-to-haves)",
+      "tags": [
+        "retail",
+        "discretionary",
+        "shopping"
+      ]
+    },
+    {
+      "id": "sectors/consumer-staples",
+      "file": "illustrations/sectors/consumer-staples.svg",
+      "category": "sectors",
+      "title": "Consumer staples",
+      "description": "A grocery basket of everyday goods.",
+      "useWhen": "the Consumer Staples sector (everyday needs)",
+      "tags": [
+        "staples",
+        "groceries",
+        "everyday"
+      ]
+    },
+    {
+      "id": "sectors/financials",
+      "file": "illustrations/sectors/financials.svg",
+      "category": "sectors",
+      "title": "Financials",
+      "description": "A classic columned bank building.",
+      "useWhen": "the Financials sector / banking",
+      "tags": [
+        "finance",
+        "bank",
+        "financials"
+      ]
+    },
+    {
+      "id": "sectors/financials-alt",
+      "file": "illustrations/sectors/financials-alt.svg",
+      "category": "sectors",
+      "title": "Financials (alt)",
+      "description": "A bank building, alternate style.",
+      "useWhen": "the Financials sector (variant) or a real-world bank",
+      "tags": [
+        "finance",
+        "bank",
+        "alt"
+      ]
+    },
+    {
+      "id": "sectors/healthcare",
+      "file": "illustrations/sectors/healthcare.svg",
+      "category": "sectors",
+      "title": "Health Care",
+      "description": "A friendly medical-cross character.",
+      "useWhen": "the Health Care sector",
+      "tags": [
+        "health",
+        "pharma",
+        "medical"
+      ]
+    },
+    {
+      "id": "sectors/materials",
+      "file": "illustrations/sectors/materials.svg",
+      "category": "sectors",
+      "title": "Materials",
+      "description": "A solid cube character.",
+      "useWhen": "the Materials sector (industrial inputs)",
+      "tags": [
+        "materials",
+        "industrial",
+        "commodities"
+      ]
+    },
+    {
+      "id": "sectors/real-estate",
+      "file": "illustrations/sectors/real-estate.svg",
+      "category": "sectors",
+      "title": "Real estate",
+      "description": "A tall friendly building.",
+      "useWhen": "the Real Estate sector",
+      "tags": [
+        "realestate",
+        "property",
+        "building"
+      ]
+    },
+    {
+      "id": "sectors/technology",
+      "file": "illustrations/sectors/technology.svg",
+      "category": "sectors",
+      "title": "Technology",
+      "description": "A friendly microchip character.",
+      "useWhen": "the Information Technology sector",
+      "tags": [
+        "tech",
+        "IT",
+        "chips"
+      ]
+    },
+    {
+      "id": "sectors/utilities",
+      "file": "illustrations/sectors/utilities.svg",
+      "category": "sectors",
+      "title": "Utilities",
+      "description": "A lightbulb with a water drop.",
+      "useWhen": "the Utilities sector (power & water)",
+      "tags": [
+        "utilities",
+        "power",
+        "water"
+      ]
+    },
+    {
+      "id": "sky/balloon",
+      "file": "illustrations/sky/balloon.svg",
+      "category": "sky",
+      "title": "Balloon",
+      "description": "A single happy blue balloon.",
+      "useWhen": "a light, playful accent",
+      "tags": [
+        "balloon",
+        "playful",
+        "accent"
+      ]
+    },
+    {
+      "id": "sky/bird",
+      "file": "illustrations/sky/bird.svg",
+      "category": "sky",
+      "title": "Bird",
+      "description": "A tiny bird mid-flight.",
+      "useWhen": "a small moving accent across the sky",
+      "tags": [
+        "bird",
+        "accent",
+        "motion"
+      ]
+    },
+    {
+      "id": "sky/cloud-big",
+      "file": "illustrations/sky/cloud-big.svg",
+      "category": "sky",
+      "title": "Cloud (big)",
+      "description": "A big chunky cumulus cloud.",
+      "useWhen": "large foreground drifting cloud",
+      "tags": [
+        "cloud",
+        "background",
+        "sky"
+      ]
+    },
+    {
+      "id": "sky/cloud-filled",
+      "file": "illustrations/sky/cloud-filled.svg",
+      "category": "sky",
+      "title": "Cloud (filled)",
+      "description": "A soft filled white cloud.",
+      "useWhen": "drifting background clouds (solid)",
+      "tags": [
+        "cloud",
+        "background",
+        "sky"
+      ]
+    },
+    {
+      "id": "sky/cloud-outline",
+      "file": "illustrations/sky/cloud-outline.svg",
+      "category": "sky",
+      "title": "Cloud (outline)",
+      "description": "A light outline cloud.",
+      "useWhen": "drifting background clouds (light layer)",
+      "tags": [
+        "cloud",
+        "background",
+        "sky"
+      ]
+    },
+    {
+      "id": "sky/cloud-wide",
+      "file": "illustrations/sky/cloud-wide.svg",
+      "category": "sky",
+      "title": "Cloud (wide)",
+      "description": "A long wispy cloud.",
+      "useWhen": "wide drifting background cloud",
+      "tags": [
+        "cloud",
+        "background",
+        "sky"
+      ]
+    },
+    {
+      "id": "sky/hot-air-balloon",
+      "file": "illustrations/sky/hot-air-balloon.svg",
+      "category": "sky",
+      "title": "Hot-air balloon",
+      "description": "A cheerful striped hot-air balloon.",
+      "useWhen": "aspiration, rising, a drifting sky accent",
+      "tags": [
+        "balloon",
+        "rise",
+        "aspire"
+      ]
+    },
+    {
+      "id": "sky/rainbow",
+      "file": "illustrations/sky/rainbow.svg",
+      "category": "sky",
+      "title": "Rainbow",
+      "description": "A gentle rainbow arc.",
+      "useWhen": "optimism, after-the-storm, a cheerful accent",
+      "tags": [
+        "rainbow",
+        "hope",
+        "accent"
+      ]
+    },
+    {
+      "id": "sky/sparkles",
+      "file": "illustrations/sky/sparkles.svg",
+      "category": "sky",
+      "title": "Sparkles",
+      "description": "A little cluster of sparkles / stars.",
+      "useWhen": "delight, a highlight, a 'magic' accent",
+      "tags": [
+        "sparkle",
+        "delight",
+        "accent"
+      ]
+    },
+    {
+      "id": "sky/sun",
+      "file": "illustrations/sky/sun.svg",
+      "category": "sky",
+      "title": "Sun",
+      "description": "A smiling sun with soft rays.",
+      "useWhen": "a bright corner of the sky, daytime warmth",
+      "tags": [
+        "sun",
+        "sky",
+        "warm"
+      ]
+    },
+    {
+      "id": "sky/sun-spark",
+      "file": "illustrations/sky/sun-spark.svg",
+      "category": "sky",
+      "title": "Sun with a spark",
+      "description": "A sun holding a small lightning bolt.",
+      "useWhen": "a lively sky accent; can hint at energy/volatility",
+      "tags": [
+        "sun",
+        "spark",
+        "accent"
+      ]
+    },
+    {
+      "id": "switzerland/protected",
+      "file": "illustrations/switzerland/protected.svg",
+      "category": "switzerland",
+      "title": "Protected",
+      "description": "A shield with a checkmark.",
+      "useWhen": "safety, protection, 'your money is safe' (e.g. pillar 3a)",
+      "tags": [
+        "safe",
+        "protect",
+        "shield"
+      ]
+    },
+    {
+      "id": "switzerland/swiss-coin",
+      "file": "illustrations/switzerland/swiss-coin.svg",
+      "category": "switzerland",
+      "title": "Swiss coin",
+      "description": "A gold coin stamped with a Swiss cross.",
+      "useWhen": "Swiss francs, the Switzerland investing guide",
+      "tags": [
+        "switzerland",
+        "franc",
+        "coin"
+      ]
+    }
+  ]
+}

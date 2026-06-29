@@ -1,0 +1,15 @@
+# Render service definition — deploys the FastAPI app from the backend/ subfolder.
+services:
+  - type: web
+    name: future-you-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: ALLOWED_ORIGINS
+        sync: false   # set in the Render dashboard to the Vercel site origin
+      - key: APP_ENV
+        value: production

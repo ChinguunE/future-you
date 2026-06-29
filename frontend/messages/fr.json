@@ -1,0 +1,12 @@
+{
+  "Landing": {
+    "wordmark": "Future You",
+    "tagline": "Investissez dans votre futur.",
+    "subtitle": "Un guide bienveillant qui construit — et explique — un plan d'investissement que vous comprenez vraiment.",
+    "mascotAlt": "Sprout, la mascotte de Future You, saluant les bras ouverts",
+    "apiStatusChecking": "Vérification du moteur…",
+    "apiStatusOk": "Moteur en ligne · données au {date}",
+    "apiStatusError": "Impossible de joindre le moteur pour l'instant — il se réveille peut-être.",
+    "placeholderNote": "Phase 0 — vérification technique. La vraie expérience arrive ensuite."
+  }
+}

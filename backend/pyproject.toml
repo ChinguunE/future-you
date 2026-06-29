@@ -1,0 +1,16 @@
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.13"
+ignore_missing_imports = true
+warn_unused_ignores = true
+# core/ (the finance engine) is tightened to strict typing in Phase 1.
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

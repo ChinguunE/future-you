@@ -1,0 +1,6 @@
+# Development + CI tooling (tests, linting, type-checking) on top of the prod deps.
+-r requirements.in
+pytest
+httpx
+ruff
+mypy
