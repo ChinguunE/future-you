@@ -3,7 +3,11 @@
 Defines "safe, not gambling" by rules, so micro-caps, recent IPOs and meme/
 high-vol names are excluded from the *core* universe automatically. Stocks face
 quality rules; funds face a UCITS-first, Swiss-appropriate gate (SWITZERLAND
-§1); bonds must be investment-grade.
+§1); bonds must be investment-grade; and a physically-backed commodity ETC (the
+gold diversifier) faces its own gate — a single commodity legally cannot be a
+UCITS fund (UCITS requires diversification), so its safety is judged by physical
+backing, a KID, low fees, liquidity and a reputable domicile rather than by the
+UCITS test.
 
 Failing the screen is not a ban: it explains *why* a name is risky. A pick that
 fails can still enter the plan as a capped satellite via :mod:`core.tilts` — the
@@ -18,9 +22,11 @@ from typing import NamedTuple
 __all__ = [
     "StockMetrics",
     "FundMetrics",
+    "EtcMetrics",
     "ScreenResult",
     "screen_stock",
     "screen_fund",
+    "screen_etc",
     "is_investment_grade",
 ]
 
@@ -34,6 +40,11 @@ _MAX_TER = 0.005  # 0.5% total expense ratio
 _MIN_AUM = 100_000_000.0  # enough assets to be liquid/durable
 _MIN_FUND_YEARS = 1.0
 _ALLOWED_DOMICILES = frozenset({"IE", "LU", "CH"})  # UCITS-first; US excluded by default
+
+# --- Commodity ETC thresholds (the gold diversifier) -----------------------
+# Common, reputable domiciles for European physically-backed gold ETCs/ETFs:
+# Ireland, Jersey, Germany and Switzerland. (Not UCITS — see module docstring.)
+_ALLOWED_ETC_DOMICILES = frozenset({"IE", "JE", "DE", "CH"})
 
 # Standard & Poor's-style investment-grade ratings (BBB- and above).
 _INVESTMENT_GRADE = frozenset(
@@ -63,6 +74,24 @@ class FundMetrics:
     aum: float
     years_since_inception: float
     physical_replication: bool  # preferred, not required -> not a hard rule
+    domicile: str
+
+
+@dataclass(frozen=True)
+class EtcMetrics:
+    """The facts the commodity-ETC gate reads (the gold diversifier).
+
+    An ETC is a debt security, not a fund, so the UCITS test does not apply; what
+    keeps it safe is that it is *physically* backed (not synthetic or leveraged),
+    carries a KID, is cheap, liquid and established, and sits in a reputable
+    domicile.
+    """
+
+    is_physically_backed: bool
+    has_kid: bool
+    ter: float
+    aum: float
+    years_since_inception: float
     domicile: str
 
 
@@ -107,6 +136,38 @@ def screen_fund(
     reasons: list[str] = []
     if not metrics.is_ucits:
         reasons.append("not_ucits")
+    if not metrics.has_kid:
+        reasons.append("no_kid")
+    if metrics.ter > max_ter:
+        reasons.append("ter_too_high")
+    if metrics.aum < min_aum:
+        reasons.append("aum_too_small")
+    if metrics.years_since_inception < min_years:
+        reasons.append("too_new")
+    if metrics.domicile.upper() not in allowed_domiciles:
+        reasons.append("domicile_not_allowed")
+    return ScreenResult(passed=not reasons, reasons=tuple(reasons))
+
+
+def screen_etc(
+    metrics: EtcMetrics,
+    *,
+    max_ter: float = _MAX_TER,
+    min_aum: float = _MIN_AUM,
+    min_years: float = _MIN_FUND_YEARS,
+    allowed_domiciles: frozenset[str] = _ALLOWED_ETC_DOMICILES,
+) -> ScreenResult:
+    """Commodity-ETC gate: physically backed, KID present, cheap, liquid, reputable.
+
+    Used for the gold diversifier. Deliberately does **not** require UCITS — a
+    single commodity cannot be a UCITS fund — so physical backing replaces the
+    UCITS test as the headline safety rule. Reason codes are shared with the fund
+    gate where they mean the same thing (``no_kid``, ``ter_too_high``,
+    ``aum_too_small``, ``too_new``, ``domicile_not_allowed``).
+    """
+    reasons: list[str] = []
+    if not metrics.is_physically_backed:
+        reasons.append("not_physically_backed")
     if not metrics.has_kid:
         reasons.append("no_kid")
     if metrics.ter > max_ter:

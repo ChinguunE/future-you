@@ -8,7 +8,7 @@ via core.tilts), which is exactly the NVIDIA story.
 """
 
 from core import screen
-from core.screen import FundMetrics, StockMetrics
+from core.screen import EtcMetrics, FundMetrics, StockMetrics
 
 # --- Stocks ----------------------------------------------------------------
 
@@ -108,6 +108,71 @@ def test_expensive_fund_fails_on_ter() -> None:
     result = screen.screen_fund(pricey)
     assert not result.passed
     assert result.reasons == ("ter_too_high",)
+
+
+# --- Commodity ETC (the gold diversifier) ----------------------------------
+
+
+def test_physical_gold_etc_passes() -> None:
+    # iShares Physical Gold-like: physically backed, KID, cheap, liquid, IE.
+    gold = EtcMetrics(
+        is_physically_backed=True,
+        has_kid=True,
+        ter=0.0012,
+        aum=15e9,
+        years_since_inception=12,
+        domicile="IE",
+    )
+    result = screen.screen_etc(gold)
+    assert result.passed
+    assert result.reasons == ()
+
+
+def test_synthetic_leveraged_commodity_fails_on_backing() -> None:
+    leveraged = EtcMetrics(
+        is_physically_backed=False,
+        has_kid=True,
+        ter=0.004,
+        aum=2e9,
+        years_since_inception=5,
+        domicile="JE",
+    )
+    result = screen.screen_etc(leveraged)
+    assert not result.passed
+    assert result.reasons == ("not_physically_backed",)
+
+
+def test_etc_does_not_require_ucits() -> None:
+    # The whole point of the carve-out: a (non-UCITS) gold ETC still passes.
+    swiss_gold = EtcMetrics(
+        is_physically_backed=True,
+        has_kid=True,
+        ter=0.004,
+        aum=3e9,
+        years_since_inception=15,
+        domicile="CH",
+    )
+    assert screen.screen_etc(swiss_gold).passed
+
+
+def test_us_domiciled_expensive_etc_fails_many_rules() -> None:
+    bad = EtcMetrics(
+        is_physically_backed=True,
+        has_kid=False,
+        ter=0.02,
+        aum=50e6,
+        years_since_inception=0.5,
+        domicile="US",
+    )
+    result = screen.screen_etc(bad)
+    assert not result.passed
+    assert set(result.reasons) == {
+        "no_kid",
+        "ter_too_high",
+        "aum_too_small",
+        "too_new",
+        "domicile_not_allowed",
+    }
 
 
 # --- Bonds -----------------------------------------------------------------
