@@ -1,0 +1,455 @@
+# Future You — curated universe seed (Phase 2, DATA.md / SWITZERLAND.md)
+#
+# UCITS-first, Swiss-appropriate, GLOBALLY diversified (not Swiss-only). This file
+# holds the human-authored REFERENCE + identity data only. The refresh script
+# (scripts/refresh_universe.py) merges in MARKET data from yfinance (price, beta,
+# market cap, profitability, dividend, first-trade date) and computes the
+# safe-universe screen, producing data/snapshots/universe.json.
+#
+# ACCURACY (CLAUDE.md, DATA.md): every reference figure below was read from the
+# instrument's justETF profile on the citation's as_of date — never typed from
+# memory, never invented. `ter` is a decimal (0.0007 = 0.07%). `aum` is the
+# justETF fund size in EUR (the screen only needs the >=100m floor; the exact
+# currency is noted in the citation). The refresh cross-checks each stock's ISIN
+# against yfinance and fails loudly on a mismatch, and validates that every
+# `ticker` actually returns price data.
+#
+# CMA mapping note: `asset_class` is the bridge to the capital-market assumptions
+# (cma.yaml). A few instruments map to a broader proxy class so the CMA stays a
+# tractable, fully-sourced set: Pacific-ex-Japan and World-Small-Cap map to
+# `world_equity`; the US tech sector maps to `us_equity`. The granular exposure is
+# preserved in `exposure` and explained in the bilingual content.
+
+schema_version: 1
+
+# Default as_of for the justETF reference reads below (today's date).
+reference_as_of: &ref_as_of 2026-06-29
+
+funds:
+  # --- Broad / global equity ---------------------------------------------
+  - ticker: VWCE.SW
+    name: Vanguard FTSE All-World UCITS ETF (USD) Accumulating
+    kind: ucits_fund
+    asset_class: world_equity
+    role: core
+    exposure: FTSE All-World
+    isin: IE00BK5BQT80
+    domicile: IE
+    ter: 0.0019
+    aum_eur: 42617000000
+    inception_date: 2019-07-23
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00BK5BQT80
+    source_as_of: *ref_as_of
+
+  - ticker: IWDA.AS
+    name: iShares Core MSCI World UCITS ETF USD (Acc)
+    kind: ucits_fund
+    asset_class: world_equity
+    role: core
+    exposure: MSCI World (developed)
+    isin: IE00B4L5Y983
+    domicile: IE
+    ter: 0.0020
+    aum_eur: 121825000000
+    inception_date: 2009-09-25
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B4L5Y983
+    source_as_of: *ref_as_of
+
+  - ticker: EIMI.L
+    name: iShares Core MSCI Emerging Markets IMI UCITS ETF (Acc)
+    kind: ucits_fund
+    asset_class: em_equity
+    role: core
+    exposure: MSCI Emerging Markets IMI
+    isin: IE00BKM4GZ66
+    domicile: IE
+    ter: 0.0018
+    aum_eur: 37053000000
+    inception_date: 2014-05-30
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00BKM4GZ66
+    source_as_of: *ref_as_of
+
+  # --- US equity ----------------------------------------------------------
+  - ticker: CSPX.SW
+    name: iShares Core S&P 500 UCITS ETF USD (Acc)
+    kind: ucits_fund
+    asset_class: us_equity
+    role: core
+    exposure: S&P 500
+    isin: IE00B5BMR087
+    domicile: IE
+    ter: 0.0007
+    aum_eur: 128805000000
+    inception_date: 2010-05-19
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    source_as_of: *ref_as_of
+
+  - ticker: CNDX.SW
+    name: iShares Nasdaq 100 UCITS ETF (Acc)
+    kind: ucits_fund
+    asset_class: us_equity
+    role: core
+    exposure: Nasdaq 100
+    isin: IE00B53SZB19
+    domicile: IE
+    ter: 0.0030
+    aum_eur: 23604000000
+    inception_date: 2010-01-26
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B53SZB19
+    source_as_of: *ref_as_of
+
+  - ticker: IUIT.L
+    name: iShares S&P 500 Information Technology Sector UCITS ETF USD (Acc)
+    kind: ucits_fund
+    asset_class: us_equity
+    role: core
+    exposure: S&P 500 Information Technology sector
+    isin: IE00B3WJKG14
+    domicile: IE
+    ter: 0.0015
+    aum_eur: 15400000000
+    inception_date: 2015-11-20
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B3WJKG14
+    source_as_of: *ref_as_of
+
+  # --- Europe & Switzerland ----------------------------------------------
+  - ticker: MEUD.PA
+    name: Amundi Core Stoxx Europe 600 UCITS ETF Acc
+    kind: ucits_fund
+    asset_class: europe_equity
+    role: core
+    exposure: STOXX Europe 600
+    isin: LU0908500753
+    domicile: LU
+    ter: 0.0007
+    aum_eur: 19960000000
+    inception_date: 2013-04-03
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=LU0908500753
+    source_as_of: *ref_as_of
+
+  - ticker: CHSPI.SW
+    name: iShares Core SPI (CH)
+    kind: ucits_fund
+    asset_class: swiss_equity
+    role: core
+    exposure: Swiss Performance Index (home tilt)
+    isin: CH0237935652
+    domicile: CH
+    ter: 0.0010
+    aum_eur: 6122000000
+    inception_date: 2014-04-28
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: distributing
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0237935652
+    source_as_of: *ref_as_of
+
+  # --- Japan & Pacific ----------------------------------------------------
+  - ticker: SJPA.L
+    name: iShares Core MSCI Japan IMI UCITS ETF
+    kind: ucits_fund
+    asset_class: japan_equity
+    role: core
+    exposure: MSCI Japan IMI
+    isin: IE00B4L5YX21
+    domicile: IE
+    ter: 0.0012
+    aum_eur: 6819000000
+    inception_date: 2009-09-25
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B4L5YX21
+    source_as_of: *ref_as_of
+
+  - ticker: CPXJ.L
+    name: iShares Core MSCI Pacific ex Japan UCITS ETF (Acc)
+    kind: ucits_fund
+    asset_class: world_equity  # CMA proxy; granular exposure preserved below
+    role: core
+    exposure: MSCI Pacific ex-Japan
+    isin: IE00B52MJY50
+    domicile: IE
+    ter: 0.0020
+    aum_eur: 3207000000
+    inception_date: 2010-01-12
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B52MJY50
+    source_as_of: *ref_as_of
+
+  - ticker: WSML.L
+    name: iShares MSCI World Small Cap UCITS ETF
+    kind: ucits_fund
+    asset_class: world_equity  # CMA proxy; granular exposure preserved below
+    role: core
+    exposure: MSCI World Small Cap
+    isin: IE00BF4RFH31
+    domicile: IE
+    ter: 0.0035
+    aum_eur: 7485000000
+    inception_date: 2018-03-27
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00BF4RFH31
+    source_as_of: *ref_as_of
+
+  # --- Bonds --------------------------------------------------------------
+  - ticker: AGGS.SW
+    name: iShares Global Aggregate Bond UCITS ETF CHF Hedged (Acc)
+    kind: ucits_fund
+    asset_class: global_agg_bonds
+    role: core
+    exposure: Global Aggregate Bond, CHF-hedged
+    isin: IE00BD1JRY91
+    domicile: IE
+    ter: 0.0010
+    aum_eur: 1048000000
+    inception_date: 2018-03-14
+    ucits: true
+    has_kid: true
+    replication: physical_sampling
+    distribution_policy: accumulating
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00BD1JRY91
+    source_as_of: *ref_as_of
+
+  - ticker: CSBGC7.SW
+    name: iShares Swiss Domestic Government Bond 3-7 (CH)
+    kind: ucits_fund
+    asset_class: swiss_bonds
+    role: core
+    exposure: Swiss government bonds 3-7y
+    isin: CH0016999846
+    domicile: CH
+    ter: 0.0015
+    aum_eur: 468000000
+    inception_date: 2003-11-18
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: distributing
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0016999846
+    source_as_of: *ref_as_of
+
+  # --- Cash sleeve (near-cash short-dated Swiss government bonds) ---------
+  - ticker: CSBGC3.SW
+    name: iShares Swiss Domestic Government Bond 1-3 (CH)
+    kind: ucits_fund
+    asset_class: cash_chf
+    role: cash
+    exposure: Swiss government bonds 1-3y (near-cash)
+    isin: CH0102530786
+    domicile: CH
+    ter: 0.0015
+    aum_eur: 281000000
+    inception_date: 2009-07-02
+    ucits: true
+    has_kid: true
+    replication: physical
+    distribution_policy: distributing
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0102530786
+    source_as_of: *ref_as_of
+
+  # --- Diversifier (physically-backed gold ETC; NOT a UCITS fund) --------
+  - ticker: SGLN.L
+    name: iShares Physical Gold ETC
+    kind: etc
+    asset_class: gold
+    role: diversifier
+    exposure: Physical gold
+    isin: IE00B4ND3602
+    domicile: IE
+    ter: 0.0012
+    aum_eur: 29421000000
+    inception_date: 2011-04-08
+    ucits: false          # an ETC cannot be UCITS (single commodity) — screen_etc applies
+    has_kid: true
+    replication: physical  # physically backed
+    distribution_policy: none
+    source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B4ND3602
+    source_as_of: *ref_as_of
+
+# Blue-chip satellite — single names (the "I want NVIDIA" flow). Market facts
+# (market cap, beta, profitability, dividend, first-trade date) come from yfinance
+# at refresh, which also confirms each ISIN. Index membership is a curated fact,
+# cited to the broad-index ETF (above) that holds the name. NVIDIA and Tesla are
+# expected to FAIL the safe screen on beta — by design, they demonstrate the
+# capped-satellite path (METHODOLOGY §5), not exclusion.
+stocks:
+  - ticker: NESN.SW
+    name: Nestlé S.A.
+    asset_class: swiss_equity
+    role: satellite
+    exposure: Nestlé
+    isin: CH0038863350
+    index_name: Swiss Market Index (SMI)
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0237935652
+    membership_note: Top holding of the iShares Core SPI (Swiss market); SMI blue chip.
+    source_as_of: *ref_as_of
+
+  - ticker: ROG.SW
+    name: Roche Holding AG (genussschein)
+    asset_class: swiss_equity
+    role: satellite
+    exposure: Roche
+    isin: CH0012032048
+    index_name: Swiss Market Index (SMI)
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0237935652
+    membership_note: Top holding of the iShares Core SPI (Swiss market); SMI blue chip.
+    source_as_of: *ref_as_of
+
+  - ticker: NOVN.SW
+    name: Novartis AG
+    asset_class: swiss_equity
+    role: satellite
+    exposure: Novartis
+    isin: CH0012005267
+    index_name: Swiss Market Index (SMI)
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=CH0237935652
+    membership_note: Top holding of the iShares Core SPI (Swiss market); SMI blue chip.
+    source_as_of: *ref_as_of
+
+  - ticker: AAPL
+    name: Apple Inc.
+    asset_class: us_equity
+    role: satellite
+    exposure: Apple
+    isin: US0378331005
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    membership_note: S&P 500 constituent (held in iShares Core S&P 500).
+    source_as_of: *ref_as_of
+
+  - ticker: MSFT
+    name: Microsoft Corporation
+    asset_class: us_equity
+    role: satellite
+    exposure: Microsoft
+    isin: US5949181045
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    membership_note: S&P 500 constituent (held in iShares Core S&P 500).
+    source_as_of: *ref_as_of
+
+  - ticker: GOOGL
+    name: Alphabet Inc. (Class A)
+    asset_class: us_equity
+    role: satellite
+    exposure: Alphabet (Google)
+    isin: US02079K3059
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    membership_note: S&P 500 constituent (held in iShares Core S&P 500).
+    source_as_of: *ref_as_of
+
+  - ticker: AMZN
+    name: Amazon.com, Inc.
+    asset_class: us_equity
+    role: satellite
+    exposure: Amazon
+    isin: US0231351067
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    membership_note: S&P 500 constituent (held in iShares Core S&P 500).
+    source_as_of: *ref_as_of
+
+  - ticker: NVDA
+    name: NVIDIA Corporation
+    asset_class: us_equity
+    role: satellite
+    exposure: NVIDIA
+    isin: US67066G1040
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B3WJKG14
+    membership_note: Top holding of the iShares S&P 500 Info Tech sector ETF; S&P 500 / Nasdaq-100.
+    source_as_of: *ref_as_of
+
+  - ticker: TSLA
+    name: Tesla, Inc.
+    asset_class: us_equity
+    role: satellite
+    exposure: Tesla
+    isin: US88160R1014
+    index_name: S&P 500
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087
+    membership_note: S&P 500 / Nasdaq-100 constituent.
+    source_as_of: *ref_as_of
+
+  - ticker: ASML.AS
+    name: ASML Holding N.V.
+    asset_class: europe_equity
+    role: satellite
+    exposure: ASML
+    isin: NL0010273215
+    index_name: STOXX Europe 600
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=LU0908500753
+    membership_note: STOXX Europe 600 constituent (held in Amundi Core STOXX Europe 600).
+    source_as_of: *ref_as_of
+
+  - ticker: MC.PA
+    name: LVMH Moët Hennessy Louis Vuitton SE
+    asset_class: europe_equity
+    role: satellite
+    exposure: LVMH
+    isin: FR0000121014
+    index_name: STOXX Europe 600
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=LU0908500753
+    membership_note: STOXX Europe 600 / CAC 40 constituent (held in Amundi Core STOXX Europe 600).
+    source_as_of: *ref_as_of
+
+  - ticker: NOVO-B.CO
+    name: Novo Nordisk A/S (Class B)
+    asset_class: europe_equity
+    role: satellite
+    exposure: Novo Nordisk
+    isin: DK0062498333
+    index_name: STOXX Europe 600
+    is_index_member: true
+    membership_source_url: https://www.justetf.com/en/etf-profile.html?isin=LU0908500753
+    membership_note: STOXX Europe 600 constituent (held in Amundi Core STOXX Europe 600).
+    source_as_of: *ref_as_of
