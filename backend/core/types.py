@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import StrEnum
 
-__all__ = ["GoalKind", "Goal", "Profile"]
+__all__ = ["GoalKind", "Goal", "Profile", "Holding"]
 
 
 class GoalKind(StrEnum):
@@ -45,3 +45,13 @@ class Profile:
     emergency_fund_months: float = 0.0
     has_high_interest_debt: bool = False
     goals: tuple[Goal, ...] = field(default_factory=tuple)
+
+
+@dataclass(frozen=True)
+class Holding:
+    """One position in the final plan: a core fund or a capped satellite pick."""
+
+    name: str
+    weight: float
+    is_satellite: bool = False
+    cap: float | None = None
