@@ -235,6 +235,25 @@ def _cma(correlation: tuple[tuple[float, ...], ...]) -> CMA:
     )
 
 
+def test_arithmetic_below_compound_is_rejected() -> None:
+    # Jensen's inequality: arithmetic >= compound always. The cash_chf bug
+    # (arithmetic 0.012008 < compound 0.013, from reading the wrong return column)
+    # must now fail at construction — and therefore at load time.
+    with pytest.raises(ValidationError, match="below compound_return"):
+        AssetClassAssumption(
+            asset_class=AssetClass.CASH_CHF, label="CHF cash",
+            expected_return=0.012008, compound_return=0.013, volatility=0.004,
+        )
+
+
+def test_arithmetic_equal_to_compound_is_allowed() -> None:
+    # Equality (zero-vol limit) is fine — the invariant uses a tight epsilon.
+    AssetClassAssumption(
+        asset_class=AssetClass.CASH_CHF, label="CHF cash",
+        expected_return=0.012, compound_return=0.012, volatility=0.004,
+    )
+
+
 def test_valid_cma_builds() -> None:
     cma = _cma(((1.0, 0.2), (0.2, 1.0)))
     assert len(cma.assumptions) == 2

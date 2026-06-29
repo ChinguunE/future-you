@@ -13,7 +13,7 @@
       "asset_class": "cash_chf",
       "label": "CHF cash",
       "expected_return": 0.012008,
-      "compound_return": 0.013,
+      "compound_return": 0.012,
       "volatility": 0.004087
     },
     {
@@ -27,28 +27,28 @@
       "asset_class": "global_agg_bonds",
       "label": "Global bonds (CHF-hedged)",
       "expected_return": 0.024773,
-      "compound_return": 0.022,
+      "compound_return": 0.024,
       "volatility": 0.039828
     },
     {
       "asset_class": "swiss_equity",
       "label": "Swiss equity",
       "expected_return": 0.051284,
-      "compound_return": 0.045,
+      "compound_return": 0.043,
       "volatility": 0.132761
     },
     {
       "asset_class": "us_equity",
       "label": "US large-cap equity",
       "expected_return": 0.074153,
-      "compound_return": 0.059,
+      "compound_return": 0.061,
       "volatility": 0.169661
     },
     {
       "asset_class": "europe_equity",
       "label": "European equity",
       "expected_return": 0.076721,
-      "compound_return": 0.07,
+      "compound_return": 0.064,
       "volatility": 0.166994
     },
     {
@@ -62,21 +62,21 @@
       "asset_class": "em_equity",
       "label": "Emerging-market equity",
       "expected_return": 0.086542,
-      "compound_return": 0.064,
+      "compound_return": 0.072,
       "volatility": 0.179575
     },
     {
       "asset_class": "world_equity",
       "label": "Global (all-country) equity",
       "expected_return": 0.075521,
-      "compound_return": 0.063,
+      "compound_return": 0.064,
       "volatility": 0.158704
     },
     {
       "asset_class": "gold",
       "label": "Gold",
       "expected_return": 0.058668,
-      "compound_return": 0.032,
+      "compound_return": 0.049,
       "volatility": 0.144066
     }
   ],

@@ -300,6 +300,19 @@ class AssetClassAssumption(_Strict):
     compound_return: float = Field(ge=-0.5, le=0.5)  # geometric; for projections
     volatility: float = Field(gt=0.0, le=1.0)
 
+    @model_validator(mode="after")
+    def _arithmetic_ge_compound(self) -> AssetClassAssumption:
+        # Jensen's inequality: the arithmetic mean is always >= the geometric/compound
+        # mean (the gap is ~volatility**2/2). A row that violates this is a transcription
+        # error — e.g. reading the wrong return column. Runs at load time too, so a bad
+        # CMA can never silently load.
+        if self.expected_return < self.compound_return - 1e-9:
+            raise ValueError(
+                f"{self.asset_class}: arithmetic expected_return ({self.expected_return}) is "
+                f"below compound_return ({self.compound_return}); mathematically impossible"
+            )
+        return self
+
 
 class CMA(_Strict):
     """Capital-market assumptions: per-asset-class return + vol and the correlation

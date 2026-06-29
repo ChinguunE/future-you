@@ -33,11 +33,16 @@ XLSX_PATH = _REPO / "docs" / "references" / "jpm-ltcma-2026-chf.xlsx"
 OUT_PATH = _BACKEND / "data" / "snapshots" / "cma.json"
 
 SHEET = "CHF"
-# Sheet columns (1-indexed): the four numeric stats per asset row.
-_COL_ARITHMETIC = 4
-_COL_VOLATILITY = 5
-_COL_COMPOUND = 6
+# Sheet columns (1-indexed). The header is a diagonal "staircase" of merged cells
+# — B8:C8 "Compound Return 2026", B7:D7 "Arithmetic Return 2026", B6:E6 "Annualized
+# Volatility", B5:F5 "Compound Return 2025" — where each label's RIGHTMOST column is
+# its data column. So: C=Compound 2026, D=Arithmetic 2026, E=Volatility, F=Compound
+# 2025 (the PRIOR edition; intentionally unused — reading it for the compound was a
+# bug that let cash show arithmetic < compound).
 _COL_LABEL = 2
+_COL_COMPOUND = 3  # C — current-edition compound return (projections)
+_COL_ARITHMETIC = 4  # D — arithmetic 2026 (the optimiser's mu)
+_COL_VOLATILITY = 5  # E — annualized volatility
 # The correlation block starts at column 7 in the same row order as the assets;
 # the column for the asset at sheet row r is therefore r - 2.
 def _corr_col(sheet_row: int) -> int:
