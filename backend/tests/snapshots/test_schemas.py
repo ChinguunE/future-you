@@ -224,11 +224,11 @@ def _cma(correlation: tuple[tuple[float, ...], ...]) -> CMA:
         assumptions=(
             AssetClassAssumption(
                 asset_class=AssetClass.WORLD_EQUITY, label="Global equity",
-                expected_return=0.06, volatility=0.15,
+                expected_return=0.06, compound_return=0.0488, volatility=0.15,
             ),
             AssetClassAssumption(
                 asset_class=AssetClass.GLOBAL_AGG_BONDS, label="Global bonds",
-                expected_return=0.02, volatility=0.05,
+                expected_return=0.02, compound_return=0.0188, volatility=0.05,
             ),
         ),
         correlation=correlation,
@@ -270,11 +270,11 @@ def test_duplicate_asset_class_rejected() -> None:
             assumptions=(
                 AssetClassAssumption(
                     asset_class=AssetClass.WORLD_EQUITY, label="A",
-                    expected_return=0.06, volatility=0.15,
+                    expected_return=0.06, compound_return=0.0488, volatility=0.15,
                 ),
                 AssetClassAssumption(
                     asset_class=AssetClass.WORLD_EQUITY, label="B",
-                    expected_return=0.05, volatility=0.14,
+                    expected_return=0.05, compound_return=0.0402, volatility=0.14,
                 ),
             ),
             correlation=((1.0, 0.2), (0.2, 1.0)),

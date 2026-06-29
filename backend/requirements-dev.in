@@ -9,3 +9,4 @@ mypy
 yfinance        # dev/seed market-data source (prices, beta, market cap)
 pyyaml          # human-editable curated seed (universe.yaml, cma.yaml)
 types-PyYAML    # type stubs for mypy
+openpyxl        # parse the licensed JPM LTCMA CHF matrix (kept in docs/references/) into cma.yaml

@@ -284,11 +284,20 @@ class Universe(_Strict):
 
 
 class AssetClassAssumption(_Strict):
-    """One asset class's long-term expected return and volatility (decimals)."""
+    """One asset class's long-term return and volatility (decimals).
+
+    Two returns are stored because they serve different jobs and a published CMA
+    supplies both: ``expected_return`` is the **arithmetic** mean — the correct
+    input for single-period mean-variance optimisation (the engine's ``mu``) —
+    while ``compound_return`` is the **geometric/compound** rate, the figure used
+    for multi-year projections and the one a CMA usually headlines. They differ
+    by roughly ``volatility² / 2``.
+    """
 
     asset_class: AssetClass
     label: str = Field(min_length=2)  # display label, e.g. "Global equity"
-    expected_return: float = Field(ge=-0.5, le=0.5)  # nominal long-term
+    expected_return: float = Field(ge=-0.5, le=0.5)  # arithmetic; the optimiser's mu
+    compound_return: float = Field(ge=-0.5, le=0.5)  # geometric; for projections
     volatility: float = Field(gt=0.0, le=1.0)
 
 

@@ -106,7 +106,7 @@ def cma(
     assumptions = tuple(
         AssetClassAssumption(
             asset_class=c, label=c.value.replace("_", " ").title(),
-            expected_return=r, volatility=v,
+            expected_return=r, compound_return=r - 0.5 * v * v, volatility=v,
         )
         for c, r, v in zip(classes, returns, vols, strict=True)
     )
