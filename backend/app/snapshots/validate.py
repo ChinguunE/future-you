@@ -25,10 +25,12 @@ from numpy.typing import NDArray
 
 from app.snapshots.schemas import (
     CMA,
+    FundFacts,
     Instrument,
     InstrumentKind,
     Replication,
     ScreenStatus,
+    StockFacts,
     Universe,
 )
 from core.moments import corr_to_cov, is_positive_semidefinite
@@ -45,6 +47,7 @@ __all__ = [
     "SnapshotValidationError",
     "DEFAULT_MAX_AGE_DAYS",
     "years_between",
+    "screen_facts",
     "recompute_screen",
     "screen_matches",
     "assert_screen_consistent",
@@ -73,50 +76,62 @@ def years_between(start: date, end: date) -> float:
 # --- Safe-universe screen consistency -------------------------------------
 
 
-def recompute_screen(instrument: Instrument, as_of: date) -> ScreenStatus:
-    """Recompute the screen for one instrument from its facts (the source of truth)."""
-    if instrument.kind is InstrumentKind.STOCK:
-        s = instrument.stock
-        assert s is not None  # schema guarantees this for a stock
+def screen_facts(
+    kind: InstrumentKind,
+    fund: FundFacts | None,
+    stock: StockFacts | None,
+    as_of: date,
+) -> ScreenStatus:
+    """Run the right safe-universe screen for an instrument's facts.
+
+    The single source of truth for "given these facts, does it pass?" — used both
+    to recompute a stored status (drift check) and by the refresh script to set
+    the status in the first place, so the two can never diverge.
+    """
+    if kind is InstrumentKind.STOCK:
+        assert stock is not None  # schema guarantees this for a stock
         result = screen_stock(
             StockMetrics(
-                market_cap=s.market_cap,
-                is_profitable=s.is_profitable,
-                pays_dividend=s.pays_dividend,
-                years_listed=years_between(s.first_trade_date, as_of),
-                beta=s.beta,
-                is_index_member=s.is_index_member,
+                market_cap=stock.market_cap,
+                is_profitable=stock.is_profitable,
+                pays_dividend=stock.pays_dividend,
+                years_listed=years_between(stock.first_trade_date, as_of),
+                beta=stock.beta,
+                is_index_member=stock.is_index_member,
             )
         )
-    elif instrument.kind is InstrumentKind.ETC:
-        f = instrument.fund
-        assert f is not None
+    elif kind is InstrumentKind.ETC:
+        assert fund is not None
         result = screen_etc(
             EtcMetrics(
-                is_physically_backed=f.replication is Replication.PHYSICAL,
-                has_kid=f.has_kid,
-                ter=f.ter,
-                aum=f.aum,
-                years_since_inception=years_between(f.inception_date, as_of),
-                domicile=f.domicile,
+                is_physically_backed=fund.replication is Replication.PHYSICAL,
+                has_kid=fund.has_kid,
+                ter=fund.ter,
+                aum=fund.aum,
+                years_since_inception=years_between(fund.inception_date, as_of),
+                domicile=fund.domicile,
             )
         )
     else:  # UCITS_FUND
-        f = instrument.fund
-        assert f is not None
+        assert fund is not None
         result = screen_fund(
             FundMetrics(
-                is_ucits=f.ucits,
-                has_kid=f.has_kid,
-                ter=f.ter,
-                aum=f.aum,
-                years_since_inception=years_between(f.inception_date, as_of),
-                physical_replication=f.replication
+                is_ucits=fund.ucits,
+                has_kid=fund.has_kid,
+                ter=fund.ter,
+                aum=fund.aum,
+                years_since_inception=years_between(fund.inception_date, as_of),
+                physical_replication=fund.replication
                 in (Replication.PHYSICAL, Replication.PHYSICAL_SAMPLING),
-                domicile=f.domicile,
+                domicile=fund.domicile,
             )
         )
     return ScreenStatus(passed=result.passed, reasons=tuple(result.reasons))
+
+
+def recompute_screen(instrument: Instrument, as_of: date) -> ScreenStatus:
+    """Recompute the screen for one instrument from its facts (the source of truth)."""
+    return screen_facts(instrument.kind, instrument.fund, instrument.stock, as_of)
 
 
 def screen_matches(instrument: Instrument, as_of: date) -> bool:
