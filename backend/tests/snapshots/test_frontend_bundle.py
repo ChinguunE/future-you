@@ -14,7 +14,7 @@ _SRC = _BACKEND / "data" / "snapshots"
 _DST = _REPO / "frontend" / "public" / "data"
 
 
-@pytest.mark.parametrize("name", ["universe.json", "cma.json"])
+@pytest.mark.parametrize("name", ["universe.json", "cma.json", "content.json"])
 def test_bundled_snapshot_matches_backend(name: str) -> None:
     backend_file = _SRC / name
     frontend_file = _DST / name

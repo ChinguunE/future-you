@@ -1,0 +1,1095 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-29",
+  "glossary": [
+    {
+      "key": "ter",
+      "term": {
+        "en": "TER (Total Expense Ratio)",
+        "fr": "TER (frais courants)"
+      },
+      "definition": {
+        "en": "The yearly fee a fund charges, shown as a percentage of the money you have invested. It is taken out automatically, so a lower TER means more of the return stays with you.",
+        "fr": "Les frais annuels prélevés par un fonds, exprimés en pourcentage de la somme que vous avez investie. Ils sont déduits automatiquement, donc plus le TER est bas, plus la performance vous revient."
+      }
+    },
+    {
+      "key": "isin",
+      "term": {
+        "en": "ISIN",
+        "fr": "ISIN"
+      },
+      "definition": {
+        "en": "The unique international ID code that identifies a specific security, like a fund or a share. Two products with the same name but different ISINs are not the same thing.",
+        "fr": "Le code d'identification international unique attribué à un titre précis, comme un fonds ou une action. Deux produits portant le même nom mais des ISIN différents ne sont pas le même titre."
+      }
+    },
+    {
+      "key": "ucits",
+      "term": {
+        "en": "UCITS",
+        "fr": "UCITS (OPCVM)"
+      },
+      "definition": {
+        "en": "A European set of rules that funds can follow to protect everyday investors, requiring things like diversification and clear disclosure. UCITS funds are widely available in Switzerland and are the default choice here.",
+        "fr": "Un ensemble de règles européennes que les fonds peuvent suivre pour protéger les investisseurs particuliers, en imposant par exemple la diversification et une information claire. Les fonds UCITS sont largement disponibles en Suisse et constituent ici le choix par défaut."
+      }
+    },
+    {
+      "key": "etf",
+      "term": {
+        "en": "ETF (Exchange-Traded Fund)",
+        "fr": "ETF (fonds indiciel coté)"
+      },
+      "definition": {
+        "en": "A fund that trades on a stock exchange like a single share, usually tracking an index so it holds many companies at once. ETFs make it easy and cheap to own a broad, diversified basket.",
+        "fr": "Un fonds qui se négocie en bourse comme une simple action, suivant généralement un indice afin de détenir de nombreuses entreprises à la fois. Les ETF permettent de posséder un panier large et diversifié de façon simple et peu coûteuse."
+      }
+    },
+    {
+      "key": "etc",
+      "term": {
+        "en": "ETC (Exchange-Traded Commodity)",
+        "fr": "ETC (matière première cotée)"
+      },
+      "definition": {
+        "en": "A traded product that tracks the price of a commodity such as gold or oil, rather than a basket of companies. It looks like an ETF but is built differently and is usually a debt instrument, not a fund.",
+        "fr": "Un produit coté qui suit le prix d'une matière première comme l'or ou le pétrole, plutôt qu'un panier d'entreprises. Il ressemble à un ETF mais est construit différemment et constitue généralement un titre de dette, et non un fonds."
+      }
+    },
+    {
+      "key": "kid",
+      "term": {
+        "en": "KID (Key Information Document)",
+        "fr": "KID (document d'informations clés)"
+      },
+      "definition": {
+        "en": "A short standardised document that summarises a fund's risks, costs and how it works, so you can compare products fairly. Reading it before you buy is a quick way to know what you are getting.",
+        "fr": "Un court document standardisé qui résume les risques, les coûts et le fonctionnement d'un fonds, afin de comparer les produits sur une base équitable. Le lire avant d'acheter est un moyen rapide de savoir ce que vous achetez."
+      }
+    },
+    {
+      "key": "fund_domicile",
+      "term": {
+        "en": "Fund domicile",
+        "fr": "Domicile du fonds"
+      },
+      "definition": {
+        "en": "The country where a fund is legally registered, which shapes its rules and how it is taxed. For an investor in Switzerland the domicile can quietly affect how much of a fund's dividends are lost to tax.",
+        "fr": "Le pays où un fonds est légalement enregistré, ce qui détermine ses règles et sa fiscalité. Pour un investisseur en Suisse, le domicile peut discrètement influencer la part des dividendes d'un fonds perdue en impôts."
+      }
+    },
+    {
+      "key": "accumulating",
+      "term": {
+        "en": "Accumulating fund",
+        "fr": "Fonds de capitalisation"
+      },
+      "definition": {
+        "en": "A fund that automatically reinvests the dividends or interest it earns instead of paying them to you. This lets your money compound on its own without you needing to act.",
+        "fr": "Un fonds qui réinvestit automatiquement les dividendes ou intérêts qu'il perçoit au lieu de vous les verser. Cela permet à votre argent de produire des intérêts composés tout seul, sans aucune action de votre part."
+      }
+    },
+    {
+      "key": "distributing",
+      "term": {
+        "en": "Distributing fund",
+        "fr": "Fonds de distribution"
+      },
+      "definition": {
+        "en": "A fund that pays out the dividends or interest it earns to you as cash, usually on a regular schedule. You then decide whether to spend that cash or reinvest it yourself.",
+        "fr": "Un fonds qui vous reverse en espèces les dividendes ou intérêts qu'il perçoit, généralement à intervalles réguliers. Vous décidez ensuite de dépenser cet argent ou de le réinvestir vous-même."
+      }
+    },
+    {
+      "key": "beta",
+      "term": {
+        "en": "Beta",
+        "fr": "Bêta"
+      },
+      "definition": {
+        "en": "A measure of how much an investment tends to move when the whole market moves. A beta near one moves with the market, above one moves more, and below one moves less.",
+        "fr": "Une mesure de l'ampleur avec laquelle un placement a tendance à bouger lorsque l'ensemble du marché bouge. Un bêta proche de un évolue comme le marché, supérieur à un amplifie ses mouvements, et inférieur à un les atténue."
+      }
+    },
+    {
+      "key": "volatility",
+      "term": {
+        "en": "Volatility",
+        "fr": "Volatilité"
+      },
+      "definition": {
+        "en": "How much an investment's price swings up and down over time. Higher volatility means a bumpier ride, which can be uncomfortable even when the long-term direction is up.",
+        "fr": "L'ampleur des variations à la hausse et à la baisse du prix d'un placement au fil du temps. Une volatilité élevée signifie un parcours plus mouvementé, ce qui peut être inconfortable même lorsque la tendance de long terme est haussière."
+      }
+    },
+    {
+      "key": "standard_deviation",
+      "term": {
+        "en": "Standard deviation",
+        "fr": "Écart-type"
+      },
+      "definition": {
+        "en": "A statistic that puts a number on how spread out an investment's returns are around their average, which is the usual way to measure volatility. A larger number means returns vary more widely from year to year.",
+        "fr": "Une statistique qui chiffre la dispersion des rendements d'un placement autour de leur moyenne, et qui sert habituellement à mesurer la volatilité. Plus le chiffre est élevé, plus les rendements varient fortement d'une année à l'autre."
+      }
+    },
+    {
+      "key": "sharpe_ratio",
+      "term": {
+        "en": "Sharpe ratio",
+        "fr": "Ratio de Sharpe"
+      },
+      "definition": {
+        "en": "A score that compares an investment's return to the amount of risk it took to get there, after setting aside what a safe investment would have paid. A higher Sharpe ratio means you were rewarded more for each unit of risk.",
+        "fr": "Un indicateur qui compare le rendement d'un placement au risque pris pour l'obtenir, après avoir retranché ce qu'aurait rapporté un placement sans risque. Un ratio de Sharpe plus élevé signifie que vous avez été mieux récompensé pour chaque unité de risque."
+      }
+    },
+    {
+      "key": "diversification",
+      "term": {
+        "en": "Diversification",
+        "fr": "Diversification"
+      },
+      "definition": {
+        "en": "Spreading your money across many different investments so that no single one can sink your whole plan. It is the closest thing investing has to a free lunch.",
+        "fr": "Répartir votre argent entre de nombreux placements différents afin qu'aucun d'eux ne puisse à lui seul faire couler tout votre plan. C'est ce qui se rapproche le plus d'un repas gratuit en matière d'investissement."
+      }
+    },
+    {
+      "key": "correlation",
+      "term": {
+        "en": "Correlation",
+        "fr": "Corrélation"
+      },
+      "definition": {
+        "en": "A measure of how much two investments tend to move together. Combining investments that do not move in lockstep is what makes diversification actually work.",
+        "fr": "Une mesure de la tendance de deux placements à évoluer ensemble. Combiner des placements qui ne bougent pas de concert est précisément ce qui rend la diversification efficace."
+      }
+    },
+    {
+      "key": "drawdown",
+      "term": {
+        "en": "Drawdown",
+        "fr": "Repli (drawdown)"
+      },
+      "definition": {
+        "en": "The drop from an investment's highest point to its lowest point before it recovers. Knowing the size of past drawdowns helps you judge whether you could stay calm through one.",
+        "fr": "La baisse entre le point le plus haut d'un placement et son point le plus bas avant qu'il ne se redresse. Connaître l'ampleur des replis passés aide à juger si vous pourriez rester serein pendant l'un d'eux."
+      }
+    },
+    {
+      "key": "value_at_risk",
+      "term": {
+        "en": "Value at Risk (VaR)",
+        "fr": "Valeur à risque (VaR)"
+      },
+      "definition": {
+        "en": "An estimate of how much you might lose over a set period in a bad but not extreme case, stated with a chosen level of confidence. It frames a likely worst case but does not capture the rarest, deepest crashes.",
+        "fr": "Une estimation de la perte que vous pourriez subir sur une période donnée dans un cas défavorable mais non extrême, exprimée avec un niveau de confiance choisi. Elle cadre un mauvais scénario probable, mais ne capture pas les krachs les plus rares et les plus profonds."
+      }
+    },
+    {
+      "key": "monte_carlo",
+      "term": {
+        "en": "Monte Carlo simulation",
+        "fr": "Simulation de Monte-Carlo"
+      },
+      "definition": {
+        "en": "A method that runs thousands of random what-if futures to show the range of ways a plan could turn out, not just one guess. It replaces a single false-precision number with a realistic spread of outcomes.",
+        "fr": "Une méthode qui génère des milliers d'avenirs hypothétiques aléatoires pour montrer l'éventail des résultats possibles d'un plan, plutôt qu'une seule prévision. Elle remplace un chiffre faussement précis par une plage réaliste de résultats."
+      }
+    },
+    {
+      "key": "core_satellite",
+      "term": {
+        "en": "Core-satellite",
+        "fr": "Cœur-satellite"
+      },
+      "definition": {
+        "en": "A way of building a portfolio with a large, steady core of broad low-cost funds, surrounded by smaller satellite positions for specific bets. The core does the heavy lifting while the satellites add a little flavour.",
+        "fr": "Une façon de construire un portefeuille avec un cœur important et stable composé de fonds larges et peu coûteux, entouré de petites positions satellites pour des paris ciblés. Le cœur fait l'essentiel du travail tandis que les satellites apportent une touche personnelle."
+      }
+    },
+    {
+      "key": "glide_path",
+      "term": {
+        "en": "Glide path",
+        "fr": "Trajectoire de désensibilisation"
+      },
+      "definition": {
+        "en": "A plan to gradually shift a portfolio from riskier toward safer investments as a goal such as retirement gets closer. It lowers the chance that a late crash derails money you will soon need.",
+        "fr": "Un plan visant à faire glisser progressivement un portefeuille des placements plus risqués vers des placements plus sûrs à mesure qu'un objectif comme la retraite approche. Cela réduit le risque qu'un krach tardif compromette un argent dont vous aurez bientôt besoin."
+      }
+    },
+    {
+      "key": "rebalancing",
+      "term": {
+        "en": "Rebalancing",
+        "fr": "Rééquilibrage"
+      },
+      "definition": {
+        "en": "Periodically adjusting your holdings back to your target mix after market moves have pulled them off course. It quietly enforces buying low and selling high, and keeps your risk where you intended.",
+        "fr": "Ajuster périodiquement vos placements pour les ramener à votre répartition cible après que les mouvements de marché les ont écartés de leur trajectoire. Cela impose discrètement d'acheter bas et de vendre haut, et maintient votre risque au niveau souhaité."
+      }
+    },
+    {
+      "key": "market_cap",
+      "term": {
+        "en": "Market capitalisation",
+        "fr": "Capitalisation boursière"
+      },
+      "definition": {
+        "en": "The total market value of a company's shares, found by multiplying the share price by the number of shares. It is the common way to size a company as small, mid or large.",
+        "fr": "La valeur boursière totale des actions d'une entreprise, obtenue en multipliant le cours de l'action par le nombre d'actions. C'est la mesure habituelle pour classer une entreprise comme petite, moyenne ou grande capitalisation."
+      }
+    },
+    {
+      "key": "index_fund",
+      "term": {
+        "en": "Index fund",
+        "fr": "Fonds indiciel"
+      },
+      "definition": {
+        "en": "A fund that simply tries to match a market index rather than beat it, by holding the same investments the index does. Because it needs little active management, it usually costs very little.",
+        "fr": "Un fonds qui cherche simplement à reproduire un indice de marché plutôt qu'à le battre, en détenant les mêmes placements que l'indice. Comme il demande peu de gestion active, il coûte généralement très peu."
+      }
+    },
+    {
+      "key": "blue_chip",
+      "term": {
+        "en": "Blue chip",
+        "fr": "Valeur de premier ordre (blue chip)"
+      },
+      "definition": {
+        "en": "A large, well-established and financially solid company with a long track record. Blue chips are seen as relatively stable, though no single company is ever risk-free.",
+        "fr": "Une grande entreprise bien établie et financièrement solide, dotée d'un long historique. Les valeurs de premier ordre sont jugées relativement stables, même si aucune entreprise n'est jamais sans risque."
+      }
+    },
+    {
+      "key": "dividend",
+      "term": {
+        "en": "Dividend",
+        "fr": "Dividende"
+      },
+      "definition": {
+        "en": "A share of a company's profits paid out to its shareholders, usually in cash. Not every company pays one, and a dividend is never guaranteed.",
+        "fr": "Une part des bénéfices d'une entreprise versée à ses actionnaires, généralement en espèces. Toutes les entreprises n'en versent pas, et un dividende n'est jamais garanti."
+      }
+    },
+    {
+      "key": "emerging_markets",
+      "term": {
+        "en": "Emerging markets",
+        "fr": "Marchés émergents"
+      },
+      "definition": {
+        "en": "The stock and bond markets of countries whose economies are still developing toward the level of richer nations. They can offer faster growth but tend to swing more sharply.",
+        "fr": "Les marchés d'actions et d'obligations de pays dont l'économie est encore en développement vers le niveau des nations plus riches. Ils peuvent offrir une croissance plus rapide mais ont tendance à connaître des fluctuations plus marquées."
+      }
+    },
+    {
+      "key": "pillar_3a",
+      "term": {
+        "en": "Pillar 3a",
+        "fr": "Pilier 3a"
+      },
+      "definition": {
+        "en": "Switzerland's tax-advantaged private retirement savings, where yearly contributions can be deducted from your taxable income within a legal limit. The money is locked until close to retirement, so it suits long-term goals and is often best invested rather than left as cash.",
+        "fr": "L'épargne-retraite privée fiscalement avantageuse en Suisse, où les versements annuels peuvent être déduits de votre revenu imposable dans une limite légale. L'argent est bloqué jusqu'à l'approche de la retraite, ce qui convient aux objectifs de long terme et gagne souvent à être investi plutôt que laissé en liquidités."
+      }
+    },
+    {
+      "key": "da1_form",
+      "term": {
+        "en": "DA-1 form",
+        "fr": "Formulaire DA-1"
+      },
+      "definition": {
+        "en": "A Swiss tax-return form used to reclaim part of the foreign tax already withheld on dividends from your overseas investments. Filling it in can recover money you would otherwise lose, when the amounts make it worthwhile.",
+        "fr": "Un formulaire de la déclaration d'impôt suisse permettant de récupérer une partie de l'impôt étranger déjà retenu sur les dividendes de vos placements à l'étranger. Le remplir peut vous restituer un argent autrement perdu, lorsque les montants en valent la peine."
+      }
+    },
+    {
+      "key": "stamp_duty",
+      "term": {
+        "en": "Stamp duty",
+        "fr": "Droit de timbre"
+      },
+      "definition": {
+        "en": "A small Swiss tax charged on each securities trade made through a Swiss broker, with a higher rate on foreign securities than on Swiss ones. Foreign brokers do not charge it, which is one real cost difference between brokers.",
+        "fr": "Un petit impôt suisse prélevé sur chaque transaction de titres effectuée via un courtier suisse, avec un taux plus élevé sur les titres étrangers que sur les titres suisses. Les courtiers étrangers ne le prélèvent pas, ce qui constitue une réelle différence de coût entre courtiers."
+      }
+    },
+    {
+      "key": "withholding_tax",
+      "term": {
+        "en": "Withholding tax",
+        "fr": "Impôt anticipé / retenue à la source"
+      },
+      "definition": {
+        "en": "Tax deducted automatically from dividends or interest before the money reaches you, both inside Switzerland and abroad. Much of it can often be reclaimed through your tax return, so it is usually a delay rather than a permanent loss.",
+        "fr": "Un impôt déduit automatiquement des dividendes ou intérêts avant qu'ils ne vous parviennent, aussi bien en Suisse qu'à l'étranger. Une grande partie peut souvent être récupérée via votre déclaration d'impôt, ce qui en fait généralement un report plutôt qu'une perte définitive."
+      }
+    },
+    {
+      "key": "capital_gains",
+      "term": {
+        "en": "Capital gains",
+        "fr": "Gains en capital (plus-values)"
+      },
+      "definition": {
+        "en": "The profit you make when you sell an investment for more than you paid for it. For most private investors in Switzerland these gains are generally not taxed, though dividends still are.",
+        "fr": "Le bénéfice réalisé lorsque vous vendez un placement plus cher que vous ne l'avez payé. Pour la plupart des investisseurs privés en Suisse, ces gains ne sont généralement pas imposés, contrairement aux dividendes qui le restent."
+      }
+    },
+    {
+      "key": "capital_market_assumptions",
+      "term": {
+        "en": "Capital market assumptions",
+        "fr": "Hypothèses de marché des capitaux"
+      },
+      "definition": {
+        "en": "Long-term published estimates of the future return, risk and relationships of different asset classes, used as the inputs for projections and portfolio building. They are informed forecasts, not promises, and are updated over time.",
+        "fr": "Des estimations publiées de long terme sur le rendement, le risque et les liens futurs entre différentes classes d'actifs, utilisées comme données d'entrée pour les projections et la construction de portefeuille. Ce sont des prévisions éclairées, et non des promesses, qui sont mises à jour au fil du temps."
+      }
+    },
+    {
+      "key": "efficient_frontier",
+      "term": {
+        "en": "Efficient frontier",
+        "fr": "Frontière efficiente"
+      },
+      "definition": {
+        "en": "The set of portfolios that offer the most expected return for each level of risk you are willing to take. Any portfolio below this line is taking on risk it is not being rewarded for.",
+        "fr": "L'ensemble des portefeuilles offrant le rendement attendu le plus élevé pour chaque niveau de risque que vous acceptez de prendre. Tout portefeuille situé en dessous de cette ligne supporte un risque qui n'est pas récompensé."
+      }
+    },
+    {
+      "key": "arithmetic_vs_geometric_return",
+      "term": {
+        "en": "Arithmetic vs geometric return",
+        "fr": "Rendement arithmétique vs géométrique"
+      },
+      "definition": {
+        "en": "The arithmetic return is the simple average of yearly returns, while the geometric return is what you actually compound and keep over time. The geometric one is lower whenever returns bounce around, which is why it gives a more honest picture of growth.",
+        "fr": "Le rendement arithmétique est la simple moyenne des rendements annuels, tandis que le rendement géométrique est celui que vous capitalisez et conservez réellement dans la durée. Le rendement géométrique est plus faible dès que les rendements fluctuent, c'est pourquoi il donne une image plus honnête de la croissance."
+      }
+    }
+  ],
+  "concepts": [
+    {
+      "key": "what_is_an_etf",
+      "title": {
+        "en": "What is an ETF?",
+        "fr": "Qu'est-ce qu'un ETF ?"
+      },
+      "body": {
+        "en": "An ETF (Exchange-Traded Fund) is a single thing you can buy that quietly holds hundreds or thousands of companies inside it. Buy one share of a global stock ETF and you instantly own a tiny slice of businesses all over the world — instead of having to pick winners one by one.\n\nMost ETFs simply track an **index** — a published list of companies, like \"the 500 largest US firms\" or \"developed markets worldwide.\" The fund just holds what the list says, in the same proportions. No star manager guessing; it follows the rules.\n\nThis makes ETFs **cheap, transparent, and spread out**. You can see exactly what's inside, the yearly cost (the *TER*, or total expense ratio) is usually tiny, and your money isn't riding on one company's luck. That's why an ETF is the natural building block for a beginner's portfolio.",
+        "fr": "Un ETF (fonds indiciel coté en bourse) est un seul produit que vous pouvez acheter et qui contient discrètement des centaines, voire des milliers d'entreprises. En achetant une part d'un ETF d'actions mondiales, vous devenez instantanément propriétaire d'une minuscule fraction de sociétés du monde entier — au lieu de devoir choisir les gagnantes une par une.\n\nLa plupart des ETF se contentent de répliquer un **indice** — une liste publiée d'entreprises, comme « les 500 plus grandes sociétés américaines » ou « les marchés développés du monde entier ». Le fonds détient simplement ce que la liste indique, dans les mêmes proportions. Aucun gérant vedette qui tente de deviner : il suit les règles.\n\nC'est ce qui rend les ETF **bon marché, transparents et bien répartis**. Vous voyez exactement ce qu'ils contiennent, le coût annuel (le *TER*, ou ratio de frais total) est généralement minime, et votre argent ne dépend pas de la chance d'une seule entreprise. Voilà pourquoi un ETF est la brique de base naturelle d'un portefeuille de débutant."
+      },
+      "citations": []
+    },
+    {
+      "key": "core_and_satellite",
+      "title": {
+        "en": "Core and satellite",
+        "fr": "Cœur et satellite"
+      },
+      "body": {
+        "en": "Think of your portfolio as having two parts. The **core** is the big, calm centre: broad, diversified ETFs that do most of the work over the long run. It's deliberately boring, and that's a feature — it's where the steady growth comes from.\n\nThe **satellite** is a small slice around that core for the things *you* personally care about — a company you believe in, a theme that excites you. It keeps you engaged and lets the plan feel like yours, without putting the whole thing at risk.\n\nThe rule is simple: the core stays large and the satellite stays **small and capped**. You get to express your interests and still sleep at night, because no single bet can knock your plan off course. This is how \"include what you want\" stays responsible rather than reckless.",
+        "fr": "Imaginez votre portefeuille en deux parties. Le **cœur** est le grand centre tranquille : des ETF larges et diversifiés qui font l'essentiel du travail sur le long terme. Il est volontairement ennuyeux, et c'est une qualité — c'est de là que vient la croissance régulière.\n\nLe **satellite** est une petite portion autour de ce cœur, réservée aux choses qui *vous* tiennent personnellement à cœur : une entreprise en laquelle vous croyez, un thème qui vous enthousiasme. Cela vous garde impliqué et donne au plan le sentiment d'être vraiment le vôtre, sans mettre l'ensemble en péril.\n\nLa règle est simple : le cœur reste grand et le satellite reste **petit et plafonné**. Vous pouvez exprimer vos intérêts tout en dormant tranquille, car aucun pari isolé ne peut faire dérailler votre plan. C'est ainsi qu'« inclure ce que vous voulez » reste responsable plutôt qu'imprudent."
+      },
+      "citations": []
+    },
+    {
+      "key": "diversification_free_lunch",
+      "title": {
+        "en": "Diversification: the only free lunch",
+        "fr": "La diversification : le seul repas gratuit"
+      },
+      "body": {
+        "en": "There's a famous saying in investing: diversification is the only \"free lunch\" — the one thing that can lower your risk without lowering your expected return. Almost everything else is a trade-off; this is the rare exception.\n\nThe reason is that different investments don't all move together. When one zigs, another zags. Mix things that don't rise and fall in perfect step, and the bumps partly cancel out — so the whole portfolio rides smoother than its individual parts would on their own.\n\nThat's why spreading across many companies, countries, and asset types beats betting everything on one. You're not trying to predict which single winner will soar; you're making sure no single loser can sink you. Less to fear, same long-run reward.",
+        "fr": "Il existe un adage célèbre en investissement : la diversification est le seul « repas gratuit » — la seule chose capable de réduire votre risque sans réduire votre rendement attendu. Presque tout le reste relève du compromis ; ceci est la rare exception.\n\nLa raison, c'est que les différents placements ne bougent pas tous ensemble. Quand l'un monte, un autre descend. En combinant des éléments qui ne progressent et ne reculent pas exactement au même rythme, les soubresauts s'annulent en partie — si bien que l'ensemble du portefeuille avance plus en douceur que ses composantes prises isolément.\n\nVoilà pourquoi répartir entre de nombreuses entreprises, pays et types d'actifs vaut mieux que tout miser sur un seul. Vous ne cherchez pas à deviner quel gagnant unique va s'envoler ; vous vous assurez qu'aucun perdant unique ne puisse vous couler. Moins de craintes, pour la même récompense à long terme."
+      },
+      "citations": []
+    },
+    {
+      "key": "beta_and_volatility",
+      "title": {
+        "en": "Beta and volatility",
+        "fr": "Le bêta et la volatilité"
+      },
+      "body": {
+        "en": "**Volatility** is just how bumpy the ride is — how much an investment's price swings up and down along the way. High volatility means big mood swings; low volatility means a steadier path. It doesn't tell you the destination, only how rough the journey feels.\n\n**Beta** measures how much something moves *compared to the whole market*. A beta of 1 moves roughly in step with the market. A beta of 1.5 tends to amplify it — up more on good days, down more on bad ones. A beta below 1 is calmer than the market overall.\n\nNeither is \"good\" or \"bad\" by itself — they're just descriptions of risk. But they're useful: a high-beta, high-volatility holding deserves a *smaller* place in your plan, because a little of it already adds a lot of swing. Knowing these two numbers helps you size each piece sensibly instead of by gut feeling.",
+        "fr": "La **volatilité**, c'est tout simplement l'intensité des secousses — l'ampleur des variations à la hausse et à la baisse du prix d'un placement en cours de route. Une volatilité élevée signifie de grandes sautes d'humeur ; une faible volatilité, un parcours plus régulier. Elle ne vous dit rien sur la destination, seulement sur le confort du trajet.\n\nLe **bêta** mesure de combien un placement bouge *par rapport à l'ensemble du marché*. Un bêta de 1 évolue à peu près au même rythme que le marché. Un bêta de 1,5 a tendance à l'amplifier — il monte davantage les bons jours et descend davantage les mauvais. Un bêta inférieur à 1 est plus calme que le marché dans son ensemble.\n\nNi l'un ni l'autre n'est « bon » ou « mauvais » en soi : ce ne sont que des descriptions du risque. Mais ils sont utiles : un placement à bêta et volatilité élevés mérite une *plus petite* place dans votre plan, car une faible dose ajoute déjà beaucoup de turbulences. Connaître ces deux chiffres vous aide à doser chaque élément avec discernement, plutôt qu'au feeling."
+      },
+      "citations": []
+    },
+    {
+      "key": "arithmetic_vs_geometric",
+      "title": {
+        "en": "Arithmetic vs geometric returns",
+        "fr": "Rendement arithmétique et rendement géométrique"
+      },
+      "body": {
+        "en": "There are two ways to average a series of returns, and they answer different questions. The **arithmetic** mean is the simple average — add the yearly returns and divide. The **geometric** mean is the rate that actually compounds your money from start to finish.\n\nHere's why the gap matters. Imagine an investment that drops 50% one year, then gains 50% the next. The simple average looks like 0% — break-even. But in reality 100 became 50, then 75: you're down 25%. The geometric mean tells the true story; the arithmetic one flatters it.\n\nThe lesson: the bumpier the ride, the more the simple average *overstates* what you really earned. When we project your growth, we lean on the geometric (compounded) figure, because that's the money you'd actually end up with — not an optimistic mirage.",
+        "fr": "Il existe deux façons de faire la moyenne d'une série de rendements, et elles répondent à des questions différentes. La moyenne **arithmétique** est la moyenne simple — on additionne les rendements annuels et on divise. La moyenne **géométrique** est le taux qui fait réellement fructifier votre argent du début à la fin.\n\nVoici pourquoi l'écart compte. Imaginez un placement qui chute de 50 % une année, puis gagne 50 % l'année suivante. La moyenne simple semble donner 0 % — équilibre. Mais en réalité, 100 est devenu 50, puis 75 : vous avez perdu 25 %. La moyenne géométrique raconte la vraie histoire ; l'arithmétique l'embellit.\n\nLa leçon : plus le parcours est chaotique, plus la moyenne simple *surestime* ce que vous avez réellement gagné. Lorsque nous projetons votre croissance, nous nous appuyons sur le chiffre géométrique (composé), car c'est l'argent que vous obtiendriez vraiment au bout du compte — pas un mirage optimiste."
+      },
+      "citations": []
+    },
+    {
+      "key": "ai_bubble",
+      "title": {
+        "en": "The \"AI bubble\" — and why we size down, not ban",
+        "fr": "La « bulle de l'IA » — pourquoi on réduit le poids plutôt que d'interdire"
+      },
+      "body": {
+        "en": "A **bubble** is when excitement pushes a price far above what the underlying business can reasonably justify — everyone piles in expecting it to keep rising, until the story cracks and the price falls hard. People talk about an \"AI bubble\" because enthusiasm for artificial intelligence has lifted some technology companies very fast, on hopes that may or may not fully come true.\n\nA name like **NVIDIA** sits right in the middle of this. It's a real, dominant company — but it's also expensive, high-**beta**, and emotionally charged. Owning a lot of it means your plan rides every wave of AI hype and fear.\n\nSo we don't ban it — banning the things you're curious about would be both patronising and unhelpful. Instead we **size it down** to a small, responsible weight: enough that you genuinely own what you wanted, but capped so a sharp fall can't wreck your future. That's the whole idea — *include what you want, safely* — and the app always shows you the trade-off it made.",
+        "fr": "Une **bulle**, c'est quand l'enthousiasme propulse un prix bien au-delà de ce que l'entreprise sous-jacente peut raisonnablement justifier — tout le monde se précipite en pariant que ça va continuer de monter, jusqu'à ce que le récit se fissure et que le prix chute brutalement. On parle de « bulle de l'IA » parce que l'engouement pour l'intelligence artificielle a fait grimper très vite certaines entreprises technologiques, sur des espoirs qui se réaliseront peut-être, ou pas tout à fait.\n\nUn titre comme **NVIDIA** se trouve en plein cœur de ce phénomène. C'est une entreprise bien réelle et dominante — mais elle est aussi chère, à **bêta** élevé et chargée d'émotion. En détenir beaucoup, c'est faire suivre à votre plan chaque vague d'espoir et de peur autour de l'IA.\n\nNous ne l'interdisons donc pas — bannir les choses qui vous intriguent serait à la fois condescendant et inutile. Nous **réduisons plutôt son poids** à une part petite et responsable : assez pour que vous possédiez vraiment ce que vous vouliez, mais plafonnée pour qu'une chute brutale ne puisse pas anéantir votre avenir. C'est toute l'idée — *inclure ce que vous voulez, en toute sécurité* — et l'application vous montre toujours le compromis qu'elle a fait."
+      },
+      "citations": []
+    },
+    {
+      "key": "ucits_vs_us_domiciled",
+      "title": {
+        "en": "UCITS vs US-domiciled funds",
+        "fr": "Fonds UCITS et fonds domiciliés aux États-Unis"
+      },
+      "body": {
+        "en": "Two ETFs can track the *exact same* index — the same companies, in the same proportions — yet come in different **wrappers**. The wrapper is where the fund is legally based and how it's regulated, and for someone living in Switzerland that detail matters a lot.\n\n**UCITS** funds are the European standard, typically based in Ireland or Luxembourg. They come with a **KID** (Key Information Document) that Swiss law expects, they trade cleanly on the Swiss exchange, and they're built to be bought by ordinary residents. A **US-domiciled** ETF (like the original SPY or QQQ) is usually execution-only for Swiss retail, lacks that KID, and can expose a non-US resident to US estate tax.\n\nUCITS is also often more **tax-smart**: an Irish-domiciled fund holding US shares pays a lower rate of US dividend withholding thanks to a tax treaty. So when you want a popular exposure like the S&P 500, we point you to its UCITS version — same companies, the wrapper you can actually buy, and usually kinder on tax. This is education, not tax advice.",
+        "fr": "Deux ETF peuvent répliquer *exactement le même* indice — les mêmes entreprises, dans les mêmes proportions — tout en se présentant dans des **enveloppes** différentes. L'enveloppe, c'est le lieu où le fonds est légalement établi et la manière dont il est réglementé ; et pour une personne résidant en Suisse, ce détail compte beaucoup.\n\nLes fonds **UCITS** constituent le standard européen, généralement établis en Irlande ou au Luxembourg. Ils sont accompagnés d'un **KID** (document d'informations clés) que la loi suisse attend, ils se négocient sans difficulté à la Bourse suisse et sont conçus pour être achetés par les résidents ordinaires. Un ETF **domicilié aux États-Unis** (comme le SPY ou le QQQ d'origine) n'est en général accessible qu'en exécution seule pour le particulier suisse, ne fournit pas ce KID et peut exposer un non-résident américain à l'impôt successoral des États-Unis.\n\nL'UCITS est aussi souvent plus **avantageux fiscalement** : un fonds domicilié en Irlande qui détient des actions américaines subit un taux de retenue à la source plus faible sur les dividendes, grâce à une convention fiscale. Ainsi, lorsque vous souhaitez une exposition populaire comme le S&P 500, nous vous orientons vers sa version UCITS — les mêmes entreprises, l'enveloppe que vous pouvez réellement acheter, et généralement plus douce sur le plan fiscal. Il s'agit d'éducation, non de conseil fiscal."
+      },
+      "citations": []
+    },
+    {
+      "key": "capital_market_assumptions",
+      "title": {
+        "en": "Capital market assumptions",
+        "fr": "Les hypothèses de marché à long terme"
+      },
+      "body": {
+        "en": "Nobody knows what markets will do next year. But to plan sensibly we still need reasonable estimates of how different asset types might behave over the long run — roughly what return to expect, how bumpy it might be, and how the pieces move together. These long-run estimates are called **capital market assumptions** (CMAs).\n\nWe don't invent these numbers. We use a published set from a recognised source — **J.P. Morgan Asset Management's Long-Term Capital Market Assumptions**, in Swiss francs — and we always show the **as-of date** they were last updated. They're a careful starting point, not a promise.\n\nThe honest part is the date. Estimates are made at a moment in time and are refreshed periodically; markets and the assumptions both move. So every projection you see is built on real, sourced, dated inputs — never a made-up figure — and your job is to read them as a thoughtful *range of possibilities*, not a forecast carved in stone.",
+        "fr": "Personne ne sait ce que feront les marchés l'an prochain. Mais pour planifier avec discernement, il nous faut tout de même des estimations raisonnables de la façon dont les différents types d'actifs pourraient se comporter sur le long terme — en gros, quel rendement espérer, quelle ampleur de secousses prévoir, et comment les différentes pièces évoluent ensemble. Ces estimations à long terme s'appellent les **hypothèses de marché** (en anglais, CMA).\n\nNous n'inventons pas ces chiffres. Nous utilisons un ensemble publié par une source reconnue — les **hypothèses de marché à long terme de J.P. Morgan Asset Management**, exprimées en francs suisses — et nous affichons toujours la **date de référence** de leur dernière mise à jour. Ce sont un point de départ soigné, non une promesse.\n\nLa part d'honnêteté tient à la date. Les estimations sont établies à un instant donné et sont actualisées périodiquement ; les marchés comme les hypothèses évoluent. Ainsi, chaque projection que vous voyez repose sur des données réelles, sourcées et datées — jamais sur un chiffre inventé — et il vous revient de les lire comme un *éventail de possibilités* réfléchi, et non comme une prévision gravée dans le marbre."
+      },
+      "citations": []
+    }
+  ],
+  "switzerland": [
+    {
+      "key": "pillar_3a_first",
+      "title": {
+        "en": "Fill your Pillar 3a first — and invest it",
+        "fr": "Remplissez d'abord votre pilier 3a — et investissez-le"
+      },
+      "body": {
+        "en": "**Pillar 3a** is Switzerland's voluntary retirement savings account, and it comes with a tax break: the money you put in each year is **deducted from your taxable income**, so you pay less tax. That's why it's usually the first place to put money before a regular investment account.\n\n**The 2026 limits** (these change — refresh them every year):\n\n- If you have a pension fund through work (most employees): up to **CHF 7,258** for the year.\n- If you're self-employed or have no pension fund: up to **20% of your income**, capped at **CHF 36,288**.\n\n**New from 2026:** if you didn't pay in fully in past years, you can now make **retroactive top-up buy-ins** to fill those gaps.\n\nOne thing many beginners miss: a 3a account can just sit there as **cash**, earning almost nothing. Over decades that's a real cost. A 3a can also be **invested** — in low-fee funds — so it grows. The point of 3a isn't only the tax deduction; it's letting that money work for you. So: open a low-fee 3a, pay in toward the limit, and **invest it rather than leaving it as cash**.\n\nThis is education, not advice. Confirm the current year's figures before you act.",
+        "fr": "Le **pilier 3a** est le compte d'épargne retraite facultatif en Suisse, et il s'accompagne d'un avantage fiscal : l'argent que vous y versez chaque année est **déduit de votre revenu imposable**, ce qui réduit vos impôts. C'est pourquoi c'est généralement le premier endroit où placer son argent, avant un compte d'investissement ordinaire.\n\n**Les plafonds 2026** (ils évoluent — pensez à les vérifier chaque année) :\n\n- Si vous avez une caisse de pension par votre emploi (la plupart des salariés) : jusqu'à **CHF 7 258** pour l'année.\n- Si vous êtes indépendant ou sans caisse de pension : jusqu'à **20 % de votre revenu**, plafonné à **CHF 36 288**.\n\n**Nouveauté dès 2026 :** si vous n'avez pas cotisé pleinement les années précédentes, vous pouvez désormais effectuer des **rachats rétroactifs** pour combler ces lacunes.\n\nUne chose que beaucoup de débutants oublient : un compte 3a peut rester là sous forme de **liquidités**, ne rapportant presque rien. Sur plusieurs décennies, c'est un vrai manque à gagner. Un 3a peut aussi être **investi** — dans des fonds à frais réduits — afin de fructifier. L'intérêt du 3a n'est pas seulement la déduction fiscale ; c'est aussi de faire travailler cet argent pour vous. Donc : ouvrez un 3a à frais réduits, versez jusqu'au plafond, et **investissez-le plutôt que de le laisser en liquidités**.\n\nIl s'agit d'éducation, pas de conseil. Vérifiez les chiffres de l'année en cours avant d'agir."
+      },
+      "citations": [
+        {
+          "source": "UBS — Pillar 3a maximum amount 2026",
+          "url": "https://www.ubs.com/ch/en/services/pension/pillar-3/maximal-contribution.html",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "key": "no_capital_gains_tax_but_dividends",
+      "title": {
+        "en": "No capital-gains tax — but dividends are taxed",
+        "fr": "Pas d'impôt sur les gains en capital — mais les dividendes sont imposés"
+      },
+      "body": {
+        "en": "Here's good news for private investors in Switzerland (2026, and a long-standing rule): when you sell an investment for more than you paid, that **profit is tax-free**. There is **no capital-gains tax** on securities for ordinary private investors. This is one reason a calm **buy-and-hold** approach fits Switzerland well — you're not taxed simply for holding and then selling at a gain.\n\nBut there's an important catch, and beginners often get this wrong: **dividends are taxable income.** When a company or fund pays you a dividend, you declare it and it's taxed.\n\nA common myth is that an **accumulating** ETF (one that reinvests dividends automatically instead of paying them out) lets you dodge this. It does **not**. The reinvested dividends are **still taxed**, even though you never see the cash. Switzerland's Federal Tax Administration runs a database called **ICTax** that lists, fund by fund, the **taxable amount** you must declare — so the tax office already knows the figure.\n\nAccumulating funds can still be convenient (less paperwork, automatic reinvesting), but choose them for that reason, not to avoid tax — because they don't.\n\nThis is education, not advice. Your exact situation may differ; check ICTax for the specific fund.",
+        "fr": "Voici une bonne nouvelle pour les investisseurs privés en Suisse (en 2026, et c'est une règle de longue date) : lorsque vous vendez un placement plus cher que vous ne l'avez payé, ce **bénéfice est exonéré d'impôt**. Il n'y a **pas d'impôt sur les gains en capital** sur les titres pour les investisseurs privés ordinaires. C'est l'une des raisons pour lesquelles une approche posée de type **achat et conservation** convient bien à la Suisse : vous n'êtes pas imposé simplement parce que vous détenez un titre puis le revendez avec un gain.\n\nMais il y a une nuance importante, et les débutants s'y trompent souvent : **les dividendes sont un revenu imposable.** Lorsqu'une entreprise ou un fonds vous verse un dividende, vous le déclarez et il est imposé.\n\nUn mythe répandu veut qu'un ETF **à capitalisation** (qui réinvestit automatiquement les dividendes au lieu de les distribuer) permette d'y échapper. Ce n'est **pas** le cas. Les dividendes réinvestis sont **tout de même imposés**, même si vous ne voyez jamais passer l'argent. L'Administration fédérale des contributions gère une base de données appelée **ICTax** qui indique, fonds par fonds, le **montant imposable** que vous devez déclarer — le fisc connaît donc déjà le chiffre.\n\nLes fonds à capitalisation restent pratiques (moins de paperasse, réinvestissement automatique), mais choisissez-les pour cette raison, et non pour éviter l'impôt — car ils ne le font pas.\n\nIl s'agit d'éducation, pas de conseil. Votre situation peut différer ; consultez ICTax pour le fonds concerné."
+      },
+      "citations": [
+        {
+          "source": "Swiss Federal Tax Administration (ESTV) — ICTax",
+          "url": "https://www.ictax.admin.ch/",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "key": "reclaim_with_da1",
+      "title": {
+        "en": "Reclaim foreign tax with the DA-1 form",
+        "fr": "Récupérez l'impôt étranger avec le formulaire DA-1"
+      },
+      "body": {
+        "en": "When you own funds or shares from abroad, the foreign country often takes a slice of your dividends before they reach you. This is called **withholding tax** — money withheld at the source. The good news: as a Swiss resident, you can often get part of it back.\n\nThe tool for this is the **DA-1 form**, which you submit **with your Swiss tax return**. It tells the Swiss tax office how much foreign tax was already taken, so that you're not effectively taxed twice on the same income. Switzerland then credits or refunds the eligible amount.\n\nWhat to do in plain terms:\n\n1. Keep the **year-end statement** from your broker or 3a provider — it lists your dividends and the foreign tax withheld.\n2. When you fill in your annual tax return, **add the DA-1 form** and enter those foreign dividends and the tax already paid.\n3. Submit it together with the rest of your return.\n\nIt's a small bit of admin once a year that can put real money back in your pocket. Set yourself a yearly reminder so you don't forget it at tax time.\n\nThis is education, not advice. Rules and thresholds vary by canton — check your cantonal tax instructions.",
+        "fr": "Lorsque vous détenez des fonds ou des actions à l'étranger, le pays étranger prélève souvent une part de vos dividendes avant qu'ils ne vous parviennent. C'est ce qu'on appelle l'**impôt à la source** (retenue à la source) — de l'argent retenu à l'origine. La bonne nouvelle : en tant que résident suisse, vous pouvez souvent en récupérer une partie.\n\nL'outil pour cela est le **formulaire DA-1**, que vous remettez **avec votre déclaration d'impôt suisse**. Il indique au fisc combien d'impôt étranger a déjà été prélevé, afin que vous ne soyez pas, en pratique, imposé deux fois sur le même revenu. La Suisse vous crédite ou vous rembourse alors le montant éligible.\n\nConcrètement, voici la marche à suivre :\n\n1. Conservez le **relevé de fin d'année** de votre courtier ou de votre prestataire 3a — il détaille vos dividendes et l'impôt étranger retenu.\n2. Au moment de remplir votre déclaration annuelle, **ajoutez le formulaire DA-1** et inscrivez-y ces dividendes étrangers ainsi que l'impôt déjà payé.\n3. Joignez-le au reste de votre déclaration.\n\nC'est une petite formalité une fois par an qui peut vous faire récupérer de l'argent bien réel. Programmez-vous un rappel annuel pour ne pas l'oublier au moment des impôts.\n\nIl s'agit d'éducation, pas de conseil. Les règles et les seuils varient selon le canton — consultez les instructions fiscales cantonales."
+      },
+      "citations": [
+        {
+          "source": "ch.ch — Swiss authorities online (taxes & pensions)",
+          "url": "https://www.ch.ch/en/",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "key": "stamp_duty_and_fees",
+      "title": {
+        "en": "Stamp duty and the fees to watch",
+        "fr": "Le droit de timbre et les frais à surveiller"
+      },
+      "body": {
+        "en": "Every time you buy or sell through a **Swiss bank or broker**, a small federal **stamp duty** (Umsatzabgabe / droit de timbre) is added to the trade. As a rough 2026 guide:\n\n- about **0.075%** on Swiss securities, and\n- about **0.15%** on foreign securities,\n\ncharged **per trade**. On a CHF 1,000 purchase of a foreign fund, that's roughly CHF 1.50. It's small, but it adds up if you trade often — another reason a steady buy-and-hold habit, rather than frequent trading, tends to suit Swiss investors.\n\nOne nuance: **foreign brokers don't charge Swiss stamp duty**, because the duty applies to trades made through a Swiss securities dealer. That can make a foreign broker cheaper per trade — but weigh it against other things like currency conversion costs, deposit protection, and convenience. There's no single \"best\" answer; it depends on how you invest.\n\nThe fees worth keeping low overall:\n\n- the fund's annual cost (its **TER**),\n- **trading commissions**,\n- **stamp duty** (Swiss brokers),\n- **custody fees**, and\n- **currency-exchange (FX) spreads** when you buy in a different currency.\n\nThis is education, not advice — a framework for comparing, not a recommendation of any one provider. Verify current rates before acting.",
+        "fr": "Chaque fois que vous achetez ou vendez par l'intermédiaire d'une **banque ou d'un courtier suisse**, un petit **droit de timbre** fédéral (Umsatzabgabe / droit de timbre) s'ajoute à l'opération. À titre indicatif pour 2026 :\n\n- environ **0,075 %** sur les titres suisses, et\n- environ **0,15 %** sur les titres étrangers,\n\nprélevés **par transaction**. Sur un achat de CHF 1 000 d'un fonds étranger, cela représente environ CHF 1.50. C'est peu, mais cela s'accumule si vous tradez souvent — une raison de plus pour laquelle une habitude régulière d'achat et de conservation, plutôt que des transactions fréquentes, convient généralement aux investisseurs suisses.\n\nUne nuance : **les courtiers étrangers ne prélèvent pas le droit de timbre suisse**, car ce droit s'applique aux transactions effectuées via un négociant en valeurs mobilières suisse. Un courtier étranger peut ainsi revenir moins cher par transaction — mais il faut le mettre en balance avec d'autres éléments comme les frais de change, la garantie des dépôts et la simplicité. Il n'existe pas de réponse unique « idéale » ; tout dépend de votre façon d'investir.\n\nLes frais à garder bas dans l'ensemble :\n\n- le coût annuel du fonds (son **TER**),\n- les **commissions de transaction**,\n- le **droit de timbre** (courtiers suisses),\n- les **frais de garde**, et\n- les **écarts de change** lorsque vous achetez dans une autre devise.\n\nIl s'agit d'éducation, pas de conseil — un cadre pour comparer, et non une recommandation d'un prestataire en particulier. Vérifiez les taux en vigueur avant d'agir."
+      },
+      "citations": [
+        {
+          "source": "PwC Tax Summaries — Switzerland (Individual)",
+          "url": "https://taxsummaries.pwc.com/switzerland/individual/other-taxes",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "key": "how_to_start",
+      "title": {
+        "en": "How to actually start — step by step",
+        "fr": "Comment commencer concrètement — étape par étape"
+      },
+      "body": {
+        "en": "Starting is simpler than it looks. Here's a plain path you can follow once (and then mostly leave alone). Figures here are 2026 — refresh them yearly.\n\n1. **Choose where to invest.** Pick a low-fee Pillar 3a provider for your retirement bucket, and/or a broker for a regular investment account. Compare them on fees, not on marketing.\n\n2. **Open it.** Opening is done online — you'll verify your identity and link your bank account. No need to rush; take it one step at a time.\n\n3. **Fund it in CHF.** Transfer money from your Swiss bank account in **Swiss francs**, so you avoid unnecessary currency conversions at the start.\n\n4. **Fill your 3a first.** If you're using a 3a, pay in toward the 2026 limit (**CHF 7,258** with a pension fund; up to **20% of income, max CHF 36,288** without one), and make sure it's **invested**, not sitting as cash.\n\n5. **Buy the plan's ETFs.** Place your buy orders for the funds in your plan. Don't try to \"time\" it — buying steadily over time is calmer and usually wiser.\n\n6. **Set a standing monthly contribution.** Automate a fixed amount each month. This habit — investing a little, regularly — does most of the heavy lifting over the years.\n\n7. **Set your tax reminders.** Once a year, remember the **DA-1 form** (to reclaim foreign withholding tax) and declaring your **dividends**. A simple yearly calendar reminder is enough.\n\nThat's it. Set it up thoughtfully, then let time and consistency work.\n\nThis is education, not advice. Confirm the current figures and your own situation before acting.",
+        "fr": "Commencer est plus simple qu'il n'y paraît. Voici un parcours clair à suivre une fois (puis à laisser tranquille, pour l'essentiel). Les chiffres ci-dessous sont ceux de 2026 — pensez à les actualiser chaque année.\n\n1. **Choisissez où investir.** Sélectionnez un prestataire de pilier 3a à frais réduits pour votre épargne retraite, et/ou un courtier pour un compte d'investissement ordinaire. Comparez-les sur les frais, pas sur le marketing.\n\n2. **Ouvrez le compte.** L'ouverture se fait en ligne — vous vérifierez votre identité et relierez votre compte bancaire. Inutile de vous presser ; avancez une étape à la fois.\n\n3. **Alimentez-le en CHF.** Virez de l'argent depuis votre compte bancaire suisse en **francs suisses**, afin d'éviter des conversions de devises inutiles au départ.\n\n4. **Remplissez d'abord votre 3a.** Si vous utilisez un 3a, versez jusqu'au plafond 2026 (**CHF 7 258** avec une caisse de pension ; jusqu'à **20 % du revenu, max. CHF 36 288** sans caisse), et assurez-vous qu'il est **investi**, et non laissé en liquidités.\n\n5. **Achetez les ETF du plan.** Passez vos ordres d'achat pour les fonds de votre plan. N'essayez pas de « choisir le bon moment » : acheter régulièrement dans le temps est plus serein et généralement plus avisé.\n\n6. **Mettez en place un versement mensuel automatique.** Programmez un montant fixe chaque mois. Cette habitude — investir un peu, régulièrement — fait l'essentiel du travail au fil des années.\n\n7. **Programmez vos rappels fiscaux.** Une fois par an, pensez au **formulaire DA-1** (pour récupérer l'impôt étranger à la source) et à la déclaration de vos **dividendes**. Un simple rappel annuel dans votre agenda suffit.\n\nVoilà. Mettez tout en place avec soin, puis laissez le temps et la régularité agir.\n\nIl s'agit d'éducation, pas de conseil. Vérifiez les chiffres en vigueur et votre propre situation avant d'agir."
+      },
+      "citations": [
+        {
+          "source": "ch.ch — Swiss authorities online (taxes & pensions)",
+          "url": "https://www.ch.ch/en/",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "instruments": [
+    {
+      "ticker": "VWCE.DE",
+      "description": {
+        "en": "This is a single fund that holds thousands of companies from all over the world at once, by tracking the FTSE All-World index. That makes it a true \"core\" holding — one building block that gives you broad, diversified ownership of the global stock market in a single, low-cost ETF (its yearly fee, or TER, is 0.19%). It trades around 163.44 EUR per share, and because it's \"accumulating,\" any dividends are reinvested for you automatically instead of being paid out.",
+        "fr": "Il s'agit d'un seul fonds qui détient en une fois des milliers d'entreprises du monde entier, en répliquant l'indice FTSE All-World. Cela en fait une véritable position « cœur » de portefeuille : une brique unique qui te donne une participation large et diversifiée dans le marché boursier mondial, dans un seul ETF à faibles frais (ses frais annuels, ou TER, sont de 0,19 %). Il s'échange autour de 163,44 EUR par part, et comme il est « capitalisant », les dividendes sont automatiquement réinvestis pour toi au lieu de t'être versés."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary stock-market risk: even spread across the whole world, share prices rise and fall, so the value can drop meaningfully in a bad year and you could get back less than you put in. The trade-off is that holding many countries and companies together smooths out the shock of any single one going wrong.",
+        "fr": "Son risque principal est le risque ordinaire des marchés actions : même répartie sur le monde entier, la valeur des actions monte et descend, si bien que le fonds peut perdre nettement de la valeur lors d'une mauvaise année et que tu pourrais récupérer moins que ce que tu as investi. En contrepartie, détenir de nombreux pays et de nombreuses entreprises ensemble atténue le choc lié à la défaillance d'un seul d'entre eux."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — VWCE.DE (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00BK5BQT80",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "IWDA.AS",
+      "description": {
+        "en": "This is an exchange-traded fund that tracks the MSCI World index, so a single purchase spreads your money across thousands of large companies in developed countries around the globe. That broad reach is why it works as a \"core\" holding — the steady centre of a portfolio rather than a side bet. It charges a low yearly fee (a 0.2% TER), reinvests its dividends for you (accumulating), and trades at around 123.87 EUR.",
+        "fr": "C'est un fonds indiciel coté en bourse (ETF) qui suit l'indice MSCI World : un seul achat répartit donc votre argent sur des milliers de grandes entreprises situées dans les pays développés du monde entier. C'est cette large diversification qui en fait une position « cœur » — le centre stable d'un portefeuille plutôt qu'un pari secondaire. Il prélève des frais annuels faibles (un TER de 0,2 %), réinvestit lui-même les dividendes (capitalisant) et se négocie autour de 123,87 EUR."
+      },
+      "risk_note": {
+        "en": "Even a fund this diversified rises and falls with global stock markets, so its price can drop sharply in a downturn and may take years to recover — money you might need soon doesn't belong here.",
+        "fr": "Même aussi diversifié, ce fonds monte et descend au rythme des marchés boursiers mondiaux : son prix peut chuter fortement lors d'une baisse générale et mettre des années à se redresser — l'argent dont vous pourriez avoir besoin bientôt n'a donc pas sa place ici."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — IWDA.AS (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B4L5Y983",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "EIMI.L",
+      "description": {
+        "en": "The iShares Core MSCI Emerging Markets IMI UCITS ETF is a fund that tracks the MSCI Emerging Markets IMI index, so a single share spreads your money across thousands of large, medium, and small companies in developing economies like China, India, Taiwan, and Brazil. That broad reach makes it a diversified core holding rather than a bet on any one company. It trades at around 54.53 USD, reinvests its dividends automatically (accumulating), and charges a low yearly fee of 0.18% (its TER).",
+        "fr": "L'ETF iShares Core MSCI Emerging Markets IMI UCITS est un fonds qui réplique l'indice MSCI Emerging Markets IMI : une seule part répartit donc ton argent sur des milliers de grandes, moyennes et petites entreprises de pays en développement comme la Chine, l'Inde, Taïwan ou le Brésil. Cette très large diversification en fait une position de cœur de portefeuille, et non un pari sur une seule entreprise. Il s'échange autour de 54,53 USD, réinvestit automatiquement ses dividendes (part dite capitalisante) et facture des frais annuels faibles de 0,18 % (son TER)."
+      },
+      "risk_note": {
+        "en": "Its main risk is that emerging markets can swing more sharply than developed ones: their prices can rise or fall a lot in a single year, partly because of currency moves and political or economic shifts in those countries. It is a long-term, buy-and-hold holding, so be ready to ride out some bumpy years.",
+        "fr": "Son principal risque est que les marchés émergents peuvent fluctuer plus fortement que les marchés développés : leur valeur peut beaucoup monter ou baisser en une seule année, notamment à cause des variations de change et des évolutions politiques ou économiques de ces pays. C'est une position à conserver sur le long terme, alors il faut être prêt à traverser quelques années agitées sans paniquer."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — EIMI.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00BKM4GZ66",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CSPX.L",
+      "description": {
+        "en": "This is a fund that tracks the S&P 500, an index of about 500 of the largest companies listed in the United States, so a single share spreads your money across many businesses at once. That broad reach makes it a \"core\" holding — a steady centre your portfolio can be built around. It is an accumulating UCITS ETF (it reinvests dividends for you instead of paying them out), charges a low yearly fee of 0.07% (its TER), and currently trades at around 796.83 USD.",
+        "fr": "Il s'agit d'un fonds qui réplique le S&P 500, un indice regroupant environ 500 des plus grandes entreprises cotées aux États-Unis ; une seule part répartit donc votre argent sur de nombreuses sociétés à la fois. Cette large diversification en fait une position « cœur » (core) — une base solide autour de laquelle construire votre portefeuille. C'est un ETF UCITS de capitalisation (il réinvestit automatiquement les dividendes au lieu de vous les verser), il applique des frais annuels faibles de 0,07 % (son TER) et se négocie actuellement autour de 796,83 USD."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary market risk: because it holds shares, its price rises and falls with the stock market, and in a downturn its value can drop sharply for months or years. It is also tied to one country's market and is priced in US dollars, so the dollar's ups and downs against the Swiss franc affect your return too.",
+        "fr": "Son principal risque est le risque de marché ordinaire : comme il détient des actions, son prix monte et descend avec la Bourse, et lors d'une baisse sa valeur peut chuter fortement pendant des mois, voire des années. Il dépend aussi du marché d'un seul pays et il est libellé en dollars américains, si bien que les variations du dollar face au franc suisse influencent également votre rendement."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CSPX.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B5BMR087",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CNDX.L",
+      "description": {
+        "en": "This is a fund that holds the 100 largest non-financial companies listed on the Nasdaq stock exchange, so when you buy one share you own a slice of all of them at once. It's a diversified core holding, meaning it can sit at the centre of a portfolio rather than being a side bet, and it keeps its costs low with a yearly fee (TER) of 0.3%. It trades around 1691.8 USD per share, and because it's an accumulating fund, the dividends it earns are reinvested for you instead of being paid out.",
+        "fr": "C'est un fonds qui détient les 100 plus grandes entreprises non financières cotées à la bourse du Nasdaq : en achetant une seule part, tu possèdes d'un coup un petit morceau de toutes ces sociétés. Il s'agit d'une position diversifiée de cœur de portefeuille, c'est-à-dire qu'il peut occuper une place centrale plutôt que d'être un simple pari secondaire, et il garde des coûts faibles avec des frais annuels (TER) de 0,3 %. Il se négocie autour de 1691,8 USD la part, et comme c'est un fonds capitalisant, les dividendes qu'il reçoit sont automatiquement réinvestis pour toi au lieu de t'être versés."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary market risk: the Nasdaq 100 leans heavily toward large technology companies, so its price can swing up and down a lot, and a single rough year can wipe out part of your money for a while. It passed our safety screen, but that doesn't remove this normal ups-and-downs risk, which is why it suits money you can leave invested for many years.",
+        "fr": "Son principal risque est le risque de marché ordinaire : le Nasdaq 100 est fortement orienté vers les grandes entreprises technologiques, son cours peut donc monter et descendre beaucoup, et une seule mauvaise année peut faire perdre une partie de ton argent pendant un certain temps. Il a passé notre filtre de sécurité, mais cela ne supprime pas ces hauts et ces bas tout à fait normaux : c'est pourquoi il convient à de l'argent que tu peux laisser investi pendant de nombreuses années."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CNDX.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B53SZB19",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "IUIT.L",
+      "description": {
+        "en": "This is a fund that tracks the Information Technology sector of the S&P 500 — so instead of one tech company, you own a slice of many large US technology businesses at once. It plays a core role in a portfolio and is cheap to hold, with a fund fee (TER) of 0.15% per year, and it trades at around 48.37 USD per share.",
+        "fr": "C'est un fonds qui suit le secteur des technologies de l'information du S&P 500 : au lieu de détenir une seule entreprise technologique, tu possèdes en une fois une petite part de nombreuses grandes sociétés technologiques américaines. Il joue un rôle central (« core ») dans un portefeuille et coûte peu à conserver, avec des frais de fonds (TER) de 0,15 % par an, et il se négocie autour de 48,37 USD par part."
+      },
+      "risk_note": {
+        "en": "Because it focuses on just one sector, its value can swing more sharply than a fund spread across the whole market — when technology stocks fall together, this fund tends to fall with them.",
+        "fr": "Comme il se concentre sur un seul secteur, sa valeur peut varier plus fortement qu'un fonds réparti sur l'ensemble du marché : lorsque les actions technologiques baissent toutes en même temps, ce fonds a tendance à baisser avec elles."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — IUIT.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B3WJKG14",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "MEUD.PA",
+      "description": {
+        "en": "This is a low-cost fund that holds a slice of about 600 of Europe's largest listed companies by tracking the STOXX Europe 600 index, so a single share spreads your money across many businesses and countries at once. It's built to be a diversified core holding — the steady backbone of a portfolio rather than a bet on one company. Its yearly fee (TER) is just 0.07%, it reinvests dividends automatically (accumulating), and it trades around 312.15 EUR.",
+        "fr": "C'est un fonds à faibles frais qui détient une part d'environ 600 des plus grandes entreprises cotées d'Europe en suivant l'indice STOXX Europe 600 : une seule part répartit donc votre argent sur de nombreuses sociétés et plusieurs pays à la fois. Il est conçu comme une position cœur diversifiée — la colonne vertébrale stable d'un portefeuille, et non un pari sur une seule entreprise. Ses frais annuels (TER) ne sont que de 0,07 %, il réinvestit automatiquement les dividendes (capitalisant), et il se négocie autour de 312,15 EUR."
+      },
+      "risk_note": {
+        "en": "Its main risk is normal stock-market risk: because it follows the whole European market, its value rises and falls with that market and can swing by roughly 16.7% in a typical year, so short-term drops are to be expected. The wide spread across hundreds of companies softens the blow if any single one struggles.",
+        "fr": "Son principal risque est le risque boursier ordinaire : comme il suit l'ensemble du marché européen, sa valeur monte et descend avec ce marché et peut varier d'environ 16,7 % au cours d'une année typique, il faut donc s'attendre à des baisses à court terme. La large répartition sur des centaines d'entreprises amortit le choc si l'une d'elles connaît des difficultés."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — MEUD.PA (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=LU0908500753",
+          "as_of": "2026-06-29",
+          "note": null
+        },
+        {
+          "source": "J.P. Morgan Asset Management — 2026 Long-Term Capital Market Assumptions (CHF)",
+          "url": "https://am.jpmorgan.com/ch/en/asset-management/institutional/insights/portfolio-insights/ltcma/",
+          "as_of": "2025-10-20",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CHSPI.SW",
+      "description": {
+        "en": "iShares Core SPI (CH) is a fund that tracks the Swiss Performance Index, so a single share spreads your money across almost every company listed in Switzerland at once. That broad spread makes it a solid \"core\" building block — the steady base of a portfolio rather than a single bet. It trades around 170.44 CHF, has a low yearly fee (TER) of 0.1%, and pays out its dividends to you (distributing).",
+        "fr": "iShares Core SPI (CH) est un fonds qui réplique le Swiss Performance Index : une seule part répartit donc votre argent sur la quasi-totalité des entreprises cotées en Suisse en une fois. Cette large diversification en fait une brique « cœur » solide — la base stable d'un portefeuille plutôt qu'un pari sur une seule société. Il s'échange autour de 170,44 CHF, applique des frais annuels faibles (TER) de 0,1 % et vous reverse ses dividendes (fonds distribuant)."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary stock-market risk: the price rises and falls with the Swiss market, and a typical year can swing roughly 13.3% up or down. Because it follows only Swiss companies, it leans on one country's economy, so a rough patch in Switzerland will pull the whole fund down together.",
+        "fr": "Son principal risque est le risque de marché ordinaire : le cours monte et descend avec le marché suisse, et une année typique peut varier d'environ 13,3 % à la hausse comme à la baisse. Comme il ne suit que des entreprises suisses, il dépend de l'économie d'un seul pays : une période difficile en Suisse ferait donc baisser l'ensemble du fonds en même temps."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CHSPI.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=CH0237935652",
+          "as_of": "2026-06-29",
+          "note": null
+        },
+        {
+          "source": "J.P. Morgan Asset Management — 2026 Long-Term Capital Market Assumptions (CHF)",
+          "url": "https://am.jpmorgan.com/ch/en/asset-management/institutional/insights/portfolio-insights/ltcma/",
+          "as_of": "2025-10-20",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "SJPA.L",
+      "description": {
+        "en": "This is an exchange-traded fund (an ETF) that tracks the MSCI Japan IMI index, which means it spreads your money across a very broad basket of Japanese companies — large, medium, and smaller ones — in a single purchase. It's a diversified core holding: a steady building block rather than a bet on one firm, with a low yearly cost (TER) of 0.12% and a share price of around 60.36 GBP. Because it's \"accumulating,\" any dividends the companies pay are reinvested for you automatically instead of being paid out.",
+        "fr": "Il s'agit d'un fonds indiciel coté en bourse (un ETF) qui réplique l'indice MSCI Japan IMI. Concrètement, cela répartit votre argent sur un très large panier d'entreprises japonaises — grandes, moyennes et plus petites — en un seul achat. C'est une position de base diversifiée : une brique solide pour votre portefeuille plutôt qu'un pari sur une seule société, avec un coût annuel faible (le TER) de 0,12 % et un cours d'environ 60,36 GBP. Comme il est « capitalisant », les dividendes versés par les entreprises sont automatiquement réinvestis pour vous au lieu de vous être distribués."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary stock-market risk: the value of Japanese shares can rise and fall, sometimes sharply, so this holding can lose money over months or even a few years. Since it's priced in GBP while focused on Japan, shifts between the Japanese yen and the pound can also nudge its value up or down.",
+        "fr": "Son principal risque est le risque boursier ordinaire : la valeur des actions japonaises peut monter et descendre, parfois fortement, si bien que cette position peut perdre de l'argent sur quelques mois, voire quelques années. Comme il est libellé en GBP tout en étant centré sur le Japon, les variations entre le yen japonais et la livre peuvent aussi faire bouger sa valeur à la hausse ou à la baisse."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — SJPA.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B4L5YX21",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CPXJ.L",
+      "description": {
+        "en": "This is an exchange-traded fund that tracks the MSCI Pacific ex-Japan index, so a single share spreads your money across many large companies in developed Pacific markets like Australia, Hong Kong, and Singapore. It's built as a diversified core holding, meaning it can sit at the centre of a portfolio rather than being a small side bet. It charges a low yearly fee (TER) of 0.2%, automatically reinvests the dividends it receives, and trades at around 233.3 USD per share.",
+        "fr": "Il s'agit d'un fonds indiciel coté en bourse (ETF) qui réplique l'indice MSCI Pacific ex-Japan : une seule part répartit donc votre argent sur de nombreuses grandes entreprises des marchés développés du Pacifique, comme l'Australie, Hong Kong et Singapour. Il est conçu comme une position de cœur de portefeuille bien diversifiée, c'est-à-dire qu'il peut occuper une place centrale plutôt que d'être un petit pari à côté. Ses frais annuels (TER) sont faibles, à 0,2 %, il réinvestit automatiquement les dividendes qu'il reçoit, et il se négocie autour de 233,3 USD par part."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary stock-market risk: because it holds shares, its price rises and falls with these companies and the broader market, and it can drop noticeably in a bad year. Spreading across many companies softens the blow if one struggles, but it cannot remove the ups and downs of investing in shares.",
+        "fr": "Son principal risque est le risque boursier ordinaire : comme il détient des actions, son prix monte et descend au rythme de ces entreprises et du marché en général, et il peut baisser sensiblement lors d'une mauvaise année. Le fait d'être réparti sur de nombreuses entreprises amortit le choc si l'une d'elles connaît des difficultés, mais cela ne supprime pas les hauts et les bas inhérents à l'investissement en actions."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CPXJ.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B52MJY50",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "WSML.L",
+      "description": {
+        "en": "This is an exchange-traded fund that tracks the MSCI World Small Cap index, so a single share spreads your money across thousands of smaller companies in developed markets around the world. It's built to be a diversified core holding, it reinvests what it earns rather than paying it out, and its yearly running cost (the TER) is 0.35%. Shares trade at around 10.42 USD.",
+        "fr": "C'est un fonds indiciel coté en bourse qui réplique l'indice MSCI World Small Cap : en achetant une seule part, tu répartis ton argent sur des milliers de petites entreprises situées dans les pays développés du monde entier. Il est conçu pour servir de placement central et diversifié, il réinvestit ses revenus au lieu de te les verser, et ses frais annuels (le TER) sont de 0,35 %. La part s'échange autour de 10,42 USD."
+      },
+      "risk_note": {
+        "en": "Its main risk is ordinary stock-market risk: its price rises and falls, and smaller companies in particular can swing more sharply than large ones, so your money can be worth less when you want to sell. There's no guaranteed return, which is why it's meant to be held patiently over many years.",
+        "fr": "Son principal risque est le risque boursier ordinaire : sa valeur monte et descend, et les petites entreprises peuvent en particulier varier plus brusquement que les grandes, si bien que ton argent peut valoir moins au moment où tu veux vendre. Aucun rendement n'est garanti, c'est pourquoi ce fonds est fait pour être conservé patiemment pendant de nombreuses années."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — WSML.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00BF4RFH31",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "AGGS.SW",
+      "description": {
+        "en": "This is a bond fund (an ETF) that spreads your money across thousands of bonds from governments and companies around the world — loans that pay interest. It's \"CHF-hedged,\" which means it cancels out most of the swings between foreign currencies and the Swiss franc, so your returns aren't whipsawed by exchange rates. With a very low yearly fee of 0.1% (the TER) and a price around 4.54 CHF per share, it works as a calm, diversified core holding that reinvests its interest for you.",
+        "fr": "Il s'agit d'un fonds obligataire (un ETF) qui répartit ton argent sur des milliers d'obligations émises par des États et des entreprises du monde entier — des prêts qui versent des intérêts. Il est « couvert en CHF », ce qui veut dire qu'il neutralise l'essentiel des variations entre les monnaies étrangères et le franc suisse, pour que tes rendements ne soient pas malmenés par les taux de change. Avec des frais annuels très bas de 0,1 % (le TER) et un prix autour de 4,54 CHF par part, il sert de placement de base, calme et diversifié, qui réinvestit lui-même les intérêts pour toi."
+      },
+      "risk_note": {
+        "en": "Its main risk is interest-rate risk: when interest rates rise, the value of existing bonds tends to fall, so this fund can dip — historically it moves about 4% per year, gentler than stocks but still not a guarantee.",
+        "fr": "Son principal risque est le risque de taux d'intérêt : quand les taux montent, la valeur des obligations déjà émises a tendance à baisser, donc ce fonds peut reculer — il bouge en moyenne d'environ 4 % par an, plus doucement que les actions, mais ce n'est pas pour autant une garantie."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — AGGS.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00BD1JRY91",
+          "as_of": "2026-06-29",
+          "note": null
+        },
+        {
+          "source": "J.P. Morgan Asset Management — 2026 Long-Term Capital Market Assumptions (CHF)",
+          "url": "https://am.jpmorgan.com/ch/en/asset-management/institutional/insights/portfolio-insights/ltcma/",
+          "as_of": "2025-10-20",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CSBGC7.SW",
+      "description": {
+        "en": "This is a fund that holds a basket of Swiss government bonds — loans to the Swiss Confederation — focused on those that mature in 3 to 7 years. By spreading across many such bonds it acts as a diversified, core building block for steadier returns, and at a low yearly cost (TER) of 0.15% it trades around 74.77 CHF. It pays out the interest it earns to you rather than reinvesting it.",
+        "fr": "C'est un fonds qui détient un panier d'obligations d'État suisses — c'est-à-dire des prêts faits à la Confédération suisse — en se concentrant sur celles qui arrivent à échéance dans 3 à 7 ans. En répartissant l'argent sur de nombreuses obligations de ce type, il joue le rôle d'une brique de base diversifiée pour viser des rendements plus réguliers, et avec un coût annuel faible (TER) de 0,15 %, il se négocie autour de 74,77 CHF. Il te verse directement les intérêts qu'il perçoit plutôt que de les réinvestir."
+      },
+      "risk_note": {
+        "en": "Its main risk is that bond prices fall when interest rates rise, so its value can dip in the short term even though Swiss government bonds are considered very safe to be repaid.",
+        "fr": "Son principal risque est que le prix des obligations baisse lorsque les taux d'intérêt montent : sa valeur peut donc reculer à court terme, même si le remboursement des obligations de l'État suisse est considéré comme très sûr."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CSBGC7.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=CH0016999846",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "CSBGC3.SW",
+      "description": {
+        "en": "This is an index fund that holds short-term Swiss government bonds maturing in 1 to 3 years, so it behaves like a safe, near-cash place to park money in Swiss francs. Because it spreads your money across many government bonds rather than a single one, it acts as a diversified cash holding in your plan. It trades around 63.03 CHF, pays out the interest it earns (distributing), and charges a low yearly fee (TER) of 0.15%.",
+        "fr": "Il s'agit d'un fonds indiciel qui détient des obligations d'État suisses à court terme, arrivant à échéance dans 1 à 3 ans : il se comporte donc comme un placement sûr et proche des liquidités, libellé en francs suisses. Comme il répartit ton argent sur de nombreuses obligations d'État plutôt que sur une seule, il joue le rôle d'une réserve de liquidités diversifiée dans ton plan. Il se négocie autour de 63,03 CHF, reverse les intérêts qu'il perçoit (fonds distribuant) et facture des frais annuels faibles (TER) de 0,15 %."
+      },
+      "risk_note": {
+        "en": "Its main risk is that its price can dip a little when interest rates rise, but because the bonds mature soon (within 1 to 3 years), these moves are small and short-lived compared with shares. It is meant to keep your money steady, not to grow it quickly.",
+        "fr": "Son principal risque est que son prix peut légèrement baisser lorsque les taux d'intérêt montent ; mais comme les obligations arrivent vite à échéance (dans 1 à 3 ans), ces variations restent faibles et de courte durée comparées à celles des actions. Son but est de garder ton argent stable, pas de le faire croître rapidement."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — CSBGC3.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=CH0102530786",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "SGLN.L",
+      "description": {
+        "en": "The iShares Physical Gold ETC is backed by real gold bars held in a vault, so its price follows the price of gold itself rather than any company's profits. It's a diversifier: gold often moves to its own beat, so a small slice can help steady a portfolio when stocks have a rough patch. It trades around 58.87 GBP and has a low yearly cost (TER) of 0.12%.",
+        "fr": "L'iShares Physical Gold ETC est adossé à de vrais lingots d'or conservés dans un coffre, de sorte que son prix suit celui de l'or lui-même plutôt que les bénéfices d'une entreprise. C'est un diversificateur : l'or évolue souvent à son propre rythme, et une petite part peut donc aider à stabiliser un portefeuille lorsque les actions traversent une mauvaise passe. Il se négocie autour de 58,87 GBP et présente un coût annuel faible (TER) de 0,12 %."
+      },
+      "risk_note": {
+        "en": "Gold pays no dividends or interest, and its price can swing a lot — with assumed yearly ups and downs (volatility) of about 14.4% — so it can drop for long stretches and you might get back less than you put in.",
+        "fr": "L'or ne verse ni dividendes ni intérêts, et son prix peut fortement varier — avec des hauts et des bas annuels supposés (volatilité) d'environ 14,4 % — il peut donc baisser durant de longues périodes et vous pourriez récupérer moins que ce que vous avez investi."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — SGLN.L (justETF / Yahoo Finance via yfinance)",
+          "url": "https://www.justetf.com/en/etf-profile.html?isin=IE00B4ND3602",
+          "as_of": "2026-06-29",
+          "note": null
+        },
+        {
+          "source": "J.P. Morgan Asset Management — 2026 Long-Term Capital Market Assumptions (CHF)",
+          "url": "https://am.jpmorgan.com/ch/en/asset-management/institutional/insights/portfolio-insights/ltcma/",
+          "as_of": "2025-10-20",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "NESN.SW",
+      "description": {
+        "en": "Nestlé is one of the world's largest food and drink companies, behind everyday brands like coffee, bottled water, chocolate, and pet food. This is a single Swiss stock that trades around 84.3 CHF and is part of the Swiss Market Index (SMI). It sits in your plan as a satellite: a small, single-company pick that adds a little flavour around a broadly diversified core, rather than being the foundation itself.",
+        "fr": "Nestlé est l'une des plus grandes entreprises d'alimentation et de boissons au monde, à l'origine de marques du quotidien comme le café, l'eau en bouteille, le chocolat et la nourriture pour animaux. Il s'agit d'une seule action suisse, qui s'échange autour de 84,3 CHF et fait partie de l'indice Swiss Market Index (SMI). Dans ton plan, elle joue un rôle de satellite : un petit choix concentré sur une seule entreprise, qui vient ajouter une touche autour d'un cœur de portefeuille bien diversifié, plutôt que d'en constituer la base."
+      },
+      "risk_note": {
+        "en": "Because this is a single company rather than a basket of many, its main risk is company-specific: if Nestlé alone has a bad year, your money in it can fall even when the wider market is calm. Its beta of 0.5 suggests it has historically moved less sharply than the overall market, but its price can still go down as well as up.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un panier qui en regroupe plusieurs, son principal risque est propre à la société : si Nestlé connaît à elle seule une mauvaise année, l'argent que tu y as placé peut baisser même lorsque le marché dans son ensemble reste calme. Son bêta de 0,5 indique qu'historiquement, elle a bougé moins fortement que le marché global, mais son cours peut tout de même baisser comme monter."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — NESN.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/NESN.SW",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "NOVN.SW",
+      "description": {
+        "en": "Novartis is a large Swiss healthcare company that researches, makes, and sells prescription medicines. In this plan it's a satellite holding: a single-company pick that adds a bit of focus around your diversified core, not a whole basket of stocks on its own. Its shares are listed in Switzerland and trade at around 126.2 CHF.",
+        "fr": "Novartis est une grande entreprise suisse de santé qui cherche, fabrique et vend des médicaments sur ordonnance. Dans ce plan, c'est une position satellite : le choix d'une seule entreprise, qui ajoute un peu de précision autour de ton cœur de portefeuille diversifié, et non un panier d'actions à lui tout seul. Ses actions sont cotées en Suisse et s'échangent autour de 126,2 CHF."
+      },
+      "risk_note": {
+        "en": "Because it's a single company, its price can swing on news about one firm — a trial result, a patent, or a regulator's decision — in a way a broad fund wouldn't. That said, it has tended to move less than the overall market (a beta of about 0.49), so it's usually steadier than a typical stock, not riskier.",
+        "fr": "Comme il s'agit d'une seule entreprise, son cours peut bouger fortement à cause d'une nouvelle qui ne concerne qu'elle — le résultat d'un essai clinique, un brevet ou la décision d'une autorité — d'une manière qu'un fonds large éviterait. Cela dit, l'action a eu tendance à varier moins que l'ensemble du marché (un bêta d'environ 0,49), donc elle est en général plus stable qu'une action typique, et non plus risquée."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — NOVN.SW (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/NOVN.SW",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "description": {
+        "en": "Apple Inc. (AAPL) is the company behind the iPhone, Mac, iPad, and services like the App Store and iCloud. In this portfolio it's a satellite, single-name pick: a small, focused position in one specific company rather than a broad, diversified fund. Its shares trade at around 281.55 USD.",
+        "fr": "Apple Inc. (AAPL) est l'entreprise qui conçoit l'iPhone, le Mac, l'iPad ainsi que des services comme l'App Store et iCloud. Dans ce portefeuille, il s'agit d'une position satellite portant sur une seule entreprise : une petite position ciblée sur une société précise, plutôt qu'un fonds large et diversifié. Son action s'échange autour de 281,55 USD."
+      },
+      "risk_note": {
+        "en": "Because this is a single company rather than a diversified fund, its price can swing more sharply than the broad market: with a beta of 1.09, it tends to move a touch more than the overall market, up in good times and down in bad. Its value can fall, and you could get back less than you put in.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un fonds diversifié, son cours peut varier plus brusquement que l'ensemble du marché : avec un bêta de 1,09, l'action a tendance à bouger un peu plus que le marché global, à la hausse dans les bonnes périodes comme à la baisse dans les mauvaises. Sa valeur peut diminuer, et vous pourriez récupérer moins que ce que vous avez investi."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — AAPL (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/AAPL",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "description": {
+        "en": "Microsoft is a single company you can own a small piece of by buying its shares, which trade around 368.45 USD each. It makes software like Windows and Office, runs the Azure cloud platform, and builds devices and tools that businesses and people use every day. In this plan it is a satellite (single-name) pick: a focused bet on one company that sits around the steady core, not a diversified fund.",
+        "fr": "Microsoft est une seule entreprise dont tu peux posséder une petite part en achetant ses actions, qui s'échangent autour de 368,45 USD chacune. Elle conçoit des logiciels comme Windows et Office, gère la plateforme infonuagique Azure, et fabrique des appareils et des outils utilisés chaque jour par les entreprises et les particuliers. Dans ce plan, c'est un choix satellite (une seule valeur) : un pari ciblé sur une entreprise unique qui vient compléter le cœur stable du portefeuille, et non un fonds diversifié."
+      },
+      "risk_note": {
+        "en": "Because this is a single company rather than a basket of many, its price can swing more sharply than the whole market when the news is good or bad for Microsoft alone. Even a strong, profitable business can fall in value, so a satellite like this should stay a small part of your overall plan.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un panier qui en regroupe plusieurs, son cours peut varier plus brusquement que l'ensemble du marché lorsque l'actualité est bonne ou mauvaise pour Microsoft seule. Même une entreprise solide et rentable peut perdre de la valeur ; un satellite comme celui-ci devrait donc rester une petite partie de ton plan global."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — MSFT (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/MSFT",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "description": {
+        "en": "Alphabet is the company behind Google — search, YouTube, Android, the Chrome browser, Google Cloud, and a fast-growing advertising business. This is a single-stock (single-name) pick, so it sits in your plan as a satellite: a small, focused position around the steady core rather than something to build the whole portfolio on. The shares (Class A) trade at around 353.52 USD each.",
+        "fr": "Alphabet est l'entreprise derrière Google — la recherche, YouTube, Android, le navigateur Chrome, Google Cloud et une activité publicitaire en forte croissance. Il s'agit ici d'une seule action (un titre individuel), elle occupe donc dans ton plan le rôle de satellite : une position petite et ciblée, placée autour du cœur stable du portefeuille, et non quelque chose sur lequel tu bâtirais l'ensemble. Les actions (catégorie A) se négocient autour de 353,52 USD chacune."
+      },
+      "risk_note": {
+        "en": "Because this is a single company rather than a diversified fund, its price can swing more sharply than the overall market — strong years and weak years come with the territory, and bad news about one business (say, advertising or a regulator's decision) hits the whole position at once. That's the ordinary risk of owning one name, which is exactly why it belongs in a small satellite slice.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un fonds diversifié, son cours peut varier plus brusquement que l'ensemble du marché — les bonnes et les mauvaises années font partie du jeu, et une mauvaise nouvelle touchant une seule activité (la publicité ou une décision d'un régulateur, par exemple) frappe toute la position d'un coup. C'est le risque habituel de détenir un seul titre, et c'est précisément pour cela qu'il a sa place dans une petite part satellite."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — GOOGL (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/GOOGL",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "description": {
+        "en": "Amazon is the US company behind the Amazon online store, the Prime service, and Amazon Web Services, the cloud business that runs a large part of the internet. In this portfolio it is a satellite: a single-company pick that adds a focused bet on top of your diversified core, rather than spreading your money across many businesses at once. Its shares trade around 240.1 USD.",
+        "fr": "Amazon est l'entreprise américaine derrière la boutique en ligne Amazon, le service Prime et Amazon Web Services, l'activité d'informatique en nuage qui fait tourner une grande partie d'internet. Dans ce portefeuille, c'est un satellite : le choix d'une seule entreprise, qui ajoute un pari ciblé par-dessus votre socle diversifié, au lieu de répartir votre argent sur de nombreuses sociétés à la fois. Son action s'échange autour de 240,1 USD."
+      },
+      "risk_note": {
+        "en": "Because this is a single company, its price can swing more than the broad market, and a beta of 1.44 means it has historically moved roughly 44% more than the market in both directions. If Amazon hits a tough patch on its own, there is no other holding inside this one position to cushion the fall, so keep it a small satellite slice.",
+        "fr": "Comme il s'agit d'une seule entreprise, son cours peut varier plus fortement que l'ensemble du marché : un bêta de 1,44 signifie qu'historiquement, elle a bougé environ 44 % de plus que le marché, à la hausse comme à la baisse. Si Amazon traverse une mauvaise passe qui lui est propre, aucune autre valeur à l'intérieur de cette position ne viendra amortir la chute, alors gardez-en une petite part en tant que satellite."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — AMZN (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/AMZN",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "description": {
+        "en": "NVIDIA designs the graphics and AI chips that power video games, data centres, and most of today's artificial-intelligence boom. This is a single stock, not a fund, so it's a \"satellite\" pick: one focused company added in a small dose around the diversified core of your portfolio. Its shares trade at around 194.87 USD.",
+        "fr": "NVIDIA conçoit les puces graphiques et d'intelligence artificielle qui font tourner les jeux vidéo, les centres de données et une grande partie de l'essor actuel de l'IA. Il s'agit ici d'une action individuelle, et non d'un fonds : c'est donc un choix « satellite », c'est-à-dire une seule entreprise ajoutée à petite dose autour du cœur diversifié de ton portefeuille. Son action se négocie autour de 194,87 USD."
+      },
+      "risk_note": {
+        "en": "Its main risk is that the price swings far more sharply than the overall market — its beta of 2.2 means it tends to move roughly twice as much, up and down. It actually failed our \"safe universe\" check for being too volatile, but instead of dropping it, the app keeps it only at a small, carefully limited satellite weight so one jumpy name can't dominate or sink your plan.",
+        "fr": "Son principal risque est que son cours oscille bien plus brutalement que le marché dans son ensemble : son bêta de 2,2 signifie qu'elle a tendance à bouger environ deux fois plus fort, à la hausse comme à la baisse. Elle n'a d'ailleurs pas passé notre filtre « univers sûr », jugée trop volatile ; mais plutôt que de l'écarter, l'application la conserve uniquement à un petit poids satellite soigneusement plafonné, pour qu'une valeur aussi nerveuse ne puisse ni dominer ton plan ni le faire couler."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — NVDA (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/NVDA",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "description": {
+        "en": "Tesla, Inc. is the company behind electric cars and energy products like solar panels and home batteries. In this app it's a single-name \"satellite\" pick — one individual stock that adds a small, specific bet on top of your diversified core, rather than a fund spread across many companies. It currently trades around 411.99 USD.",
+        "fr": "Tesla, Inc. est l'entreprise derrière les voitures électriques et des produits liés à l'énergie, comme les panneaux solaires et les batteries domestiques. Dans cette application, c'est un choix « satellite » à titre unique — une seule action individuelle qui ajoute un petit pari précis par-dessus votre cœur de portefeuille diversifié, plutôt qu'un fonds réparti sur de nombreuses entreprises. Elle se négocie actuellement autour de 411,99 USD."
+      },
+      "risk_note": {
+        "en": "Its main risk is that the price swings more than the overall market: with a beta of 1.8, it tends to move almost twice as hard in both directions, so the value can rise or fall sharply. The app does not exclude it for this — instead it includes it only at a small, responsibly risk-adjusted satellite weight, meaning just a thin slice of your portfolio, so one bumpy holding can't dominate the whole.",
+        "fr": "Son principal risque est que son prix varie davantage que l'ensemble du marché : avec un bêta de 1,8, il a tendance à bouger presque deux fois plus fort dans les deux sens, si bien que sa valeur peut monter ou descendre brusquement. L'application ne l'exclut pas pour autant — elle l'inclut uniquement à un petit poids « satellite » ajusté au risque de façon responsable, c'est-à-dire une fine tranche seulement de votre portefeuille, pour qu'une position aussi mouvementée ne puisse jamais dominer l'ensemble."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — TSLA (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/TSLA",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "ASML.AS",
+      "description": {
+        "en": "ASML is a Dutch company that builds the giant, extremely precise machines used to print the tiny circuits on computer chips, and it's the only firm in the world that makes the most advanced version. In your plan it's a satellite: a single-company pick that adds focused exposure on top of your core funds, rather than spreading your money across hundreds of firms at once. Its shares trade around 1612 EUR.",
+        "fr": "ASML est une entreprise néerlandaise qui fabrique les machines géantes et d'une précision extrême servant à graver les minuscules circuits des puces informatiques, et c'est la seule au monde à produire la version la plus avancée. Dans ton plan, c'est un satellite : un choix portant sur une seule entreprise, qui ajoute une exposition ciblée par-dessus tes fonds de cœur, au lieu de répartir ton argent sur des centaines de sociétés à la fois. Son action se négocie autour de 1612 EUR."
+      },
+      "risk_note": {
+        "en": "Because everything rides on one company, the price can swing more sharply than a broad fund: with a beta of 1.4, it has tended to move about 40% more than the overall market, up and down. If the chip-equipment business slows or this single firm stumbles, your holding can drop hard with no other companies to cushion the fall.",
+        "fr": "Comme tout repose sur une seule entreprise, le cours peut varier plus fortement qu'un fonds diversifié : avec un bêta de 1,4, l'action a eu tendance à bouger environ 40 % de plus que l'ensemble du marché, à la hausse comme à la baisse. Si le secteur des équipements pour puces ralentit ou si cette seule société trébuche, ta position peut chuter brutalement, sans aucune autre entreprise pour amortir la baisse."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — ASML.AS (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/ASML.AS",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "MC.PA",
+      "description": {
+        "en": "LVMH is a French luxury-goods group whose brands span fashion, leather goods, wines and spirits, perfumes, watches and jewellery. In your plan it's a satellite, single-name pick: one specific company rather than a basket, used to add a little extra alongside your core. Its shares trade around 492.3 EUR.",
+        "fr": "LVMH est un groupe français de produits de luxe dont les marques couvrent la mode, la maroquinerie, les vins et spiritueux, les parfums, l'horlogerie et la joaillerie. Dans ton plan, c'est une position satellite portant sur une seule valeur : une entreprise précise plutôt qu'un panier, utilisée pour ajouter un petit complément à côté de ton cœur de portefeuille. Son action se négocie autour de 492,3 EUR."
+      },
+      "risk_note": {
+        "en": "Because this is one company rather than a diversified fund, its price can swing on news about luxury demand or that single business alone; with a beta of 0.84 it has tended to move a bit less than the broad market, but it can still fall meaningfully in a downturn.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un fonds diversifié, son cours peut varier fortement au gré des nouvelles sur la demande de produits de luxe ou sur cette seule activité ; avec un bêta de 0,84, l'action a eu tendance à bouger un peu moins que l'ensemble du marché, mais elle peut tout de même reculer de façon notable lors d'une baisse."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — MC.PA (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/MC.PA",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    },
+    {
+      "ticker": "NOVO-B.CO",
+      "description": {
+        "en": "Novo Nordisk is a Danish healthcare company best known for its diabetes and weight-management medicines. Here it's a single-stock \"satellite\" pick — one company you hold in a small slice alongside your broad core, betting on its specific story rather than the whole market. Its shares trade at around 314.9 DKK.",
+        "fr": "Novo Nordisk est une entreprise danoise du secteur de la santé, surtout connue pour ses médicaments contre le diabète et pour la gestion du poids. Ici, c'est un choix « satellite » à action unique : une seule entreprise que tu détiens dans une petite part, à côté de ton cœur de portefeuille bien diversifié, en pariant sur son histoire propre plutôt que sur l'ensemble du marché. Son action s'échange autour de 314,9 DKK."
+      },
+      "risk_note": {
+        "en": "Because this is a single company rather than a basket of many, its price can swing on news about that one business — a disappointing trial, a new competitor, or weaker sales — so it's riskier than a diversified fund and belongs only in a small satellite slice.",
+        "fr": "Comme il s'agit d'une seule entreprise et non d'un panier de plusieurs, son cours peut bouger fortement à la moindre nouvelle concernant cette société — un essai clinique décevant, un nouveau concurrent ou des ventes plus faibles. C'est donc plus risqué qu'un fonds diversifié, et cela n'a sa place que dans une petite part satellite."
+      },
+      "citations": [
+        {
+          "source": "Future You snapshot — NOVO-B.CO (justETF / Yahoo Finance via yfinance)",
+          "url": "https://finance.yahoo.com/quote/NOVO-B.CO",
+          "as_of": "2026-06-29",
+          "note": null
+        }
+      ]
+    }
+  ]
+}
