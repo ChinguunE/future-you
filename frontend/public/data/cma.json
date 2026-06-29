@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "source": {
+    "source": "J.P. Morgan Asset Management — 2026 Long-Term Capital Market Assumptions (CHF)",
+    "url": "https://am.jpmorgan.com/ch/en/asset-management/institutional/insights/portfolio-insights/ltcma/",
+    "as_of": "2025-10-20",
+    "note": "Licensed CHF matrix kept locally in docs/references/ (git-ignored). expected_return = JPM arithmetic 2026 return; compound_return = JPM compound 2026 return; volatility = JPM annualized volatility. Class->JPM-row mapping: cash_chf=JPM 'Swiss Cash'; swiss_bonds=JPM 'Swiss Government Bonds'; global_agg_bonds=JPM 'World Government Bonds hedged' — closest single global CHF-hedged bond series (proxy for the global aggregate; govt-only, so a touch conservative on yield); swiss_equity=JPM 'Swiss Equity'; us_equity=JPM 'U.S. Large Cap'; europe_equity=JPM 'European Large Cap'; japan_equity=JPM 'Japanese Equity'; em_equity=JPM 'Emerging Markets Equity'; world_equity=JPM 'AC World Equity'; gold=JPM 'Gold'."
+  },
+  "base_currency": "CHF",
+  "horizon_years": 13,
+  "assumptions": [
+    {
+      "asset_class": "cash_chf",
+      "label": "CHF cash",
+      "expected_return": 0.012008,
+      "compound_return": 0.013,
+      "volatility": 0.004087
+    },
+    {
+      "asset_class": "swiss_bonds",
+      "label": "Swiss government bonds",
+      "expected_return": 0.002881,
+      "compound_return": 0.002,
+      "volatility": 0.042074
+    },
+    {
+      "asset_class": "global_agg_bonds",
+      "label": "Global bonds (CHF-hedged)",
+      "expected_return": 0.024773,
+      "compound_return": 0.022,
+      "volatility": 0.039828
+    },
+    {
+      "asset_class": "swiss_equity",
+      "label": "Swiss equity",
+      "expected_return": 0.051284,
+      "compound_return": 0.045,
+      "volatility": 0.132761
+    },
+    {
+      "asset_class": "us_equity",
+      "label": "US large-cap equity",
+      "expected_return": 0.074153,
+      "compound_return": 0.059,
+      "volatility": 0.169661
+    },
+    {
+      "asset_class": "europe_equity",
+      "label": "European equity",
+      "expected_return": 0.076721,
+      "compound_return": 0.07,
+      "volatility": 0.166994
+    },
+    {
+      "asset_class": "japan_equity",
+      "label": "Japanese equity",
+      "expected_return": 0.092538,
+      "compound_return": 0.082,
+      "volatility": 0.152854
+    },
+    {
+      "asset_class": "em_equity",
+      "label": "Emerging-market equity",
+      "expected_return": 0.086542,
+      "compound_return": 0.064,
+      "volatility": 0.179575
+    },
+    {
+      "asset_class": "world_equity",
+      "label": "Global (all-country) equity",
+      "expected_return": 0.075521,
+      "compound_return": 0.063,
+      "volatility": 0.158704
+    },
+    {
+      "asset_class": "gold",
+      "label": "Gold",
+      "expected_return": 0.058668,
+      "compound_return": 0.032,
+      "volatility": 0.144066
+    }
+  ],
+  "correlation": [
+    [
+      1.0,
+      0.27078,
+      0.211578,
+      -0.167296,
+      -0.171733,
+      -0.151078,
+      -0.141544,
+      -0.102058,
+      -0.159524,
+      0.084379
+    ],
+    [
+      0.27078,
+      1.0,
+      0.779675,
+      0.065627,
+      0.113884,
+      -0.011238,
+      0.082441,
+      -0.026899,
+      0.064327,
+      0.173173
+    ],
+    [
+      0.211578,
+      0.779675,
+      1.0,
+      0.099263,
+      -0.001494,
+      -0.032025,
+      -0.009563,
+      -0.04362,
+      -0.015321,
+      0.109435
+    ],
+    [
+      -0.167296,
+      0.065627,
+      0.099263,
+      1.0,
+      0.789696,
+      0.884968,
+      0.667683,
+      0.637285,
+      0.839676,
+      -0.083873
+    ],
+    [
+      -0.171733,
+      0.113884,
+      -0.001494,
+      0.789696,
+      1.0,
+      0.837598,
+      0.756712,
+      0.676998,
+      0.965831,
+      -0.016365
+    ],
+    [
+      -0.151078,
+      -0.011238,
+      -0.032025,
+      0.884968,
+      0.837598,
+      1.0,
+      0.744946,
+      0.776699,
+      0.924455,
+      -0.064731
+    ],
+    [
+      -0.141544,
+      0.082441,
+      -0.009563,
+      0.667683,
+      0.756712,
+      0.744946,
+      1.0,
+      0.635044,
+      0.81072,
+      -0.057226
+    ],
+    [
+      -0.102058,
+      -0.026899,
+      -0.04362,
+      0.637285,
+      0.676998,
+      0.776699,
+      0.635044,
+      1.0,
+      0.807491,
+      0.075928
+    ],
+    [
+      -0.159524,
+      0.064327,
+      -0.015321,
+      0.839676,
+      0.965831,
+      0.924455,
+      0.81072,
+      0.807491,
+      1.0,
+      -0.018142
+    ],
+    [
+      0.084379,
+      0.173173,
+      0.109435,
+      -0.083873,
+      -0.016365,
+      -0.064731,
+      -0.057226,
+      0.075928,
+      -0.018142,
+      1.0
+    ]
+  ]
+}
