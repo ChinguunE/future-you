@@ -4,3 +4,8 @@ pytest
 httpx
 ruff
 mypy
+# Phase 2 data layer — SEED/REFRESH ONLY, never imported by the deployed app.
+# The app serves committed JSON snapshots; these build them off the request path.
+yfinance        # dev/seed market-data source (prices, beta, market cap)
+pyyaml          # human-editable curated seed (universe.yaml, cma.yaml)
+types-PyYAML    # type stubs for mypy
