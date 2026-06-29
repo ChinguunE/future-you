@@ -121,12 +121,21 @@ def tangency_weights(
     """Closed-form tangency portfolio ``Σ⁻¹(μ − rf) / Σ Σ⁻¹(μ − rf)``.
 
     Unconstrained (may imply shorting); used to anchor the capital-market line.
+
+    The normalising sum ``1'Σ⁻¹(μ − rf)`` is positive only when ``risk_free`` is
+    below the minimum-variance return. At or above it the sum is ``≤ 0`` and
+    dividing through would flip every sign, returning the inefficient
+    minimum-Sharpe mirror portfolio — so we raise instead of returning a quietly
+    wrong answer.
     """
     m, c = _check_inputs(mu, cov)
     raw = np.linalg.solve(c, m - risk_free)
     total = raw.sum()
-    if total == 0.0:
-        raise ValueError("tangency portfolio is undefined for these inputs")
+    if total <= 0.0:
+        raise ValueError(
+            "tangency portfolio is undefined: the risk-free rate is at or above "
+            "the minimum-variance return, so no max-Sharpe fully-invested mix exists"
+        )
     return np.asarray(raw / total, dtype=np.float64)
 
 

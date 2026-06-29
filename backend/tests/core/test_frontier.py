@@ -32,6 +32,16 @@ def test_tangency_weights_known_closed_form() -> None:
     assert weights == pytest.approx([1 / 3, 2 / 3])
 
 
+def test_tangency_undefined_when_risk_free_at_or_above_gmv_return() -> None:
+    # rf above the minimum-variance return flips the normalisation sign, which
+    # would silently return the inefficient minimum-Sharpe mirror portfolio.
+    # The tangency portfolio is genuinely undefined here, so it must raise.
+    mu = np.array([0.03, 0.04])
+    cov = np.array([[0.04, 0.0], [0.0, 0.01]])  # GMV return ~0.038
+    with pytest.raises(ValueError):
+        frontier.tangency_weights(mu, cov, risk_free=0.10)
+
+
 # --- Global minimum-variance portfolio ------------------------------------
 
 

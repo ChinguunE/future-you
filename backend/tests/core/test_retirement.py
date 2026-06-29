@@ -41,7 +41,9 @@ def test_capital_needed_matches_discounted_cashflows() -> None:
 def test_required_contribution_round_trips_through_fv() -> None:
     target, current, rate, years = 50_000.0, 10_000.0, 0.06, 10
     contribution = retirement.required_contribution(target, current, rate, years)
-    assert contribution > 0
+    # Independent known-answer anchor (CFA derivation): effective monthly rate
+    # 1.06^(1/12)-1; (50000 - 10000*1.06^10) / annuity_factor(120 months).
+    assert contribution == pytest.approx(197.5186, rel=1e-5)
     # Growing today's savings plus the solved contributions must hit the target.
     reached = fv_lump_sum(current, rate, years) + fv_contributions(contribution, rate, years)
     assert reached == pytest.approx(target)
