@@ -12,6 +12,7 @@ from fastapi import APIRouter
 
 from app.api import data
 from app.api.adapters import resolve_picks, to_profile, to_response
+from app.api.errors import ApiError
 from app.api.schemas import PlanRequest, PlanResponse
 from core.plan import build_plan
 
@@ -24,15 +25,21 @@ def create_plan(request: PlanRequest) -> PlanResponse:
     index = data.universe_index()
     resolved, excluded = resolve_picks(request.picks, index)
 
-    plan = build_plan(
-        profile=to_profile(request.profile),
-        risk_answers=request.risk_answers,
-        picks=resolved,
-        core_funds=data.core_funds(),
-        market=data.market_assumptions(),
-        initial=request.money.initial,
-        monthly_contribution=request.money.monthly_contribution,
-        pillar_3a_limit=data.PILLAR_3A_LIMIT_CHF,
-        annual_budget=request.money.annual_budget,
-    )
+    try:
+        plan = build_plan(
+            profile=to_profile(request.profile),
+            risk_answers=request.risk_answers,
+            picks=resolved,
+            core_funds=data.core_funds(),
+            market=data.market_assumptions(),
+            initial=request.money.initial,
+            monthly_contribution=request.money.monthly_contribution,
+            pillar_3a_limit=data.PILLAR_3A_LIMIT_CHF,
+            annual_budget=request.money.annual_budget,
+        )
+    except ValueError as exc:
+        # The request passed schema validation but the engine still rejected it
+        # (a rare edge the bounds don't cover) — a 422, not a 500.
+        raise ApiError(code="invalid_plan_input", status_code=422, message=str(exc)) from exc
+
     return to_response(plan, excluded=excluded, as_of=data.universe().generated_at.isoformat())

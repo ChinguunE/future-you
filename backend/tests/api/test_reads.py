@@ -48,7 +48,7 @@ def test_asset_lookup_is_case_insensitive() -> None:
 def test_unknown_asset_is_404() -> None:
     resp = client.get("/assets/NOPE")
     assert resp.status_code == 404
-    assert resp.json()["detail"] == "asset_not_found"
+    assert resp.json()["error"]["code"] == "asset_not_found"
 
 
 def test_glossary_returns_bilingual_learn_content() -> None:

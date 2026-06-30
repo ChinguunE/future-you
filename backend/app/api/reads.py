@@ -9,9 +9,10 @@ asset-class/exposure label per instrument, not a structured sector dataset.)
 
 from __future__ import annotations
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
 from app.api import data
+from app.api.errors import ApiError
 from app.api.schemas import AssetDetail, LearnContent
 from app.snapshots.schemas import CMA, Universe
 
@@ -38,7 +39,7 @@ def get_asset(ticker: str) -> AssetDetail:
     key = ticker.upper()
     instrument = data.universe_index().get(key)
     if instrument is None:
-        raise HTTPException(status_code=404, detail="asset_not_found")
+        raise ApiError(code="asset_not_found", status_code=404)
     return AssetDetail(instrument=instrument, content=data.content_index().get(key))
 
 

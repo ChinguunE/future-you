@@ -14,6 +14,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from app.api import plan, reads
+from app.api.errors import register_error_handlers
 from app.config import get_settings
 
 settings = get_settings()
@@ -62,3 +63,5 @@ def health() -> dict[str, str]:
 
 app.include_router(plan.router)
 app.include_router(reads.router)
+
+register_error_handlers(app)
