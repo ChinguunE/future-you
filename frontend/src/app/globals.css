@@ -32,6 +32,7 @@
   --ink:        #14302B; /* headings / outlines   14.12:1 white · 13.19:1 paper */
   --text:       #33514A; /* body                   8.69:1 white ·  8.12:1 paper */
   --text-muted: #5E726B; /* captions / secondary   5.13:1 white ·  4.79:1 paper — AA */
+  --ink-a48:    rgba(20, 48, 43, 0.48); /* modal/sheet scrim — ink at 48%, never pure black (DESIGN §13) */
 
   /* Surfaces */
   --paper: #FBF7EC;
@@ -83,6 +84,7 @@
   --neg: #C0353A;          /* losses — 5.51:1 white · 5.15:1 paper */
 
   --focus: var(--green-700); /* visible focus ring — 3:1+ on light (was --sky, only 2.23:1) */
+  --scrim: var(--ink-a48);   /* dimmed backdrop behind dialogs & bottom sheets (DESIGN §5/§13) */
 
   /* shadcn/ui semantic variables → remapped onto our brand so every shadcn
      primitive (Button, Card, Dialog, …) inherits the palette automatically. */
@@ -162,6 +164,8 @@
   --color-paper:       var(--paper);
   --color-white:       var(--white);
   --color-ink:         var(--ink);
+  --color-ink-a48:     var(--ink-a48);
+  --color-scrim:       var(--scrim);
   --color-text:        var(--text);
   --color-text-muted:  var(--text-muted);
   --color-brand:       var(--green-600);

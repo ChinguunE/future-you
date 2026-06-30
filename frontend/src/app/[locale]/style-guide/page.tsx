@@ -15,7 +15,7 @@ import {Illustration} from '@/components/illustration/Illustration';
 import {Sprout} from '@/components/illustration/Sprout';
 import {SPROUT_MOMENTS, SPROUT_MOMENT_ORDER} from '@/components/illustration/moments';
 import {ILLUSTRATIONS, ILLUSTRATION_CATEGORIES} from '@/lib/illustrations';
-import {ChipsDemo, ControlsDemo} from './demos';
+import {ChipsDemo, ControlsDemo, OverlaysDemo} from './demos';
 
 /**
  * /style-guide — a dev-only gallery of the Phase-4 design tokens (DESIGN §2–§4,
@@ -386,6 +386,13 @@ export default async function StyleGuidePage({
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* ---- Overlays & disclosure (Dialog · Sheet · Tooltip · Tabs · Accordion) ---- */}
+      <section className="mb-12">
+        <h3 className="text-h2 mb-1 text-ink">{t('components.overlaysTitle')}</h3>
+        <p className="mb-6 max-w-prose text-text">{t('components.overlaysNote')}</p>
+        <OverlaysDemo />
       </section>
 
       {/* ---- Numbers (tabular, locale-formatted) ---- */}
