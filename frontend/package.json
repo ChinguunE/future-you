@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "check:emoji": "node scripts/check-no-emoji.mjs",
     "gen:illustrations": "node scripts/gen-illustrations.mjs"
   },
   "dependencies": {

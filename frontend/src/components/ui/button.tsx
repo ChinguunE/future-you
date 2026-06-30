@@ -4,38 +4,74 @@ import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
+/**
+ * The signature pressable button (DESIGN §4) — our one tactile move, in our
+ * palette. A hard 4px bottom-shadow (no blur) gives it depth; on :active it
+ * sinks flat (translateY 4px + the shadow collapses to 0). The press is a real
+ * CSS transition, so the global `prefers-reduced-motion` rule in globals.css
+ * makes the sink INSTANT for users who ask for less motion — the state still
+ * changes, just without the 80ms ease.
+ *
+ * Accessibility — the catch of this slice. Every label clears WCAG-AA at normal
+ * text strength (a 18px/700 label sits just under the "large bold" threshold, so
+ * 4.5:1 is required, not 3:1):
+ *   • dark fills  → WHITE label   green-600 5.22:1 · ink 14.12:1 · neg 5.51:1
+ *   • light fills → --ink label   coral 5.06:1 · gold 7.28:1 · sky 6.34:1 · grape 5.67:1
+ *   • secondary / ghost / link    green-700 text  6.39:1 white · 5.97:1 paper
+ * The edge tone is decorative (never text), so it carries no contrast bar.
+ *
+ * The component stays server-renderable (the press is pure CSS), so landing-page
+ * CTAs can use it without a client boundary.
+ */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  [
+    "group/button relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2",
+    "rounded-lg border border-transparent bg-clip-padding font-display font-bold leading-none whitespace-nowrap select-none",
+    "[--btn-edge:transparent] shadow-[0_4px_0_var(--btn-edge)]",
+    "transition-[transform,box-shadow,filter] duration-[80ms] ease-out",
+    "active:translate-y-1 active:shadow-[0_0_0_var(--btn-edge)]",
+    "disabled:pointer-events-none disabled:translate-y-0 disabled:opacity-50 disabled:shadow-none disabled:cursor-not-allowed",
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
+  ],
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
-        outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+        // Dark fills → white label.
+        primary:
+          "bg-green-600 text-white [--btn-edge:var(--green-800)] hover:brightness-[1.04]",
+        ink: "bg-ink text-white [--btn-edge:var(--ink-shadow)] hover:brightness-[1.18]",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-neg text-white [--btn-edge:var(--neg-shadow)] hover:brightness-[1.05]",
+        // Light fills → --ink label.
+        coral:
+          "bg-coral text-ink [--btn-edge:var(--coral-shadow)] hover:brightness-[1.04]",
+        gold: "bg-gold text-ink [--btn-edge:var(--gold-shadow)] hover:brightness-[1.04]",
+        sky: "bg-sky text-ink [--btn-edge:var(--sky-shadow)] hover:brightness-[1.04]",
+        grape:
+          "bg-grape text-ink [--btn-edge:var(--grape-shadow)] hover:brightness-[1.04]",
+        // White outline → green-700 label, grey edge (DESIGN §4 secondary).
+        secondary:
+          "bg-white text-brand-deep border-2 border-green-600 [--btn-edge:var(--button-secondary-shadow)] hover:bg-green-300/30",
+        // `outline` is the shadcn name some primitives (Dialog) ask for — same look.
+        outline:
+          "bg-white text-brand-deep border-2 border-green-600 [--btn-edge:var(--button-secondary-shadow)] hover:bg-green-300/30",
+        // Flat affordances — no 3D edge.
+        ghost:
+          "text-brand-deep shadow-none hover:bg-green-300/30 active:translate-y-0 active:shadow-none",
+        link: "text-brand-deep underline-offset-4 shadow-none hover:underline active:translate-y-0 active:shadow-none",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+        // ≥48px primary tap targets (DESIGN §4 / §11).
+        default: "min-h-12 rounded-lg px-6 text-[1.125rem]",
+        sm: "min-h-11 rounded-md px-4 text-[0.95rem]",
+        lg: "min-h-14 rounded-lg px-8 text-xl",
+        icon: "size-12 px-0",
         "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+          "size-10 rounded-md px-0 [&_svg:not([class*='size-'])]:size-4",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "default",
     },
   }
@@ -43,7 +79,7 @@ const buttonVariants = cva(
 
 function Button({
   className,
-  variant = "default",
+  variant = "primary",
   size = "default",
   asChild = false,
   ...props

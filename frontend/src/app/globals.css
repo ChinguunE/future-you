@@ -38,11 +38,21 @@
   --white: #FFFFFF;
 
   /* Accents — decorative FILLS only (all fail text AA on white; see DESIGN §11)
-     paired with the darker "shadow" tone for the pressable 3D edge. */
-  --coral: #F07854;  --coral-shadow: #C85A3C;
-  --gold:  #FCA848;  --gold-shadow:  #D98828;
-  --sky:   #6CB4F0;
-  --grape: #9C9CF0;
+     paired with the darker "shadow" tone for the pressable 3D edge. Each edge is
+     a hand-darkened sibling (34–55% lower luminance) so the button reads tactile;
+     the edge is never text, so it carries no contrast requirement of its own. */
+  --coral: #F07854;  --coral-shadow: #C85A3C; /* edge L drops 39% */
+  --gold:  #FCA848;  --gold-shadow:  #D98828; /* edge L drops 34% */
+  --sky:   #6CB4F0;  --sky-shadow:   #3E86C4; /* edge L drops 48% */
+  --grape: #9C9CF0;  --grape-shadow: #6E6CD6; /* edge L drops 49% */
+  --ink-shadow: #0C1E1A; /* 3D edge under an ink / dark button */
+  --neg-shadow: #97262B; /* 3D edge under the destructive button */
+
+  /* Deep grape — the dark end of the ONE highlight gradient (DESIGN §13). Kept
+     dark enough that white text clears AA across the whole ink→grape sweep
+     (white 8.75:1 here · 14.12:1 at the ink end). Plain --grape (2.49:1) could
+     not carry white text, so the gradient lands on this instead. */
+  --grape-deep: #4A3F8F;
 
   /* Radii — DESIGN §4 */
   --r-sm: 0.5rem;  /*  8px */
@@ -111,6 +121,7 @@
   --button-shadow:   var(--action-shadow);
   --button-radius:   var(--r-lg);
   --button-press-y:  4px;
+  --button-secondary-shadow: rgba(20, 48, 43, 0.18); /* the white outline button's grey 3D edge */
 
   --card-bg:         var(--white);
   --card-radius:     var(--r-lg);
@@ -121,6 +132,20 @@
   --chip-fg:              var(--ink);
   --chip-bg-selected:     var(--green-300);
   --chip-border-selected: var(--green-600);
+
+  /* Tinted cards — a soft wash of the accent over white so --ink text stays
+     comfortably AA (DESIGN §5). The recipe lives here, not inline, so the wash
+     is a single source of truth and no component hard-codes a colour. */
+  --card-sky-bg:     color-mix(in oklab, var(--sky)   16%, var(--white));
+  --card-sky-edge:   color-mix(in oklab, var(--sky)   42%, var(--white));
+  --card-grape-bg:   color-mix(in oklab, var(--grape) 16%, var(--white));
+  --card-grape-edge: color-mix(in oklab, var(--grape) 42%, var(--white));
+  --card-coral-bg:   color-mix(in oklab, var(--coral) 14%, var(--white));
+  --card-coral-edge: color-mix(in oklab, var(--coral) 40%, var(--white));
+
+  /* The one dark highlight card per page (DESIGN §13) — ink → deep grape. */
+  --highlight-from: var(--ink);
+  --highlight-to:   var(--grape-deep);
 }
 
 /* ============================================================================
@@ -319,6 +344,20 @@
     border-radius: var(--card-radius);
     box-shadow: var(--card-shadow);
     padding: 1.5rem;
+  }
+}
+
+/* The choice-chip select "bounce" (DESIGN §5). Applied only under
+   `motion-safe:` so it never plays for prefers-reduced-motion users. */
+@keyframes chip-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
