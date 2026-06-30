@@ -12,7 +12,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 from app.snapshots.loader import load_cma, load_content, load_universe
-from app.snapshots.schemas import CMA, Content, Instrument, Universe
+from app.snapshots.schemas import CMA, Content, Instrument, InstrumentContent, Universe
 from core.plan import AssetClassView, CoreFund, MarketAssumptions
 
 # The dated Swiss pillar-3a employee cap (SWITZERLAND §2): CHF 7,258 for 2026.
@@ -48,6 +48,12 @@ def content() -> Content:
 def universe_index() -> dict[str, Instrument]:
     """A ticker→instrument map so per-asset lookups don't scan the whole list."""
     return {inst.ticker: inst for inst in universe().instruments}
+
+
+@lru_cache(maxsize=1)
+def content_index() -> dict[str, InstrumentContent]:
+    """A ticker→prose map for joining facts with their plain-language layer."""
+    return {item.ticker: item for item in content().instruments}
 
 
 @lru_cache(maxsize=1)

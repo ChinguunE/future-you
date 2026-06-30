@@ -19,6 +19,7 @@ from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.snapshots.schemas import Concept, GlossaryTerm, Instrument, InstrumentContent
 from core.types import GoalKind
 
 # Risk-quiz answers: a non-empty list of Likert values, each 1–5 (METHODOLOGY §6).
@@ -190,3 +191,23 @@ class PlanResponse(_Strict):
     retirement: RetirementOut | None
     three_a: ThreeAOut
     ips: list[IpsSectionOut]
+
+
+# --- Snapshot reads (GET) --------------------------------------------------
+
+
+class AssetDetail(_Strict):
+    """One instrument: its facts (universe) joined with its prose (content)."""
+
+    instrument: Instrument
+    content: InstrumentContent | None
+
+
+class LearnContent(_Strict):
+    """The Learn surface: glossary terms + concept and Switzerland explainers."""
+
+    schema_version: int
+    generated_at: str
+    glossary: tuple[GlossaryTerm, ...]
+    concepts: tuple[Concept, ...]
+    switzerland: tuple[Concept, ...]
