@@ -76,8 +76,12 @@ for (const locale of LOCALES) {
     const active = page.locator('[aria-current="page"]:visible');
     await expect(active.first()).toContainText(labels.home);
 
-    // The single highlight CTA in the rail is reachable in both layout modes.
-    await expect(page.getByRole('link', {name: labels.cta})).toBeVisible();
+    // The highlight CTA in the rail is reachable in both layout modes (the rail
+    // folds inline on mobile). Scoped to the rail landmark, because the centre
+    // hero now surfaces the same primary action under the same label.
+    await expect(
+      page.getByRole('complementary').getByRole('link', {name: labels.cta})
+    ).toBeVisible();
 
     await shot(page, project, `shell_${locale}`);
     await scan(page, `/${locale}/shell @ ${project}`);

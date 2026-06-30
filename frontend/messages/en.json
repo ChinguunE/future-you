@@ -55,10 +55,19 @@
       "eyebrow": "Shell preview",
       "title": "Welcome to Future You",
       "lead": "This is a preview of the app shell — the sidebar, status rail, and bottom tab bar that wrap every screen. The real pages arrive next.",
+      "bannerCta": "Take the tour",
+      "sectionTitle": "What you'll find",
       "cardPlanTitle": "Your plan",
       "cardPlanBody": "Once you answer a few questions, your personalized mix lands here — with the why behind every choice.",
       "cardLearnTitle": "Keep learning",
-      "cardLearnBody": "Short, plain-language lessons turn each part of your plan into something you understand."
+      "cardLearnBody": "Short, plain-language lessons turn each part of your plan into something you understand.",
+      "howTitle": "How your plan comes together",
+      "howProfileTitle": "Tell us about you",
+      "howProfileBody": "A few quick questions about your situation.",
+      "howGoalTitle": "Pick a goal",
+      "howGoalBody": "What you're saving toward, and by when.",
+      "howRiskTitle": "Set your risk level",
+      "howRiskBody": "How much ups and downs you're okay with."
     }
   },
   "StyleGuide": {

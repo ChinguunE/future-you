@@ -37,6 +37,12 @@
   /* Surfaces */
   --paper: #FBF7EC;
   --white: #FFFFFF;
+  /* App-shell dashboard canvas (DESIGN §2/§14.3 — white-base, confirmed Slice 5.5).
+     A near-white cool tint, NOT pure white, so the #FFFFFF cards still separate
+     from the field with their hairline ring + soft shadow (the reference's crisp
+     white surfaces, never a flat cream field). Scoped to AppShell; the public
+     landing + style-guide keep --paper. */
+  --canvas: #F6F8F7;
 
   /* Accents — decorative FILLS only (all fail text AA on white; see DESIGN §11)
      paired with the darker "shadow" tone for the pressable 3D edge. Each edge is
@@ -163,6 +169,7 @@
   /* Brand colour utilities → bg-*, text-*, border-* */
   --color-paper:       var(--paper);
   --color-white:       var(--white);
+  --color-canvas:      var(--canvas);
   --color-ink:         var(--ink);
   --color-ink-a48:     var(--ink-a48);
   --color-scrim:       var(--scrim);

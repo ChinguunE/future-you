@@ -55,10 +55,19 @@
       "eyebrow": "Aperçu de l'interface",
       "title": "Bienvenue dans Future You",
       "lead": "Voici un aperçu de l'interface — la barre latérale, le volet d'état et la barre d'onglets qui entourent chaque écran. Les vraies pages arrivent ensuite.",
+      "bannerCta": "Faire le tour",
+      "sectionTitle": "Ce que vous allez trouver",
       "cardPlanTitle": "Votre plan",
       "cardPlanBody": "Après quelques questions, votre répartition personnalisée apparaît ici — avec le pourquoi de chaque choix.",
       "cardLearnTitle": "Continuez à apprendre",
-      "cardLearnBody": "De courtes leçons en langage clair rendent chaque partie de votre plan compréhensible."
+      "cardLearnBody": "De courtes leçons en langage clair rendent chaque partie de votre plan compréhensible.",
+      "howTitle": "Comment votre plan prend forme",
+      "howProfileTitle": "Parlez-nous de vous",
+      "howProfileBody": "Quelques questions rapides sur votre situation.",
+      "howGoalTitle": "Choisissez un objectif",
+      "howGoalBody": "Ce que vous visez, et pour quand.",
+      "howRiskTitle": "Définissez votre niveau de risque",
+      "howRiskBody": "Le niveau de fluctuations qui vous convient."
     }
   },
   "StyleGuide": {

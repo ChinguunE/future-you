@@ -1,4 +1,5 @@
 export {AppShell} from './app-shell';
+export {SectionBanner} from './section-banner';
 export {SidebarNav} from './sidebar-nav';
 export {StatusRail} from './status-rail';
 export {TabBar} from './tab-bar';

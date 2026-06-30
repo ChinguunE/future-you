@@ -65,6 +65,8 @@ Sampled from the illustration SVGs so UI and art share one world. Anchored on a 
 
 **Rules.** Light, clean backgrounds (cream/white) with **bold colour on the actionable things** (Duolingo-style), not a busy background. Money up/down must **never** rely on colour alone — always an arrow or label too. The old baby-blue cloud-sky is *not* the default here; the `sky/` cloud art is optional playful garnish, not a mandatory backdrop.
 
+> **App-shell surface — confirmed Phase 4 Slice 5.5: white base.** The research/dashboard shell uses a **near-white canvas `--canvas #F6F8F7`** behind `#FFFFFF` cards (so the cards still separate from the field with their hairline ring + soft shadow — the reference's crisp white surfaces, never a flat cream field). Colour is carried by the **coral section banner**, **sky/green-tinted cards**, **coloured icon-chips**, and the **one `--ink`→`--grape` gradient** highlight. `--paper` cream stays the **public landing + `/style-guide`** background only, not a large empty field inside the app.
+
 ---
 
 ## 3. Typography
@@ -224,7 +226,7 @@ Concrete patterns pulled from the logged-in screens. **Reuse the *structure and 
 
 1. ~~Final font pairing from specimens~~ — **confirmed (Phase 4 Slice 1):** `Baloo 2` (display) + `Nunito` (body/numerals), self-hosted via `next/font`, specimens verified in the `/style-guide` gallery (EN + FR accents).
 2. ~~Exact AA-passing green for buttons/text~~ — **resolved (Phase 4 Slice 1):** the two-green split — `--green-600 #247A5E` fill (white text 5.22:1) + `--green-700 #1F6B53` on-light text (6.39:1). See §2 / §11.
-3. Background treatment: clean cream/white + colour blocks (recommended) vs. any use of the `sky/` cloud art.
+3. ~~Background treatment~~ — **resolved (Slice 5.5): white base for the app shell** — `--canvas #F6F8F7` canvas + `#FFFFFF` cards + colour blocks (coral section banner, sky/green tinted cards, one `--ink`→`--grape` gradient). `--paper` cream is kept for the public landing & `/style-guide` only; the `sky/` cloud art stays optional garnish, never a mandatory backdrop. See §2.
 4. Light theme only at launch, or a dark theme too.
 
 ---

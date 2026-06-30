@@ -30,7 +30,7 @@ export function AppShell({
   const t = useTranslations('Shell');
 
   return (
-    <div className="min-h-dvh bg-paper">
+    <div className="min-h-dvh bg-canvas">
       <a
         href="#main-content"
         className="sr-only rounded-md focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:font-display focus:font-bold focus:text-brand-deep focus:shadow-[var(--shadow-card)]"

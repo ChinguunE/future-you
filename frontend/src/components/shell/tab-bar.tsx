@@ -26,7 +26,7 @@ function IconBox({active, children}: {active: boolean; children: React.ReactNode
   return (
     <span
       className={cn(
-        'flex size-9 items-center justify-center rounded-md transition-colors',
+        'flex size-10 items-center justify-center rounded-lg transition-colors',
         active && 'bg-tint'
       )}
     >
@@ -60,7 +60,7 @@ export function TabBar({
     <nav
       aria-label={t('tabbarLabel')}
       className={cn(
-        'fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white pb-[max(0.25rem,env(safe-area-inset-bottom))] lg:hidden',
+        'fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white pb-[max(0.25rem,env(safe-area-inset-bottom))] shadow-[0_-2px_12px_rgba(20,48,43,0.06)] lg:hidden',
         className
       )}
     >
@@ -75,7 +75,7 @@ export function TabBar({
                 className={cn(TAB, active ? 'text-ink' : 'text-text-muted')}
               >
                 <IconBox active={active}>
-                  <Illustration id={item.icon} size={24} decorative eager />
+                  <Illustration id={item.icon} size={26} decorative eager />
                 </IconBox>
                 <span className={TAB_LABEL}>{t(`nav.${item.id}`)}</span>
               </Link>

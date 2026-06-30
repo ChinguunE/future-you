@@ -57,8 +57,10 @@ export function SidebarNav({
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 font-display text-base font-bold tracking-wide uppercase transition-colors',
-                  active ? 'bg-tint text-ink' : 'text-text hover:bg-tint/40'
+                  'flex min-h-12 items-center gap-3 rounded-lg border-2 px-3 py-2 font-display text-base font-bold tracking-wide uppercase transition-colors',
+                  active
+                    ? 'border-green-600 bg-tint text-ink'
+                    : 'border-transparent text-text hover:bg-tint/40'
                 )}
               >
                 <span className="flex size-7 shrink-0 items-center justify-center">
@@ -74,7 +76,7 @@ export function SidebarNav({
       <div className="mt-4 flex flex-col gap-3">
         <Card className="gap-3 p-4">
           <div className="flex items-center gap-3">
-            <Sprout pose="reading" size={56} animated={false} eager />
+            <Sprout pose="reading" size={64} animated={false} eager />
             <div className="min-w-0">
               <p className="font-display text-small font-bold text-ink">
                 {t('utility.title')}
