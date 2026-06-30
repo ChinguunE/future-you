@@ -14,9 +14,11 @@ Two small glue rules live here because they are finance decisions, not plumbing:
   is carried by one diversified fund per sleeve — the clean global core. The
   optimiser (``core.frontier``) is a teaching overlay, not the weight generator
   (METHODOLOGY §4: rule-based allocation anchors, MVO informs).
-* **Per-pick risk.** A satellite stock is sized by its *systematic* risk,
-  ``beta · reference_equity_vol`` — a riskier name earns a smaller responsible
-  cap (METHODOLOGY §5). Fund picks use their asset class's own volatility.
+* **Per-pick risk.** A satellite stock is sized by its *total* risk — its
+  systematic part ``beta · equity_vol`` combined in quadrature with an
+  idiosyncratic term (``_IDIOSYNCRATIC_VOL``), measured against a neutral,
+  beta-1 single stock — so a riskier name earns a smaller responsible cap
+  (METHODOLOGY §5). Fund picks use their asset class's own volatility.
 
 The projection seed is a fixed constant, so the same request always yields the
 same cone — a plan is reproducible and a share-link always reopens identically.
