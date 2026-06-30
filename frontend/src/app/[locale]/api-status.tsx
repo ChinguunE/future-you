@@ -40,10 +40,16 @@ export function ApiStatus() {
         ? t('apiStatusOk', {date: asOf})
         : t('apiStatusError');
 
-  const color = status === 'ok' ? '#2E8B6F' : status === 'error' ? '#E5484D' : '#6B7E78';
+  // AA token colours (not the raw brand hexes, which fail normal-text contrast).
+  const color =
+    status === 'ok' ? 'text-pos' : status === 'error' ? 'text-neg' : 'text-text-muted';
 
   return (
-    <p className="text-sm font-semibold" style={{color}} data-status={status} role="status">
+    <p
+      className={`text-sm font-semibold ${color}`}
+      data-status={status}
+      role="status"
+    >
       {text}
     </p>
   );

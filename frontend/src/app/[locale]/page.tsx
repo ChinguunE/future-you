@@ -22,12 +22,14 @@ export default async function LandingPage({
         height={180}
         priority
       />
-      <h1 className="text-5xl font-extrabold tracking-tight">{t('wordmark')}</h1>
-      <p className="text-xl font-semibold text-[#2E8B6F]">{t('tagline')}</p>
-      <p className="max-w-md text-base text-[#33514A]">{t('subtitle')}</p>
+      <h1 className="font-display text-5xl font-extrabold tracking-tight text-ink">
+        {t('wordmark')}
+      </h1>
+      <p className="text-xl font-bold text-brand-deep">{t('tagline')}</p>
+      <p className="max-w-md text-base text-text">{t('subtitle')}</p>
       <ApiStatus />
       <LocaleToggle current={locale} />
-      <p className="mt-8 text-xs text-[#6B7E78]">{t('placeholderNote')}</p>
+      <p className="mt-8 text-xs text-text-muted">{t('placeholderNote')}</p>
     </main>
   );
 }

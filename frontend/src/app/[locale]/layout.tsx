@@ -5,6 +5,7 @@ import {notFound} from 'next/navigation';
 import type {ReactNode} from 'react';
 
 import {routing} from '@/i18n/routing';
+import {baloo, nunito} from './fonts';
 import '../globals.css';
 
 export const metadata: Metadata = {
@@ -31,9 +32,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
-      {/* Placeholder colours (paper/ink) until the Phase-4 design system lands. */}
-      <body className="bg-[#FBF7EC] text-[#14302B] antialiased">
+    <html lang={locale} className={`${baloo.variable} ${nunito.variable}`}>
+      {/* Paper/ink + fonts come from the design tokens in globals.css. */}
+      <body className="antialiased">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

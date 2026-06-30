@@ -43,21 +43,25 @@ Sampled from the illustration SVGs so UI and art share one world. Anchored on a 
 
 | Token | Hex | Use |
 |---|---|---|
-| `--green-300` | `#8FD3BE` | light tint, highlighted/active backgrounds |
-| `--green-400` | `#54B49C` | **brand green** — fills, accents, illustration harmony |
-| `--green-600` | `#2E8B6F` | **primary action** fill (white text passes AA at large/bold) |
-| `--green-800` | `#1F6B53` | the 3D button bottom-shadow (darker green) |
+| `--green-300` | `#8FD3BE` | light tint, highlighted/active backgrounds — **decorative, never text** (1.72:1) |
+| `--green-400` | `#54B49C` | **brand green** — fills, illustration harmony — **decorative, never text** (2.50:1) |
+| `--green-500` | `#2E8B6F` | decorative mid-green / chart fill — white text **only** at large+bold (4.17:1) |
+| `--green-600` | `#247A5E` | **primary action** fill — white text passes AA at **any** size (5.22:1) |
+| `--green-700` | `#1F6B53` | **on-light green text / icon / link / focus** (6.39:1 white · 5.97:1 paper) |
+| `--green-800` | `#15543F` | the 3D button bottom-shadow (darkest green) |
 | `--ink` | `#14302B` | headings & outlines (matches art's deep teal-charcoal) |
 | `--text` | `#33514A` | body text |
-| `--text-muted` | `#6B7E78` | captions, secondary |
-| `--coral` | `#F07854` | secondary CTA, highlights (shadow `#C85A3C`) |
-| `--gold` | `#FCA848` | rewards, streak/milestone, attention (shadow `#D98828`) |
-| `--sky` | `#6CB4F0` | info, links, neutral accent |
-| `--grape` | `#9C9CF0` | variety, tertiary accent |
+| `--text-muted` | `#5E726B` | captions, secondary (AA at 5.13:1; the old `#6B7E78` failed at 4.30:1) |
+| `--coral` | `#F07854` | secondary CTA fill / highlight (shadow `#C85A3C`) — **decorative, never text** |
+| `--gold` | `#FCA848` | rewards, milestone, attention (shadow `#D98828`) — **decorative, never text** |
+| `--sky` | `#6CB4F0` | info / neutral accent **fill** — **decorative, never text or focus ring** (2.23:1) |
+| `--grape` | `#9C9CF0` | variety, tertiary accent — **decorative, never text** |
 | `--paper` | `#FBF7EC` | warm default background |
 | `--white` | `#FFFFFF` | cards, surfaces |
-| `--pos` | `#2E8B6F` | **gains** (always paired with ▲ / label) |
-| `--neg` | `#E5484D` | **losses** (always paired with ▼ / label) |
+| `--pos` | `#1F6B53` | **gains** text (= `--green-700`; always paired with ▲ / label) |
+| `--neg` | `#C0353A` | **losses** text (AA at 5.51:1; the old `#E5484D` failed at 3.91:1; always with ▼ / label) |
+
+> **The two-green AA split.** A single green can't be both a button fill (white text on it) and readable green text on a light surface at WCAG-AA — the old `#2E8B6F` only clears 3:1, so it carried button labels but quietly failed as normal-size text. We split the role: **`--green-600 #247A5E`** is the action **fill** (white text, 5.22:1, AA at any size); **`--green-700 #1F6B53`** is the **on-light text** green (6.39:1 white / 5.97:1 paper). The sampled `#2E8B6F` lives on as `--green-500` for decorative/chart fills only. Every figure above is a verified WCAG 2.1 ratio against `#FFFFFF` and `--paper #FBF7EC`.
 
 **Rules.** Light, clean backgrounds (cream/white) with **bold colour on the actionable things** (Duolingo-style), not a busy background. Money up/down must **never** rely on colour alone — always an arrow or label too. The old baby-blue cloud-sky is *not* the default here; the `sky/` cloud art is optional playful garnish, not a mandatory backdrop.
 
@@ -91,7 +95,7 @@ Primary (rest):  background: var(--green-600);
                  font: 700 18px "Baloo 2"; 
 Primary (active/press): transform: translateY(4px);
                  box-shadow: 0 0 0 var(--green-800);      /* sinks flat */
-Secondary:       white fill, 2px var(--green-600) border, var(--green-600) text, same 4px bottom shadow in a grey.
+Secondary:       white fill, 2px var(--green-600) border, var(--green-700) text, same 4px bottom shadow in a grey.
 Coral / Gold variants: same mechanic, swap fill + its darker shadow token.
 ```
 Big tap targets (≥48px), one **primary** button per screen, ideally bottom-anchored on mobile.
@@ -149,8 +153,8 @@ Warm, plain, encouraging; a smart 15-year-old's reading level without ever being
 
 ## 11. Accessibility (WCAG-AA, non-negotiable)
 
-- Contrast: body text uses `--ink`/`--text` on light — passes AA. **Caution:** brand `--green-400 #54B49C` fails AA for text on white; use `--green-600` for any green text/icons and verify button text (large+bold needs ≥3:1). 
-- Targets ≥48px; visible focus rings (2px `--sky` offset); full keyboard nav.
+- Contrast: body text uses `--ink` (14:1) / `--text` (8.7:1) on light — passes AA. **The two-green AA split (§2):** `--green-400 #54B49C` (2.50:1) and the decorative `--green-500 #2E8B6F` (4.17:1 — large/bold only) **must not carry normal text**; use **`--green-700 #1F6B53`** for any green text/icon/link (6.39:1 white · 5.97:1 paper), and **`--green-600 #247A5E`** as the button fill (white label 5.22:1, AA at any size). The accent fills `--coral`/`--gold`/`--sky`/`--grape` all fail text contrast — fills only, never text. (Every ratio verified WCAG 2.1 vs `#FFFFFF` and `--paper`.)
+- Targets ≥48px; visible focus ring (3px `--green-700` with a 2px offset — it clears the 3:1 non-text bar on light, where `--sky` at 2.23:1 would fail SC 1.4.11); full keyboard nav.
 - Never colour-alone (gains/losses get arrows/labels; quiz states get icons).
 - Honour `prefers-reduced-motion`. Alt text on every illustration (the manifest's description).
 
@@ -218,8 +222,8 @@ Concrete patterns pulled from the logged-in screens. **Reuse the *structure and 
 
 ## 14. To confirm in the design phase (Phase 4)
 
-1. Final font pairing from specimens (`Baloo 2` + `Nunito` is the recommended default).
-2. Exact AA-passing green for buttons/text (tune `--green-600`).
+1. ~~Final font pairing from specimens~~ — **confirmed (Phase 4 Slice 1):** `Baloo 2` (display) + `Nunito` (body/numerals), self-hosted via `next/font`, specimens verified in the `/style-guide` gallery (EN + FR accents).
+2. ~~Exact AA-passing green for buttons/text~~ — **resolved (Phase 4 Slice 1):** the two-green split — `--green-600 #247A5E` fill (white text 5.22:1) + `--green-700 #1F6B53` on-light text (6.39:1). See §2 / §11.
 3. Background treatment: clean cream/white + colour blocks (recommended) vs. any use of the `sky/` cloud art.
 4. Light theme only at launch, or a dark theme too.
 
