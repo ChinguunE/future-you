@@ -40,6 +40,142 @@
     "roleText": "Sûr pour le texte",
     "roleLarge": "Grand / gras uniquement",
     "roleDecorative": "Décoratif uniquement",
-    "roleEdge": "Bord du bouton"
+    "roleEdge": "Bord du bouton",
+    "sproutTitle": "Voici Sprout",
+    "sproutNote": "Votre guide sur (presque) chaque écran — utilisé en grand, avec une pose distincte par moment. Sprout respire d'un léger balancement et reste immobile si vous préférez moins d'animation.",
+    "sproutMotionOn": "Légèrement animé",
+    "sproutMotionOff": "Immobile (animation réduite)",
+    "galleryTitle": "Bibliothèque d'illustrations",
+    "galleryNote": "Les 84 illustrations, chacune avec un texte alternatif bilingue — afin que rien ne s'affiche jamais sans description pour les lecteurs d'écran.",
+    "moments": {
+      "welcome": "Bienvenue",
+      "thinking": "Quiz de risque",
+      "plan": "Votre plan",
+      "research": "Recherche",
+      "growth": "Croissance",
+      "learn": "Apprendre et glossaire",
+      "retirement": "Retraite",
+      "celebrate": "Étape franchie",
+      "achieve": "Objectif atteint",
+      "reassure": "Garder son calme",
+      "volatility": "Hauts et bas"
+    },
+    "categories": {
+      "mascot": "Sprout",
+      "characters": "Compagnons",
+      "concepts": "Concepts",
+      "goals": "Objectifs",
+      "money": "Épargne",
+      "scenes": "Scènes",
+      "sectors": "Secteurs",
+      "sky": "Ciel",
+      "switzerland": "Suisse"
+    }
+  },
+  "Illustrations": {
+    "alt": {
+      "characters": {
+        "blue-waving": "Un personnage bleu tout rond qui salue",
+        "blue-with-coin": "Un personnage bleu tenant une pièce d'or",
+        "grape": "Un petit personnage raisin violet",
+        "green-with-coin": "Un personnage vert tenant une pièce d'or",
+        "green-with-coins": "Un personnage vert qui jubile, entouré de pièces d'or"
+      },
+      "concepts": {
+        "balance": "Une balance à plateaux en équilibre",
+        "bounce-back": "Une pièce d'or qui rebondit sur un ressort",
+        "compounding": "Une petite pousse devenue un grand arbre feuillu chargé de pièces",
+        "diversification": "Plusieurs paniers contenant chacun un œuf",
+        "dividends": "Un arbre qui laisse tomber des pièces comme des fruits",
+        "etf": "Un panier rempli de nombreux petits fruits différents",
+        "interest": "Un document souriant affichant un symbole de pourcentage",
+        "market-ups-and-downs": "Un bateau souriant sur une vague qui plonge puis remonte",
+        "markets-app": "Un smartphone affichant une courbe qui monte",
+        "risk-vs-reward": "Une balançoire à bascule entre une pièce et un cœur",
+        "stocks-vs-bonds": "Un lièvre rapide à côté d'une tortue posée",
+        "time-in-market": "Une horloge qui enlace une plante en croissance"
+      },
+      "goals": {
+        "build-wealth": "Un personnage faisant grandir une pile de pièces",
+        "childrens-future": "Deux personnages réunis en famille",
+        "dream-purchase": "Un petit voilier sur l'eau",
+        "education": "Une toque de diplômé posée sur une pile de livres",
+        "home-deposit": "Un personnage tenant une clé devant une maison",
+        "independence": "Un personnage plantant son propre drapeau sur un sommet",
+        "retirement": "Un soleil chaleureux au-dessus d'une eau calme",
+        "safety-net": "Un parapluie abritant une pièce"
+      },
+      "mascot": {
+        "arms-out": "Sprout, les bras grands ouverts pour accueillir",
+        "balancing-beam": "Sprout en équilibre joyeux sur une poutre basse",
+        "calm": "Sprout debout, calme, les yeux fermés",
+        "catching-star": "Sprout tendant les bras pour attraper une étoile",
+        "celebrating": "Sprout faisant la fête parmi des confettis et des fleurs",
+        "cheering": "Sprout acclamant, les deux bras levés",
+        "climbing": "Sprout gravissant des marches une à une",
+        "coin-trail": "Sprout suivant une traînée de pièces d'or",
+        "growth-arrow": "Sprout regardant monter une flèche en forme de pousse",
+        "holding-sign": "Sprout brandissant une petite pancarte vierge",
+        "jumping": "Sprout sautant de joie avec de petits rayons",
+        "jumping-alt": "Sprout bondissant joyeusement dans les airs",
+        "matterhorn": "Sprout à côté du Cervin avec un drapeau suisse",
+        "pointing": "Sprout pointant du doigt sur le côté",
+        "pushing-coin": "Sprout faisant rouler une grosse pièce d'or",
+        "pushing-coin-alt": "Sprout poussant une grosse pièce d'or",
+        "reading": "Sprout lisant un petit livre",
+        "relaxing-deckchair": "Sprout se détendant sur une chaise longue, chapeau de soleil sur la tête",
+        "riding-wave": "Sprout surfant tranquillement une vague qui plonge puis remonte",
+        "sleeping": "Sprout dormant paisiblement",
+        "thinking": "Sprout réfléchissant, un doigt sur le menton",
+        "thinking-bubble": "Sprout avec une bulle de pensée en pointillés",
+        "thumbs-up": "Sprout levant le pouce",
+        "watering": "Sprout arrosant une petite plante",
+        "with-clock-plant": "Sprout à côté d'une horloge et d'une plante qui pousse",
+        "with-globe": "Sprout tenant un petit globe",
+        "with-magnifier": "Sprout observant à la loupe",
+        "with-pie-chart": "Sprout présentant fièrement un diagramme circulaire",
+        "with-trophy": "Sprout brandissant un petit trophée"
+      },
+      "money": {
+        "emergency-fund": "Un parapluie abritant une tirelire",
+        "monthly-saving": "Un calendrier marqué d'une pièce et d'un cœur",
+        "piggy-bank": "Une tirelire sympathique",
+        "piggy-bank-coin": "Une tirelire recevant une pièce",
+        "savings-jar": "Un grand bocal qui se remplit de pièces"
+      },
+      "scenes": {
+        "goal-reached": "Un drapeau planté sur une petite colline verdoyante",
+        "welcome": "Une scène d'accueil chaleureuse avec du soleil et de doux nuages"
+      },
+      "sectors": {
+        "clean-energy": "Une feuille tenant un éclair",
+        "consumer-discretionary": "Un joyeux personnage sac de courses",
+        "consumer-staples": "Un panier d'épicerie de produits du quotidien",
+        "financials": "Un bâtiment de banque à colonnes classiques",
+        "financials-alt": "Un bâtiment de banque aux hautes colonnes",
+        "healthcare": "Un sympathique personnage croix médicale",
+        "materials": "Un personnage cube solide",
+        "real-estate": "Un grand immeuble sympathique",
+        "technology": "Un sympathique personnage puce électronique",
+        "utilities": "Une ampoule allumée avec une goutte d'eau"
+      },
+      "sky": {
+        "balloon": "Un ballon bleu",
+        "bird": "Un petit oiseau en vol",
+        "cloud-big": "Un grand nuage tout doux",
+        "cloud-filled": "Un nuage blanc plein",
+        "cloud-outline": "Un nuage léger au trait fin",
+        "cloud-wide": "Un long nuage vaporeux",
+        "hot-air-balloon": "Une joyeuse montgolfière rayée",
+        "rainbow": "Un doux arc-en-ciel",
+        "sparkles": "Une petite grappe d'étincelles",
+        "sun": "Un soleil souriant aux rayons doux",
+        "sun-spark": "Un soleil tenant un petit éclair"
+      },
+      "switzerland": {
+        "protected": "Un bouclier marqué d'une coche",
+        "swiss-coin": "Une pièce d'or frappée d'une croix suisse"
+      }
+    }
   }
 }

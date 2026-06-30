@@ -2,6 +2,7 @@ import {expect, test} from '@playwright/test';
 import {mkdirSync} from 'node:fs';
 
 import {axeScan, countSerious, logViolations} from './lib/a11y';
+import {settleImages} from './lib/images';
 
 /**
  * Slice 1 (design tokens) gate. Unlike the Phase-0 smoke test, this asserts ZERO
@@ -17,6 +18,8 @@ for (const route of ROUTES) {
     await page.waitForLoadState('load');
     // Let next/font swap settle so the screenshot shows Baloo 2 / Nunito.
     await page.evaluate(() => document.fonts.ready);
+    // Load every lazy illustration before capturing (the gallery is long).
+    await settleImages(page);
 
     const slug = route.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '');
     const dir = `screenshots/${testInfo.project.name}`;

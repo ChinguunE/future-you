@@ -1,6 +1,11 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 
+import {Illustration} from '@/components/illustration/Illustration';
+import {Sprout} from '@/components/illustration/Sprout';
+import {SPROUT_MOMENTS, SPROUT_MOMENT_ORDER} from '@/components/illustration/moments';
+import {ILLUSTRATIONS, ILLUSTRATION_CATEGORIES} from '@/lib/illustrations';
+
 /**
  * /style-guide — a dev-only gallery of the Phase-4 design tokens (DESIGN §2–§4,
  * §11). It proves the token layer renders, passes axe-core WCAG-AA, and works in
@@ -241,9 +246,76 @@ export default async function StyleGuidePage({
       </section>
 
       {/* ---- Focus & motion ---- */}
-      <section>
+      <section className="mb-12">
         <h2 className="text-h2 mb-1 text-ink">{t('focusTitle')}</h2>
         <p className="max-w-prose text-text">{t('focusNote')}</p>
+      </section>
+
+      {/* ---- Sprout (the companion) — used BIG, one pose per moment ---- */}
+      <section className="mb-12">
+        <h2 className="text-h2 mb-1 text-ink">{t('sproutTitle')}</h2>
+        <p className="mb-6 max-w-prose text-text">{t('sproutNote')}</p>
+
+        {/* Hero: real presence + the gentle idle (still under reduced-motion). */}
+        <div className="mb-8 flex flex-col items-center gap-4 rounded-xl bg-tint px-6 py-10">
+          <Sprout pose="arms-out" size="2xl" priority />
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="rounded-pill bg-white px-3 py-1 text-small font-semibold text-brand-deep">
+              {t('sproutMotionOn')}
+            </span>
+            <span className="rounded-pill border border-border bg-white px-3 py-1 text-small font-semibold text-text-muted">
+              {t('sproutMotionOff')}
+            </span>
+          </div>
+        </div>
+
+        {/* The §8 pose → moment set. */}
+        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          {SPROUT_MOMENT_ORDER.map((moment) => (
+            <li
+              key={moment}
+              className="flex flex-col items-center gap-2 rounded-lg bg-white p-4 text-center shadow-[var(--shadow-card)]"
+            >
+              <span className="flex h-52 items-end justify-center">
+                <Sprout pose={SPROUT_MOMENTS[moment]} size="lg" />
+              </span>
+              <p className="font-display text-h3 leading-tight text-ink">
+                {t(`moments.${moment}`)}
+              </p>
+              <code className="font-mono text-xs text-text-muted">
+                {SPROUT_MOMENTS[moment]}
+              </code>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ---- The full illustration library (every piece has bilingual alt) ---- */}
+      <section>
+        <h2 className="text-h2 mb-1 text-ink">{t('galleryTitle')}</h2>
+        <p className="mb-6 max-w-prose text-text">{t('galleryNote')}</p>
+        <div className="space-y-8">
+          {ILLUSTRATION_CATEGORIES.map((cat) => (
+            <div key={cat}>
+              <h3 className="text-h3 mb-3 text-ink">{t(`categories.${cat}`)}</h3>
+              <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                {ILLUSTRATIONS.filter((piece) => piece.category === cat).map((piece) => (
+                  <li
+                    key={piece.id}
+                    className="flex flex-col items-center gap-2 rounded-lg border border-border bg-white p-3 text-center"
+                  >
+                    <span className="flex h-28 items-center justify-center">
+                      <Illustration id={piece.id} size={96} />
+                    </span>
+                    <code className="font-mono text-[11px] leading-tight text-text-muted">
+                      {piece.id}
+                    </code>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
     </main>
   );

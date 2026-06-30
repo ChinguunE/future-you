@@ -40,6 +40,142 @@
     "roleText": "Text-safe",
     "roleLarge": "Large / bold only",
     "roleDecorative": "Decorative only",
-    "roleEdge": "Button edge"
+    "roleEdge": "Button edge",
+    "sproutTitle": "Meet Sprout",
+    "sproutNote": "Your guide on (nearly) every screen — used big, with one distinct pose per moment. Sprout breathes with a soft idle bob and holds still if you prefer reduced motion.",
+    "sproutMotionOn": "Gently animated",
+    "sproutMotionOff": "Still (reduced motion)",
+    "galleryTitle": "Illustration library",
+    "galleryNote": "All 84 pieces, each with bilingual alt text — so nothing ever renders without a description for screen readers.",
+    "moments": {
+      "welcome": "Welcome",
+      "thinking": "Risk quiz",
+      "plan": "Your plan",
+      "research": "Research",
+      "growth": "Growth",
+      "learn": "Learn & glossary",
+      "retirement": "Retirement",
+      "celebrate": "Milestone",
+      "achieve": "Goal achieved",
+      "reassure": "Staying calm",
+      "volatility": "Ups & downs"
+    },
+    "categories": {
+      "mascot": "Sprout",
+      "characters": "Friends",
+      "concepts": "Concepts",
+      "goals": "Goals",
+      "money": "Saving",
+      "scenes": "Scenes",
+      "sectors": "Sectors",
+      "sky": "Sky",
+      "switzerland": "Switzerland"
+    }
+  },
+  "Illustrations": {
+    "alt": {
+      "characters": {
+        "blue-waving": "A round blue character waving hello",
+        "blue-with-coin": "A blue character holding a gold coin",
+        "grape": "A small purple grape character",
+        "green-with-coin": "A green character holding a gold coin",
+        "green-with-coins": "A green character cheering, surrounded by gold coins"
+      },
+      "concepts": {
+        "balance": "A balance scale resting evenly",
+        "bounce-back": "A gold coin bouncing up on a coiled spring",
+        "compounding": "A tiny sprout grown into a tall leafy tree heavy with coins",
+        "diversification": "Several baskets, each holding a single egg",
+        "dividends": "A tree dropping coins like falling fruit",
+        "etf": "One basket holding many different little fruits",
+        "interest": "A friendly document showing a percent sign",
+        "market-ups-and-downs": "A smiling boat riding a wave that dips then rises",
+        "markets-app": "A smartphone showing a rising chart",
+        "risk-vs-reward": "A seesaw balancing a coin against a heart",
+        "stocks-vs-bonds": "A speedy hare beside a steady tortoise",
+        "time-in-market": "A clock gently hugging a growing plant"
+      },
+      "goals": {
+        "build-wealth": "A character growing a tall stack of coins",
+        "childrens-future": "Two characters standing together as family",
+        "dream-purchase": "A little sailboat on the water",
+        "education": "A graduation cap resting on a stack of books",
+        "home-deposit": "A character holding a key beside a house",
+        "independence": "A character planting their own flag on a peak",
+        "retirement": "A warm sun over calm water",
+        "safety-net": "An umbrella sheltering a coin"
+      },
+      "mascot": {
+        "arms-out": "Sprout with arms spread wide in welcome",
+        "balancing-beam": "Sprout balancing happily on a low beam",
+        "calm": "Sprout standing calmly with its eyes closed",
+        "catching-star": "Sprout reaching up to catch a star",
+        "celebrating": "Sprout celebrating amid confetti and flowers",
+        "cheering": "Sprout cheering with both arms raised",
+        "climbing": "Sprout climbing a set of steps one at a time",
+        "coin-trail": "Sprout following a trail of gold coins",
+        "growth-arrow": "Sprout watching a sprout-shaped arrow rise",
+        "holding-sign": "Sprout holding up a small blank sign",
+        "jumping": "Sprout jumping for joy with little rays",
+        "jumping-alt": "Sprout leaping happily into the air",
+        "matterhorn": "Sprout beside the Matterhorn with a Swiss flag",
+        "pointing": "Sprout pointing to one side",
+        "pushing-coin": "Sprout rolling a big gold coin",
+        "pushing-coin-alt": "Sprout pushing a big gold coin uphill",
+        "reading": "Sprout reading a small book",
+        "relaxing-deckchair": "Sprout relaxing in a sun hat on a deckchair",
+        "riding-wave": "Sprout calmly surfing a wave that dips then rises",
+        "sleeping": "Sprout sleeping peacefully",
+        "thinking": "Sprout pondering with a finger to its chin",
+        "thinking-bubble": "Sprout with a dotted thought bubble",
+        "thumbs-up": "Sprout giving a thumbs-up",
+        "watering": "Sprout watering a tiny plant",
+        "with-clock-plant": "Sprout beside a clock and a growing plant",
+        "with-globe": "Sprout holding a small spinning globe",
+        "with-magnifier": "Sprout peering through a magnifying glass",
+        "with-pie-chart": "Sprout proudly presenting a pie chart",
+        "with-trophy": "Sprout holding up a small trophy"
+      },
+      "money": {
+        "emergency-fund": "An umbrella sheltering a piggy bank",
+        "monthly-saving": "A calendar marked with a coin and a heart",
+        "piggy-bank": "A friendly piggy bank",
+        "piggy-bank-coin": "A piggy bank receiving a coin",
+        "savings-jar": "A tall jar filling up with coins"
+      },
+      "scenes": {
+        "goal-reached": "A flag planted on a small grassy hill",
+        "welcome": "A warm welcome scene with sunshine and soft clouds"
+      },
+      "sectors": {
+        "clean-energy": "A leaf holding a lightning bolt",
+        "consumer-discretionary": "A cheerful shopping-bag character",
+        "consumer-staples": "A grocery basket of everyday goods",
+        "financials": "A classic columned bank building",
+        "financials-alt": "A bank building with tall columns",
+        "healthcare": "A friendly medical-cross character",
+        "materials": "A solid cube character",
+        "real-estate": "A tall friendly apartment building",
+        "technology": "A friendly microchip character",
+        "utilities": "A glowing lightbulb with a water drop"
+      },
+      "sky": {
+        "balloon": "A single blue balloon",
+        "bird": "A small bird in flight",
+        "cloud-big": "A big fluffy cloud",
+        "cloud-filled": "A soft solid-white cloud",
+        "cloud-outline": "A light outlined cloud",
+        "cloud-wide": "A long wispy cloud",
+        "hot-air-balloon": "A cheerful striped hot-air balloon",
+        "rainbow": "A gentle rainbow arc",
+        "sparkles": "A small cluster of sparkles",
+        "sun": "A smiling sun with soft rays",
+        "sun-spark": "A sun holding a small lightning bolt"
+      },
+      "switzerland": {
+        "protected": "A shield marked with a checkmark",
+        "swiss-coin": "A gold coin stamped with a Swiss cross"
+      }
+    }
   }
 }
