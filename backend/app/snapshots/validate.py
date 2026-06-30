@@ -137,9 +137,9 @@ def recompute_screen(instrument: Instrument, as_of: date) -> ScreenStatus:
 def screen_matches(instrument: Instrument, as_of: date) -> bool:
     """True if the stored screen status equals a fresh recomputation."""
     recomputed = recompute_screen(instrument, as_of)
-    return instrument.screen.passed == recomputed.passed and set(
-        instrument.screen.reasons
-    ) == set(recomputed.reasons)
+    return instrument.screen.passed == recomputed.passed and set(instrument.screen.reasons) == set(
+        recomputed.reasons
+    )
 
 
 def assert_screen_consistent(universe: Universe) -> None:
@@ -193,8 +193,7 @@ def assert_cma_covers_universe(universe: Universe, cma: CMA) -> None:
     missing = missing_cma_classes(universe, cma)
     if missing:
         raise SnapshotValidationError(
-            f"CMA is missing assumptions for asset classes used in the universe: "
-            f"{sorted(missing)}"
+            f"CMA is missing assumptions for asset classes used in the universe: {sorted(missing)}"
         )
 
 

@@ -52,7 +52,30 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         return response
 
 
+# The static snapshot reads may be cached; the compute path and health check may
+# not. POST /plan is derived from personal profile data, so `no-store` keeps a
+# personal plan out of any shared cache — accountless means not in caches either.
+_CACHEABLE_READ_PREFIXES = ("/universe", "/assets", "/glossary", "/cma")
+_READ_CACHE = "public, max-age=3600"
+_NO_STORE = "no-store"
+
+
+class CacheControlMiddleware(BaseHTTPMiddleware):
+    """Cache successful snapshot reads; never the plan compute or liveness check."""
+
+    async def dispatch(
+        self, request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
+        response = await call_next(request)
+        path = request.url.path
+        is_read = any(path == p or path.startswith(p + "/") for p in _CACHEABLE_READ_PREFIXES)
+        cacheable = request.method == "GET" and response.status_code == 200 and is_read
+        response.headers["Cache-Control"] = _READ_CACHE if cacheable else _NO_STORE
+        return response
+
+
 app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(CacheControlMiddleware)
 
 
 @app.get("/health")
