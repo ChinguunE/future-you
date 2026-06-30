@@ -1,7 +1,7 @@
 """Future You API — application factory.
 
-Phase 0: a minimal, secure-by-default service exposing only `/health`.
-The finance routers (POST /plan, etc.) are added in Phase 3.
+A minimal, secure-by-default service: the composite `POST /plan` compute endpoint
+plus snapshot-read `GET`s, all behind locked CORS and baseline security headers.
 """
 
 from collections.abc import Awaitable, Callable
@@ -13,6 +13,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
+from app.api import plan
 from app.config import get_settings
 
 settings = get_settings()
@@ -57,3 +58,6 @@ app.add_middleware(SecurityHeadersMiddleware)
 def health() -> dict[str, str]:
     """Liveness check — used by the keep-warm cron and the landing-page wake ping."""
     return {"status": "ok", "service": "future-you-api", "as_of": SERVICE_AS_OF}
+
+
+app.include_router(plan.router)
