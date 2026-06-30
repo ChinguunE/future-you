@@ -12,6 +12,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Hide the dev-mode overlay badge so it never sits over the UI in the
+  // per-slice Playwright screenshot review (dev-only; no production effect).
+  devIndicators: false,
   async headers() {
     return [{source: '/(.*)', headers: securityHeaders}];
   }

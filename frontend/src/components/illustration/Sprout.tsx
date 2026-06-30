@@ -22,6 +22,8 @@ export interface SproutProps {
   decorative?: boolean;
   /** Prioritise loading (an above-the-fold hero Sprout). */
   priority?: boolean;
+  /** Load immediately without preloading (chrome that may sit in a hidden container). */
+  eager?: boolean;
   /** Idle animation on by default; pass `false` to force a still Sprout. */
   animated?: boolean;
   /** Extra classes on the wrapper. */
@@ -52,6 +54,7 @@ export function Sprout({
   alt,
   decorative = false,
   priority = false,
+  eager = false,
   animated = true,
   className
 }: SproutProps) {
@@ -65,6 +68,7 @@ export function Sprout({
       alt={alt}
       decorative={decorative}
       priority={priority}
+      eager={eager}
     />
   );
 

@@ -25,8 +25,18 @@ export interface IllustrationProps {
    * from assistive tech with an empty alt + `aria-hidden`.
    */
   decorative?: boolean;
-  /** Eagerly load + prioritise (above-the-fold hero art). */
+  /**
+   * Above-the-fold hero art: load eagerly with a high fetch priority. (Maps to
+   * `loading="eager"` + `fetchPriority="high"` — Next 16 deprecated `priority`.)
+   */
   priority?: boolean;
+  /**
+   * Load immediately without preloading — `loading="eager"`. Use for persistent
+   * chrome (nav/stat icons) that may sit in a responsively-hidden container: a
+   * lazy image inside `display:none` never scrolls into view, so it would never
+   * load. Eager fetches it regardless. Ignored when `priority` is set.
+   */
+  eager?: boolean;
   /** Extra classes on the sizing wrapper. */
   className?: string;
 }
@@ -46,6 +56,7 @@ export function Illustration({
   alt,
   decorative = false,
   priority = false,
+  eager = false,
   className
 }: IllustrationProps) {
   // Namespaced so the key is just `<category>.<name>` (the id with its slash → dot).
@@ -64,7 +75,8 @@ export function Illustration({
         alt={resolvedAlt}
         width={meta.width}
         height={meta.height}
-        priority={priority}
+        loading={priority || eager ? 'eager' : undefined}
+        fetchPriority={priority ? 'high' : undefined}
         sizes={`${box.width}px`}
         draggable={false}
         aria-hidden={decorative || undefined}

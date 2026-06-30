@@ -1,8 +1,9 @@
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import Image from 'next/image';
 
+import {LocaleToggle} from '@/components/shell/locale-toggle';
+
 import {ApiStatus} from './api-status';
-import {LocaleToggle} from './locale-toggle';
 
 export default async function LandingPage({
   params
@@ -20,7 +21,8 @@ export default async function LandingPage({
         alt={t('mascotAlt')}
         width={180}
         height={180}
-        priority
+        loading="eager"
+        fetchPriority="high"
       />
       <h1 className="font-display text-5xl font-extrabold tracking-tight text-ink">
         {t('wordmark')}
@@ -28,7 +30,7 @@ export default async function LandingPage({
       <p className="text-xl font-bold text-brand-deep">{t('tagline')}</p>
       <p className="max-w-md text-base text-text">{t('subtitle')}</p>
       <ApiStatus />
-      <LocaleToggle current={locale} />
+      <LocaleToggle />
       <p className="mt-8 text-xs text-text-muted">{t('placeholderNote')}</p>
     </main>
   );

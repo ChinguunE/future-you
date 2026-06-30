@@ -9,6 +9,58 @@
     "apiStatusError": "Impossible de joindre le moteur pour l'instant — il se réveille peut-être.",
     "placeholderNote": "Phase 0 — vérification technique. La vraie expérience arrive ensuite."
   },
+  "Shell": {
+    "skipToContent": "Aller au contenu",
+    "close": "Fermer",
+    "sidebarLabel": "Principal",
+    "tabbarLabel": "Menu principal",
+    "language": "Langue",
+    "nav": {
+      "home": "Accueil",
+      "plan": "Plan",
+      "explore": "Explorer",
+      "analytics": "Analyses",
+      "scenarios": "Scénarios",
+      "learn": "Apprendre",
+      "summary": "Résumé"
+    },
+    "more": {
+      "label": "Plus",
+      "title": "Plus",
+      "description": "Accédez à une autre partie de Future You."
+    },
+    "viewAll": "Tout voir",
+    "rail": {
+      "title": "Votre situation",
+      "planHealthLabel": "Santé du plan",
+      "planHealthValue": "Pas encore créé",
+      "planHealthCaption": "Répondez à quelques questions pour voir la santé de votre plan.",
+      "investedLabel": "Montant investi",
+      "investedValue": "Non défini",
+      "investedCaption": "Vous n'avez pas encore créé de plan.",
+      "nextReviewLabel": "Prochaine révision",
+      "nextReviewValue": "Non planifiée",
+      "nextReviewCaption": "Nous proposerons une date une fois votre plan créé.",
+      "highlightEyebrow": "Quand vous voulez",
+      "highlightTitle": "Créez votre plan",
+      "highlightBody": "Quelques questions rapides, et vous aurez un plan que vous comprenez vraiment.",
+      "highlightCta": "Créer mon plan"
+    },
+    "utility": {
+      "title": "Nouveau dans l'investissement ?",
+      "body": "Commencez par les bases et apprenez à votre rythme.",
+      "cta": "Apprendre les bases"
+    },
+    "demo": {
+      "eyebrow": "Aperçu de l'interface",
+      "title": "Bienvenue dans Future You",
+      "lead": "Voici un aperçu de l'interface — la barre latérale, le volet d'état et la barre d'onglets qui entourent chaque écran. Les vraies pages arrivent ensuite.",
+      "cardPlanTitle": "Votre plan",
+      "cardPlanBody": "Après quelques questions, votre répartition personnalisée apparaît ici — avec le pourquoi de chaque choix.",
+      "cardLearnTitle": "Continuez à apprendre",
+      "cardLearnBody": "De courtes leçons en langage clair rendent chaque partie de votre plan compréhensible."
+    }
+  },
   "StyleGuide": {
     "title": "Jetons de design",
     "intro": "Les briques de Future You — couleur, typographie, forme et mouvement. Cette page est une référence réservée au développement.",

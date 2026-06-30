@@ -9,6 +9,58 @@
     "apiStatusError": "Couldn't reach the engine just yet — it may be waking up.",
     "placeholderNote": "Phase 0 — setup check. The real experience is built next."
   },
+  "Shell": {
+    "skipToContent": "Skip to content",
+    "close": "Close",
+    "sidebarLabel": "Main",
+    "tabbarLabel": "Main menu",
+    "language": "Language",
+    "nav": {
+      "home": "Home",
+      "plan": "Plan",
+      "explore": "Explore",
+      "analytics": "Analytics",
+      "scenarios": "Scenarios",
+      "learn": "Learn",
+      "summary": "Summary"
+    },
+    "more": {
+      "label": "More",
+      "title": "More",
+      "description": "Jump to another part of Future You."
+    },
+    "viewAll": "View all",
+    "rail": {
+      "title": "Your status",
+      "planHealthLabel": "Plan health",
+      "planHealthValue": "Not built yet",
+      "planHealthCaption": "Answer a few questions to see how healthy your plan is.",
+      "investedLabel": "Amount invested",
+      "investedValue": "Not set",
+      "investedCaption": "You haven't set up a plan yet.",
+      "nextReviewLabel": "Next review",
+      "nextReviewValue": "Not scheduled",
+      "nextReviewCaption": "We'll suggest a date once your plan exists.",
+      "highlightEyebrow": "Ready when you are",
+      "highlightTitle": "Build your plan",
+      "highlightBody": "A few quick questions, and you'll have a plan you actually understand.",
+      "highlightCta": "Build my plan"
+    },
+    "utility": {
+      "title": "New to investing?",
+      "body": "Start with the basics and learn as you go.",
+      "cta": "Learn the basics"
+    },
+    "demo": {
+      "eyebrow": "Shell preview",
+      "title": "Welcome to Future You",
+      "lead": "This is a preview of the app shell — the sidebar, status rail, and bottom tab bar that wrap every screen. The real pages arrive next.",
+      "cardPlanTitle": "Your plan",
+      "cardPlanBody": "Once you answer a few questions, your personalized mix lands here — with the why behind every choice.",
+      "cardLearnTitle": "Keep learning",
+      "cardLearnBody": "Short, plain-language lessons turn each part of your plan into something you understand."
+    }
+  },
   "StyleGuide": {
     "title": "Design tokens",
     "intro": "The building blocks of Future You — colour, type, shape, and motion. This page is a dev-only reference.",
