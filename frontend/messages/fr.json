@@ -46,7 +46,7 @@
     "sproutMotionOn": "Légèrement animé",
     "sproutMotionOff": "Immobile (animation réduite)",
     "galleryTitle": "Bibliothèque d'illustrations",
-    "galleryNote": "Les 84 illustrations, chacune avec un texte alternatif bilingue — afin que rien ne s'affiche jamais sans description pour les lecteurs d'écran.",
+    "galleryNote": "Les 109 illustrations, chacune avec un texte alternatif bilingue — afin que rien ne s'affiche jamais sans description pour les lecteurs d'écran.",
     "moments": {
       "welcome": "Bienvenue",
       "thinking": "Quiz de risque",
@@ -202,7 +202,9 @@
         "with-globe": "Sprout tenant un petit globe",
         "with-magnifier": "Sprout observant à la loupe",
         "with-pie-chart": "Sprout présentant fièrement un diagramme circulaire",
-        "with-trophy": "Sprout brandissant un petit trophée"
+        "with-trophy": "Sprout brandissant un petit trophée",
+        "riding-scooter": "Sprout sur une trottinette",
+        "on-hilltop": "Sprout au sommet d'une colline, à côté d'un drapeau"
       },
       "money": {
         "emergency-fund": "Un parapluie abritant une tirelire",
@@ -225,7 +227,10 @@
         "materials": "Un personnage cube solide",
         "real-estate": "Un grand immeuble sympathique",
         "technology": "Un sympathique personnage puce électronique",
-        "utilities": "Une ampoule allumée avec une goutte d'eau"
+        "utilities": "Une ampoule allumée avec une goutte d'eau",
+        "industrials": "Un engrenage avec un crochet de grue",
+        "communication-services": "Une bulle de dialogue avec un arc de signal",
+        "energy": "Une goutte de pétrole"
       },
       "sky": {
         "balloon": "Un ballon bleu",
@@ -243,6 +248,34 @@
       "switzerland": {
         "protected": "Un bouclier marqué d'une coche",
         "swiss-coin": "Une pièce d'or frappée d'une croix suisse"
+      },
+      "nav": {
+        "home": "Une maison toute simple",
+        "plan": "Un diagramme en anneau",
+        "explore": "Une loupe",
+        "analytics": "Un graphique à barres ascendant",
+        "learn": "Un livre ouvert",
+        "scenarios": "Un panneau indicateur à deux directions",
+        "summary": "Un document marqué d'une coche"
+      },
+      "node": {
+        "profile": "La tête et les épaules d'une personne",
+        "goal": "Une cible avec une étoile en son centre",
+        "risk": "Un compteur de vitesse",
+        "reward": "Un coffre au trésor ouvert",
+        "milestone": "Un trophée",
+        "locked": "Un cadenas fermé"
+      },
+      "stat": {
+        "plan-health": "Un bouclier avec un cœur",
+        "invested": "Une pile de pièces",
+        "next-review": "Un calendrier avec une petite horloge"
+      },
+      "badge": {
+        "first-plan": "Un emblème en forme de pousse",
+        "diversified": "Trois paniers côte à côte",
+        "safety-net": "Un parapluie abritant une pièce",
+        "on-track": "Une flèche ascendante"
       }
     }
   }

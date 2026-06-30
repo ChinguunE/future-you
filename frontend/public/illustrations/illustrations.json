@@ -3,17 +3,21 @@
   "style": "Flat hand-drawn 'marshmallow' vector: chunky rounded bodies, dot eyes, deep teal-charcoal outline, flat fills (green #54B49C, coral #F07854, gold #FCA848, sky #6CB4F0, grape #9C9CF0), transparent background, no shadows.",
   "format": "SVG (scalable, themeable, tiny) for all illustrations; PNG only for the 8 goal icons. Internal SVG ids are namespaced per file, so several may be inlined on one page without collisions.",
   "mascot": "The green two-leaf 'Sprout' is the companion character — its poses live in mascot/.",
-  "count": 85,
+  "count": 110,
   "categories": {
+    "badge": 4,
     "brand": 1,
     "characters": 5,
     "concepts": 12,
     "goals": 8,
-    "mascot": 29,
+    "mascot": 31,
     "money": 5,
+    "nav": 7,
+    "node": 6,
     "scenes": 2,
-    "sectors": 10,
+    "sectors": 13,
     "sky": 11,
+    "stat": 3,
     "switzerland": 2
   },
   "items": [
@@ -1113,6 +1117,347 @@
         "switzerland",
         "franc",
         "coin"
+      ]
+    },
+    {
+      "id": "nav/home",
+      "file": "illustrations/nav/home.svg",
+      "category": "nav",
+      "title": "Home nav",
+      "description": "A simple house.",
+      "useWhen": "the Home / landing nav item",
+      "tags": [
+        "nav",
+        "home",
+        "house"
+      ]
+    },
+    {
+      "id": "nav/plan",
+      "file": "illustrations/nav/plan.svg",
+      "category": "nav",
+      "title": "Plan nav",
+      "description": "A donut pie chart.",
+      "useWhen": "the Plan / allocation nav item",
+      "tags": [
+        "nav",
+        "plan",
+        "pie-chart",
+        "allocation"
+      ]
+    },
+    {
+      "id": "nav/explore",
+      "file": "illustrations/nav/explore.svg",
+      "category": "nav",
+      "title": "Explore nav",
+      "description": "A magnifying glass.",
+      "useWhen": "the Explore / research nav item",
+      "tags": [
+        "nav",
+        "explore",
+        "research",
+        "search"
+      ]
+    },
+    {
+      "id": "nav/analytics",
+      "file": "illustrations/nav/analytics.svg",
+      "category": "nav",
+      "title": "Analytics nav",
+      "description": "An upward bar chart.",
+      "useWhen": "the Analytics nav item",
+      "tags": [
+        "nav",
+        "analytics",
+        "chart",
+        "bars"
+      ]
+    },
+    {
+      "id": "nav/learn",
+      "file": "illustrations/nav/learn.svg",
+      "category": "nav",
+      "title": "Learn nav",
+      "description": "An open book.",
+      "useWhen": "the Learn / glossary nav item",
+      "tags": [
+        "nav",
+        "learn",
+        "book"
+      ]
+    },
+    {
+      "id": "nav/scenarios",
+      "file": "illustrations/nav/scenarios.svg",
+      "category": "nav",
+      "title": "Scenarios nav",
+      "description": "A forked signpost.",
+      "useWhen": "the Scenarios nav item",
+      "tags": [
+        "nav",
+        "scenarios",
+        "signpost"
+      ]
+    },
+    {
+      "id": "nav/summary",
+      "file": "illustrations/nav/summary.svg",
+      "category": "nav",
+      "title": "Summary nav",
+      "description": "A document with a checkmark.",
+      "useWhen": "the Summary / IPS nav item",
+      "tags": [
+        "nav",
+        "summary",
+        "document",
+        "checkmark"
+      ]
+    },
+    {
+      "id": "node/profile",
+      "file": "illustrations/node/profile.svg",
+      "category": "node",
+      "title": "Profile node",
+      "description": "A person bust.",
+      "useWhen": "the about-you journey node",
+      "tags": [
+        "node",
+        "profile",
+        "person"
+      ]
+    },
+    {
+      "id": "node/goal",
+      "file": "illustrations/node/goal.svg",
+      "category": "node",
+      "title": "Goal node",
+      "description": "A bullseye target with a star.",
+      "useWhen": "the goal journey node",
+      "tags": [
+        "node",
+        "goal",
+        "target",
+        "star"
+      ]
+    },
+    {
+      "id": "node/risk",
+      "file": "illustrations/node/risk.svg",
+      "category": "node",
+      "title": "Risk node",
+      "description": "A speed gauge.",
+      "useWhen": "the risk journey node",
+      "tags": [
+        "node",
+        "risk",
+        "gauge"
+      ]
+    },
+    {
+      "id": "node/reward",
+      "file": "illustrations/node/reward.svg",
+      "category": "node",
+      "title": "Reward node",
+      "description": "A treasure chest.",
+      "useWhen": "the reward journey node",
+      "tags": [
+        "node",
+        "reward",
+        "treasure",
+        "chest"
+      ]
+    },
+    {
+      "id": "node/milestone",
+      "file": "illustrations/node/milestone.svg",
+      "category": "node",
+      "title": "Milestone node",
+      "description": "A trophy.",
+      "useWhen": "a milestone journey node",
+      "tags": [
+        "node",
+        "milestone",
+        "trophy"
+      ]
+    },
+    {
+      "id": "node/locked",
+      "file": "illustrations/node/locked.svg",
+      "category": "node",
+      "title": "Locked node",
+      "description": "A padlock.",
+      "useWhen": "a locked / not-yet-available journey node",
+      "tags": [
+        "node",
+        "locked",
+        "padlock"
+      ]
+    },
+    {
+      "id": "stat/plan-health",
+      "file": "illustrations/stat/plan-health.svg",
+      "category": "stat",
+      "title": "Plan-health stat",
+      "description": "A shield with a heart.",
+      "useWhen": "the plan-health status counter",
+      "tags": [
+        "stat",
+        "plan-health",
+        "shield",
+        "heart"
+      ]
+    },
+    {
+      "id": "stat/invested",
+      "file": "illustrations/stat/invested.svg",
+      "category": "stat",
+      "title": "Invested stat",
+      "description": "A stack of coins.",
+      "useWhen": "the amount-invested status counter",
+      "tags": [
+        "stat",
+        "invested",
+        "coins"
+      ]
+    },
+    {
+      "id": "stat/next-review",
+      "file": "illustrations/stat/next-review.svg",
+      "category": "stat",
+      "title": "Next-review stat",
+      "description": "A calendar with a clock.",
+      "useWhen": "the next-review status counter",
+      "tags": [
+        "stat",
+        "next-review",
+        "calendar",
+        "clock"
+      ]
+    },
+    {
+      "id": "badge/first-plan",
+      "file": "illustrations/badge/first-plan.svg",
+      "category": "badge",
+      "title": "First-plan badge",
+      "description": "A sprout emblem.",
+      "useWhen": "the first-plan-built achievement badge",
+      "tags": [
+        "badge",
+        "achievement",
+        "sprout"
+      ]
+    },
+    {
+      "id": "badge/diversified",
+      "file": "illustrations/badge/diversified.svg",
+      "category": "badge",
+      "title": "Diversified badge",
+      "description": "Three baskets.",
+      "useWhen": "the diversified achievement badge",
+      "tags": [
+        "badge",
+        "achievement",
+        "diversification",
+        "baskets"
+      ]
+    },
+    {
+      "id": "badge/safety-net",
+      "file": "illustrations/badge/safety-net.svg",
+      "category": "badge",
+      "title": "Safety-net badge",
+      "description": "An umbrella over a coin.",
+      "useWhen": "the safety-net-funded achievement badge",
+      "tags": [
+        "badge",
+        "achievement",
+        "umbrella",
+        "safety-net"
+      ]
+    },
+    {
+      "id": "badge/on-track",
+      "file": "illustrations/badge/on-track.svg",
+      "category": "badge",
+      "title": "On-track badge",
+      "description": "A rising arrow.",
+      "useWhen": "the on-track achievement badge",
+      "tags": [
+        "badge",
+        "achievement",
+        "arrow",
+        "growth"
+      ]
+    },
+    {
+      "id": "sectors/industrials",
+      "file": "illustrations/sectors/industrials.svg",
+      "category": "sectors",
+      "title": "Industrials",
+      "description": "A cog-gear with a crane hook.",
+      "useWhen": "the industrials sector",
+      "tags": [
+        "sector",
+        "industrials",
+        "gear",
+        "crane"
+      ]
+    },
+    {
+      "id": "sectors/communication-services",
+      "file": "illustrations/sectors/communication-services.svg",
+      "category": "sectors",
+      "title": "Communication services",
+      "description": "A speech bubble with a signal arc.",
+      "useWhen": "the communication services sector",
+      "tags": [
+        "sector",
+        "communication-services",
+        "speech-bubble",
+        "signal"
+      ]
+    },
+    {
+      "id": "sectors/energy",
+      "file": "illustrations/sectors/energy.svg",
+      "category": "sectors",
+      "title": "Energy",
+      "description": "An oil droplet.",
+      "useWhen": "the traditional energy sector — distinct from clean energy",
+      "tags": [
+        "sector",
+        "energy",
+        "oil",
+        "fossil"
+      ]
+    },
+    {
+      "id": "mascot/riding-scooter",
+      "file": "illustrations/mascot/riding-scooter.svg",
+      "category": "mascot",
+      "title": "Sprout on a scooter",
+      "description": "Sprout riding a scooter.",
+      "useWhen": "momentum, getting started, a journey forward",
+      "tags": [
+        "mascot",
+        "scooter",
+        "journey",
+        "momentum"
+      ]
+    },
+    {
+      "id": "mascot/on-hilltop",
+      "file": "illustrations/mascot/on-hilltop.svg",
+      "category": "mascot",
+      "title": "Sprout on a hilltop",
+      "description": "Sprout on a hilltop beside a flag.",
+      "useWhen": "reaching a goal, an achievement, a vantage point",
+      "tags": [
+        "mascot",
+        "hilltop",
+        "flag",
+        "achievement"
       ]
     }
   ]

@@ -46,7 +46,7 @@
     "sproutMotionOn": "Gently animated",
     "sproutMotionOff": "Still (reduced motion)",
     "galleryTitle": "Illustration library",
-    "galleryNote": "All 84 pieces, each with bilingual alt text — so nothing ever renders without a description for screen readers.",
+    "galleryNote": "All 109 pieces, each with bilingual alt text — so nothing ever renders without a description for screen readers.",
     "moments": {
       "welcome": "Welcome",
       "thinking": "Risk quiz",
@@ -202,7 +202,9 @@
         "with-globe": "Sprout holding a small spinning globe",
         "with-magnifier": "Sprout peering through a magnifying glass",
         "with-pie-chart": "Sprout proudly presenting a pie chart",
-        "with-trophy": "Sprout holding up a small trophy"
+        "with-trophy": "Sprout holding up a small trophy",
+        "riding-scooter": "Sprout riding a scooter",
+        "on-hilltop": "Sprout standing on a hilltop beside a flag"
       },
       "money": {
         "emergency-fund": "An umbrella sheltering a piggy bank",
@@ -225,7 +227,10 @@
         "materials": "A solid cube character",
         "real-estate": "A tall friendly apartment building",
         "technology": "A friendly microchip character",
-        "utilities": "A glowing lightbulb with a water drop"
+        "utilities": "A glowing lightbulb with a water drop",
+        "industrials": "A cog-gear with a crane hook",
+        "communication-services": "A speech bubble with a signal arc",
+        "energy": "An oil droplet"
       },
       "sky": {
         "balloon": "A single blue balloon",
@@ -243,6 +248,34 @@
       "switzerland": {
         "protected": "A shield marked with a checkmark",
         "swiss-coin": "A gold coin stamped with a Swiss cross"
+      },
+      "nav": {
+        "home": "A simple house",
+        "plan": "A donut pie chart",
+        "explore": "A magnifying glass",
+        "analytics": "An upward bar chart",
+        "learn": "An open book",
+        "scenarios": "A forked signpost pointing two ways",
+        "summary": "A document marked with a checkmark"
+      },
+      "node": {
+        "profile": "A person's head and shoulders",
+        "goal": "A bullseye target with a star at its centre",
+        "risk": "A speed gauge",
+        "reward": "An open treasure chest",
+        "milestone": "A trophy",
+        "locked": "A closed padlock"
+      },
+      "stat": {
+        "plan-health": "A shield with a heart",
+        "invested": "A stack of coins",
+        "next-review": "A calendar with a small clock"
+      },
+      "badge": {
+        "first-plan": "A sprout emblem badge",
+        "diversified": "Three baskets side by side",
+        "safety-net": "An umbrella sheltering a coin",
+        "on-track": "A rising arrow"
       }
     }
   }

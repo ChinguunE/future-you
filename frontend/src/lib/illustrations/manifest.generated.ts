@@ -7,6 +7,10 @@
 // keyed by id as `Illustrations.alt.<category>.<name>`.
 
 export type IllustrationId =
+  | 'badge/diversified'
+  | 'badge/first-plan'
+  | 'badge/on-track'
+  | 'badge/safety-net'
   | 'characters/blue-waving'
   | 'characters/blue-with-coin'
   | 'characters/grape'
@@ -45,11 +49,13 @@ export type IllustrationId =
   | 'mascot/jumping'
   | 'mascot/jumping-alt'
   | 'mascot/matterhorn'
+  | 'mascot/on-hilltop'
   | 'mascot/pointing'
   | 'mascot/pushing-coin'
   | 'mascot/pushing-coin-alt'
   | 'mascot/reading'
   | 'mascot/relaxing-deckchair'
+  | 'mascot/riding-scooter'
   | 'mascot/riding-wave'
   | 'mascot/sleeping'
   | 'mascot/thinking'
@@ -66,14 +72,30 @@ export type IllustrationId =
   | 'money/piggy-bank'
   | 'money/piggy-bank-coin'
   | 'money/savings-jar'
+  | 'nav/analytics'
+  | 'nav/explore'
+  | 'nav/home'
+  | 'nav/learn'
+  | 'nav/plan'
+  | 'nav/scenarios'
+  | 'nav/summary'
+  | 'node/goal'
+  | 'node/locked'
+  | 'node/milestone'
+  | 'node/profile'
+  | 'node/reward'
+  | 'node/risk'
   | 'scenes/goal-reached'
   | 'scenes/welcome'
   | 'sectors/clean-energy'
+  | 'sectors/communication-services'
   | 'sectors/consumer-discretionary'
   | 'sectors/consumer-staples'
+  | 'sectors/energy'
   | 'sectors/financials'
   | 'sectors/financials-alt'
   | 'sectors/healthcare'
+  | 'sectors/industrials'
   | 'sectors/materials'
   | 'sectors/real-estate'
   | 'sectors/technology'
@@ -89,10 +111,13 @@ export type IllustrationId =
   | 'sky/sparkles'
   | 'sky/sun'
   | 'sky/sun-spark'
+  | 'stat/invested'
+  | 'stat/next-review'
+  | 'stat/plan-health'
   | 'switzerland/protected'
   | 'switzerland/swiss-coin';
 
-export type IllustrationCategory = 'characters' | 'concepts' | 'goals' | 'mascot' | 'money' | 'scenes' | 'sectors' | 'sky' | 'switzerland';
+export type IllustrationCategory = 'badge' | 'characters' | 'concepts' | 'goals' | 'mascot' | 'money' | 'nav' | 'node' | 'scenes' | 'sectors' | 'sky' | 'stat' | 'switzerland';
 
 /** The Sprout mascot poses (the `mascot/` ids, prefix stripped). */
 export type SproutPose =
@@ -109,11 +134,13 @@ export type SproutPose =
   | 'jumping'
   | 'jumping-alt'
   | 'matterhorn'
+  | 'on-hilltop'
   | 'pointing'
   | 'pushing-coin'
   | 'pushing-coin-alt'
   | 'reading'
   | 'relaxing-deckchair'
+  | 'riding-scooter'
   | 'riding-wave'
   | 'sleeping'
   | 'thinking'
@@ -139,6 +166,10 @@ export interface IllustrationMeta {
 }
 
 export const ILLUSTRATIONS: readonly IllustrationMeta[] = [
+  {id: 'badge/diversified', src: '/illustrations/badge/diversified.svg', category: 'badge', width: 1036, height: 890},
+  {id: 'badge/first-plan', src: '/illustrations/badge/first-plan.svg', category: 'badge', width: 864, height: 890},
+  {id: 'badge/on-track', src: '/illustrations/badge/on-track.svg', category: 'badge', width: 899, height: 893},
+  {id: 'badge/safety-net', src: '/illustrations/badge/safety-net.svg', category: 'badge', width: 1007, height: 1024},
   {id: 'characters/blue-waving', src: '/illustrations/characters/blue-waving.svg', category: 'characters', width: 803, height: 659},
   {id: 'characters/blue-with-coin', src: '/illustrations/characters/blue-with-coin.svg', category: 'characters', width: 601, height: 573},
   {id: 'characters/grape', src: '/illustrations/characters/grape.svg', category: 'characters', width: 691, height: 627},
@@ -177,11 +208,13 @@ export const ILLUSTRATIONS: readonly IllustrationMeta[] = [
   {id: 'mascot/jumping', src: '/illustrations/mascot/jumping.svg', category: 'mascot', width: 733, height: 778},
   {id: 'mascot/jumping-alt', src: '/illustrations/mascot/jumping-alt.svg', category: 'mascot', width: 718, height: 718},
   {id: 'mascot/matterhorn', src: '/illustrations/mascot/matterhorn.svg', category: 'mascot', width: 760, height: 658},
+  {id: 'mascot/on-hilltop', src: '/illustrations/mascot/on-hilltop.svg', category: 'mascot', width: 939, height: 1184},
   {id: 'mascot/pointing', src: '/illustrations/mascot/pointing.svg', category: 'mascot', width: 605, height: 701},
   {id: 'mascot/pushing-coin', src: '/illustrations/mascot/pushing-coin.svg', category: 'mascot', width: 732, height: 610},
   {id: 'mascot/pushing-coin-alt', src: '/illustrations/mascot/pushing-coin-alt.svg', category: 'mascot', width: 728, height: 777},
   {id: 'mascot/reading', src: '/illustrations/mascot/reading.svg', category: 'mascot', width: 666, height: 665},
   {id: 'mascot/relaxing-deckchair', src: '/illustrations/mascot/relaxing-deckchair.svg', category: 'mascot', width: 584, height: 720},
+  {id: 'mascot/riding-scooter', src: '/illustrations/mascot/riding-scooter.svg', category: 'mascot', width: 1061, height: 1121},
   {id: 'mascot/riding-wave', src: '/illustrations/mascot/riding-wave.svg', category: 'mascot', width: 1016, height: 589},
   {id: 'mascot/sleeping', src: '/illustrations/mascot/sleeping.svg', category: 'mascot', width: 622, height: 586},
   {id: 'mascot/thinking', src: '/illustrations/mascot/thinking.svg', category: 'mascot', width: 702, height: 690},
@@ -198,14 +231,30 @@ export const ILLUSTRATIONS: readonly IllustrationMeta[] = [
   {id: 'money/piggy-bank', src: '/illustrations/money/piggy-bank.svg', category: 'money', width: 612, height: 541},
   {id: 'money/piggy-bank-coin', src: '/illustrations/money/piggy-bank-coin.svg', category: 'money', width: 842, height: 715},
   {id: 'money/savings-jar', src: '/illustrations/money/savings-jar.svg', category: 'money', width: 665, height: 1385},
+  {id: 'nav/analytics', src: '/illustrations/nav/analytics.svg', category: 'nav', width: 706, height: 617},
+  {id: 'nav/explore', src: '/illustrations/nav/explore.svg', category: 'nav', width: 723, height: 763},
+  {id: 'nav/home', src: '/illustrations/nav/home.svg', category: 'nav', width: 682, height: 763},
+  {id: 'nav/learn', src: '/illustrations/nav/learn.svg', category: 'nav', width: 692, height: 617},
+  {id: 'nav/plan', src: '/illustrations/nav/plan.svg', category: 'nav', width: 697, height: 763},
+  {id: 'nav/scenarios', src: '/illustrations/nav/scenarios.svg', category: 'nav', width: 707, height: 617},
+  {id: 'nav/summary', src: '/illustrations/nav/summary.svg', category: 'nav', width: 618, height: 724},
+  {id: 'node/goal', src: '/illustrations/node/goal.svg', category: 'node', width: 982, height: 1075},
+  {id: 'node/locked', src: '/illustrations/node/locked.svg', category: 'node', width: 533, height: 497},
+  {id: 'node/milestone', src: '/illustrations/node/milestone.svg', category: 'node', width: 567, height: 531},
+  {id: 'node/profile', src: '/illustrations/node/profile.svg', category: 'node', width: 1086, height: 1075},
+  {id: 'node/reward', src: '/illustrations/node/reward.svg', category: 'node', width: 969, height: 943},
+  {id: 'node/risk', src: '/illustrations/node/risk.svg', category: 'node', width: 1017, height: 943},
   {id: 'scenes/goal-reached', src: '/illustrations/scenes/goal-reached.svg', category: 'scenes', width: 694, height: 706},
   {id: 'scenes/welcome', src: '/illustrations/scenes/welcome.svg', category: 'scenes', width: 1060, height: 811},
   {id: 'sectors/clean-energy', src: '/illustrations/sectors/clean-energy.svg', category: 'sectors', width: 521, height: 563},
+  {id: 'sectors/communication-services', src: '/illustrations/sectors/communication-services.svg', category: 'sectors', width: 615, height: 817},
   {id: 'sectors/consumer-discretionary', src: '/illustrations/sectors/consumer-discretionary.svg', category: 'sectors', width: 705, height: 584},
   {id: 'sectors/consumer-staples', src: '/illustrations/sectors/consumer-staples.svg', category: 'sectors', width: 674, height: 760},
+  {id: 'sectors/energy', src: '/illustrations/sectors/energy.svg', category: 'sectors', width: 632, height: 817},
   {id: 'sectors/financials', src: '/illustrations/sectors/financials.svg', category: 'sectors', width: 775, height: 652},
   {id: 'sectors/financials-alt', src: '/illustrations/sectors/financials-alt.svg', category: 'sectors', width: 1118, height: 754},
   {id: 'sectors/healthcare', src: '/illustrations/sectors/healthcare.svg', category: 'sectors', width: 581, height: 726},
+  {id: 'sectors/industrials', src: '/illustrations/sectors/industrials.svg', category: 'sectors', width: 725, height: 817},
   {id: 'sectors/materials', src: '/illustrations/sectors/materials.svg', category: 'sectors', width: 468, height: 563},
   {id: 'sectors/real-estate', src: '/illustrations/sectors/real-estate.svg', category: 'sectors', width: 653, height: 573},
   {id: 'sectors/technology', src: '/illustrations/sectors/technology.svg', category: 'sectors', width: 674, height: 783},
@@ -221,6 +270,9 @@ export const ILLUSTRATIONS: readonly IllustrationMeta[] = [
   {id: 'sky/sparkles', src: '/illustrations/sky/sparkles.svg', category: 'sky', width: 497, height: 782},
   {id: 'sky/sun', src: '/illustrations/sky/sun.svg', category: 'sky', width: 605, height: 628},
   {id: 'sky/sun-spark', src: '/illustrations/sky/sun-spark.svg', category: 'sky', width: 625, height: 607},
+  {id: 'stat/invested', src: '/illustrations/stat/invested.svg', category: 'stat', width: 378, height: 372},
+  {id: 'stat/next-review', src: '/illustrations/stat/next-review.svg', category: 'stat', width: 326, height: 349},
+  {id: 'stat/plan-health', src: '/illustrations/stat/plan-health.svg', category: 'stat', width: 333, height: 409},
   {id: 'switzerland/protected', src: '/illustrations/switzerland/protected.svg', category: 'switzerland', width: 764, height: 737},
   {id: 'switzerland/swiss-coin', src: '/illustrations/switzerland/swiss-coin.svg', category: 'switzerland', width: 764, height: 596}
 ];
@@ -232,10 +284,10 @@ export const ILLUSTRATION_BY_ID: Record<IllustrationId, IllustrationMeta> =
   >;
 
 export const ILLUSTRATION_CATEGORIES: readonly IllustrationCategory[] = [
-  'characters', 'concepts', 'goals', 'mascot', 'money', 'scenes', 'sectors', 'sky', 'switzerland'
+  'badge', 'characters', 'concepts', 'goals', 'mascot', 'money', 'nav', 'node', 'scenes', 'sectors', 'sky', 'stat', 'switzerland'
 ];
 
 /** Every Sprout pose, sorted — drives the typed `<Sprout pose>` prop. */
 export const SPROUT_POSES: readonly SproutPose[] = [
-  'arms-out', 'balancing-beam', 'calm', 'catching-star', 'celebrating', 'cheering', 'climbing', 'coin-trail', 'growth-arrow', 'holding-sign', 'jumping', 'jumping-alt', 'matterhorn', 'pointing', 'pushing-coin', 'pushing-coin-alt', 'reading', 'relaxing-deckchair', 'riding-wave', 'sleeping', 'thinking', 'thinking-bubble', 'thumbs-up', 'watering', 'with-clock-plant', 'with-globe', 'with-magnifier', 'with-pie-chart', 'with-trophy'
+  'arms-out', 'balancing-beam', 'calm', 'catching-star', 'celebrating', 'cheering', 'climbing', 'coin-trail', 'growth-arrow', 'holding-sign', 'jumping', 'jumping-alt', 'matterhorn', 'on-hilltop', 'pointing', 'pushing-coin', 'pushing-coin-alt', 'reading', 'relaxing-deckchair', 'riding-scooter', 'riding-wave', 'sleeping', 'thinking', 'thinking-bubble', 'thumbs-up', 'watering', 'with-clock-plant', 'with-globe', 'with-magnifier', 'with-pie-chart', 'with-trophy'
 ];
