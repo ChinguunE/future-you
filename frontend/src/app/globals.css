@@ -141,6 +141,29 @@
   --chip-bg-selected:     var(--green-300);
   --chip-border-selected: var(--green-600);
 
+  /* Journey node (DESIGN §13) — the signature §4 pressable mechanic on a CIRCLE.
+     A chunkier 6px hard lip than the 4px button (a node is a big tactile coin),
+     plus a soft cast shadow so it floats on the white field, and a top inset
+     highlight for the coin's curvature. Done/current fill brand green; locked is
+     a cool ink-tinted grey (in-system via color-mix, never a raw hex) with a flat
+     2px edge and no press. */
+  --node-press-y:      6px;
+  --node-done-bg:      var(--green-600);
+  --node-done-edge:    var(--green-800);
+  --node-current-bg:   var(--green-600);
+  --node-current-edge: var(--green-800);
+  --node-current-ring: var(--green-300);
+  --node-locked-bg:    color-mix(in oklab, var(--ink)  8%, var(--white));
+  --node-locked-edge:  color-mix(in oklab, var(--ink) 18%, var(--white));
+  --node-locked-fg:    var(--text-muted);
+  --node-cast:         0 10px 16px rgba(20, 48, 43, 0.12);
+  --node-highlight:    inset 0 2px 0 rgba(255, 255, 255, 0.28);
+
+  /* The connective path thread between nodes — done leg = brand tint solid,
+     the road ahead = a faint grey (decorative; the state is also in each label). */
+  --path-done: var(--green-300);
+  --path-todo: rgba(20, 48, 43, 0.16);
+
   /* Tinted cards — a soft wash of the accent over white so --ink text stays
      comfortably AA (DESIGN §5). The recipe lives here, not inline, so the wash
      is a single source of truth and no component hard-codes a colour. */
@@ -369,6 +392,20 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+/* The current journey node's gentle idle bob (DESIGN §7/§13). Applied only under
+   `motion-safe:` and additionally neutralised by the reduced-motion block below.
+   It lives on a WRAPPER element so the node's own press translateY never fights
+   the animation. */
+@keyframes journey-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }
 

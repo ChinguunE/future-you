@@ -1,4 +1,27 @@
 {
+  "Flow": {
+    "path": {
+      "eyebrow": "Future You",
+      "title": "Your journey",
+      "guide": "Guide",
+      "calloutStart": "Start here",
+      "keepLearning": "Keep learning",
+      "sproutAlt": "Sprout cheering you on"
+    },
+    "nodes": {
+      "profile": "About you",
+      "goal": "Your goal",
+      "risk": "Comfort with risk",
+      "plan": "Your plan",
+      "learnBasics": "Investing basics",
+      "learnDiversify": "Spreading risk"
+    },
+    "state": {
+      "done": "Completed",
+      "current": "Current step",
+      "locked": "Locked"
+    }
+  },
   "Landing": {
     "wordmark": "Future You",
     "tagline": "Invest in Future You.",
