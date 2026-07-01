@@ -268,6 +268,38 @@
       "ovAccA3": "Bonds usually swing less than stocks, so they steady the ride when markets dip."
     }
   },
+  "TeachingPrimitives": {
+    "eyebrow": "Teaching layer",
+    "title": "How Future You explains things",
+    "intro": "Two building blocks for learning as you invest — the answer in plain words, with the maths one tap away, and any jargon defined on the spot.",
+    "equationTitle": "Show the maths",
+    "equationNote": "Every number leads with a plain-language answer. Open \"Show the maths\" only if you want to see exactly how it's worked out.",
+    "showMaths": "Show the maths",
+    "eqResult": "Start with CHF 1,000, add CHF 100 a month, and if it grows about 5% a year, in 20 years you'd have about <b>CHF 43,800</b> — even though you only put in CHF 25,000 yourself.",
+    "eqFormulaAlt": "Future value equals P times one plus r, all raised to the power n, plus C times the quantity one plus r to the power n minus one, divided by r.",
+    "eqSymbolsLabel": "What each part means",
+    "eqSymFV": "Future value — what your savings could grow to.",
+    "eqSymP": "Principal — what you start with today (CHF 1,000).",
+    "eqSymC": "Contribution — what you add each month (CHF 100).",
+    "eqSymR": "Monthly growth rate — your ~5% a year, split across 12 months.",
+    "eqSymN": "Number of months you stay invested (20 years = 240).",
+    "eqExampleLabel": "With your numbers",
+    "eqExampleAlt": "Using the example numbers, the future value works out to about 43,800 Swiss francs.",
+    "eqExampleCaption": "You put in <b>CHF 25,000</b> of your own — the other ~CHF 18,800 is growth doing the work.",
+    "eqWhyLabel": "Why this works",
+    "eqWhy": "Each year's growth earns its own growth the next year — that snowball is compound interest, and time is what makes it big.",
+    "glossaryTitle": "Words, explained",
+    "glossaryIntro": "Any underlined word has a plain-language definition — tap it to see it, without leaving the page.",
+    "glossaryParagraph": "An <etf>ETF</etf> lets you own a whole basket of investments in one go. Spreading your money this way — <diversification>diversification</diversification> — softens the blow when any single holding drops. It won't remove <volatility>volatility</volatility>, the normal up-and-down swing of prices, but it makes the ride smoother.",
+    "glossaryLearnMore": "Learn more",
+    "glossaryDefineHint": "show definition",
+    "wordEtf": "ETF",
+    "wordDiversification": "Diversification",
+    "wordVolatility": "Volatility",
+    "defEtf": "A single fund you can buy that holds a whole basket of investments at once — instant variety, at low cost.",
+    "defDiversification": "Spreading your money across many investments so one bad apple can't sink everything.",
+    "defVolatility": "How much an investment's price swings up and down — bigger swings mean a bumpier ride."
+  },
   "Illustrations": {
     "alt": {
       "characters": {

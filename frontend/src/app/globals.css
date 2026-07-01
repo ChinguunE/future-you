@@ -410,6 +410,65 @@
 }
 
 /* ============================================================================
+   KATEX — themed to our tokens (DESIGN §5 "Equation block"). Keep KaTeX's own
+   math fonts (correct typesetting; forcing Nunito onto maths would read wrong),
+   but recolour to --ink and size it to sit beside our Nunito/Baloo copy. Scoped
+   under .equation-formula so it only ever touches our equation blocks, never
+   stray markup. (The block formula scrolls horizontally on narrow screens via a
+   focusable wrapper in EquationBlock, so .katex-display itself stays visible.)
+   ========================================================================== */
+.equation-formula .katex {
+  color: var(--ink);
+  font-size: 1.12em;
+}
+.equation-formula .katex-display {
+  margin: 0;
+  padding: 0.125rem 0;
+}
+.equation-formula .katex-display > .katex {
+  font-size: 1.2em;
+}
+/* Block formulas sit on white tiles and scroll horizontally when they don't
+   fit (narrow screens / long worked examples). The CSS scroll-shadow signals
+   "more this way" only while there is more to scroll — a white cover layer
+   (background-attachment: local, moves with the content) hides a fixed edge
+   shadow (scroll) until you can scroll further. Background is white to match
+   the tile, so the formula reads as part of it. */
+.equation-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: var(--white);
+  background-image:
+    linear-gradient(to right, var(--white) 34%, rgba(255, 255, 255, 0)),
+    linear-gradient(to left, var(--white) 34%, rgba(255, 255, 255, 0)),
+    radial-gradient(farthest-side at 0 50%, rgba(20, 48, 43, 0.2), rgba(20, 48, 43, 0)),
+    radial-gradient(farthest-side at 100% 50%, rgba(20, 48, 43, 0.2), rgba(20, 48, 43, 0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 22px 100%, 22px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+/* The small Sprout reward at the top of the maths card gently scales in from the
+   corner when the accordion opens (DESIGN §7 — a warm, calm reward for curiosity).
+   Tied to the content's open state so it replays on each open. The global
+   reduced-motion block below collapses it to instant. */
+@keyframes equation-reward-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-slot="accordion-content"][data-state="open"] .equation-reward {
+  animation: equation-reward-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: bottom right;
+}
+
+/* ============================================================================
    REDUCED MOTION — DESIGN §7: drop transforms/idle loops/floats, keep instant
    state changes. Honour the OS preference globally (CLAUDE.md design rules).
    ========================================================================== */

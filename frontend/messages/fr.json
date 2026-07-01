@@ -268,6 +268,38 @@
       "ovAccA3": "Les obligations varient généralement moins que les actions : elles stabilisent le parcours quand les marchés baissent."
     }
   },
+  "TeachingPrimitives": {
+    "eyebrow": "Couche pédagogique",
+    "title": "Comment Future You explique les choses",
+    "intro": "Deux briques pour apprendre en investissant — la réponse en langage clair, le calcul à portée de geste, et chaque terme technique défini sur place.",
+    "equationTitle": "Voir le calcul",
+    "equationNote": "Chaque chiffre commence par une réponse en langage clair. Ouvrez « Voir le calcul » seulement si vous voulez voir exactement comment on l'obtient.",
+    "showMaths": "Voir le calcul",
+    "eqResult": "Commencez avec CHF 1 000, ajoutez CHF 100 par mois, et si cela croît d'environ 5 % par an, dans 20 ans vous auriez environ <b>CHF 43 800</b> — alors que vous n'avez versé que CHF 25 000 vous-même.",
+    "eqFormulaAlt": "La valeur future égale P multiplié par un plus r, le tout élevé à la puissance n, plus C multiplié par la quantité un plus r puissance n moins un, divisée par r.",
+    "eqSymbolsLabel": "Ce que signifie chaque terme",
+    "eqSymFV": "Valeur future — ce que votre épargne pourrait devenir.",
+    "eqSymP": "Capital de départ — ce avec quoi vous commencez aujourd'hui (CHF 1 000).",
+    "eqSymC": "Versement — ce que vous ajoutez chaque mois (CHF 100).",
+    "eqSymR": "Taux de croissance mensuel — vos ~5 % par an, répartis sur 12 mois.",
+    "eqSymN": "Nombre de mois de placement (20 ans = 240).",
+    "eqExampleLabel": "Avec vos chiffres",
+    "eqExampleAlt": "Avec les chiffres de l'exemple, la valeur future ressort à environ 43 800 francs suisses.",
+    "eqExampleCaption": "Vous versez <b>CHF 25 000</b> de votre poche — les quelque CHF 18 800 restants, c'est la croissance qui travaille.",
+    "eqWhyLabel": "Pourquoi ça marche",
+    "eqWhy": "La croissance de chaque année génère sa propre croissance l'année suivante — ce cumul, ce sont les intérêts composés, et c'est le temps qui les rend importants.",
+    "glossaryTitle": "Les mots, expliqués",
+    "glossaryIntro": "Chaque mot souligné a une définition en langage clair — touchez-le pour la voir, sans quitter la page.",
+    "glossaryParagraph": "Un <etf>ETF</etf> vous permet de détenir tout un panier de placements d'un coup. Répartir votre argent ainsi — la <diversification>diversification</diversification> — amortit le choc quand un placement isolé chute. Cela ne supprime pas la <volatility>volatilité</volatility>, ce va-et-vient normal des prix, mais cela rend le parcours plus doux.",
+    "glossaryLearnMore": "En savoir plus",
+    "glossaryDefineHint": "afficher la définition",
+    "wordEtf": "ETF",
+    "wordDiversification": "Diversification",
+    "wordVolatility": "Volatilité",
+    "defEtf": "Un fonds unique que vous pouvez acheter et qui contient tout un panier de placements — de la variété immédiate, à faible coût.",
+    "defDiversification": "Répartir votre argent sur de nombreux placements pour qu'une seule mauvaise surprise ne fasse pas tout couler.",
+    "defVolatility": "L'ampleur des hausses et des baisses du prix d'un placement — de plus grands écarts, un parcours plus mouvementé."
+  },
   "Illustrations": {
     "alt": {
       "characters": {
