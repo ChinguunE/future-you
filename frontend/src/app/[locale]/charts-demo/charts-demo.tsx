@@ -39,6 +39,12 @@ import {
 } from '@/components/charts/price-history-chart';
 import {AnalystTargetChart} from '@/components/charts/analyst-target-chart';
 import {FundamentalsSnapshot} from '@/components/charts/fundamentals-snapshot';
+import {
+  StressBarsChart,
+  type StressBarDatum
+} from '@/components/charts/stress-bars-chart';
+import {RollingReturnsChart} from '@/components/charts/rolling-returns-chart';
+import {BenchmarkLinesChart} from '@/components/charts/benchmark-lines-chart';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
@@ -90,6 +96,12 @@ import {
   STOCK_RANGES,
   type StockRange
 } from './stock-data';
+import {
+  buildBenchmark,
+  buildRolling,
+  buildStressBars,
+  type StressSeverity
+} from './scenario-data';
 
 /**
  * The interactive island of /charts-demo (client): it owns the horizon state and
@@ -127,6 +139,19 @@ const MDD_FORMULA =
 const SHARPE_FORMULA = 'S = \\dfrac{R}{\\sigma}';
 const SHARPE_EXAMPLE =
   '\\dfrac{5.5\\%}{10.4\\%} \\approx 0.53 \\quad \\text{vs} \\quad \\dfrac{5.2\\%}{9.6\\%} \\approx 0.54';
+
+// A single rough-year loss (parametric VaR) — the average yearly return minus how far
+// into the bad tail you look, in risk-swings. Language-neutral; the example is your mix's
+// 1-in-20 year (μ 5.5%, σ 10.4%, z −1.65). This uses the FULL annual σ (a single year),
+// unlike the return-distribution card, which averages σ over the whole horizon.
+const STRESS_FORMULA = '\\text{loss} = \\mu + z\\,\\sigma';
+const STRESS_EXAMPLE = '5.5\\% + (-1.65)\\times 10.4\\% \\approx -11.6\\%';
+
+// How the yearly swing shrinks with the length of the hold — the one-year swing divided
+// by the square root of the number of years (good and bad years average out). The example
+// is your mix over ten years (σ 10.4% → about 3.3%). Language-neutral.
+const ROLLING_FORMULA = '\\sigma_n = \\dfrac{\\sigma}{\\sqrt{n}}';
+const ROLLING_EXAMPLE = '\\sigma_{10} = \\dfrac{10.4\\%}{\\sqrt{10}} \\approx 3.3\\%';
 
 /** The growth fan (Slice 8a) — an honest median inside a p10–p90 range. */
 function ProjectionCard({locale}: {locale: string}) {
@@ -1888,6 +1913,403 @@ function FundamentalsCard({locale}: {locale: string}) {
   );
 }
 
+/* ============== Wave E — "Scenario & comparison" (Slice 9) ============== */
+
+/** E1 — how a bad year could feel: rough-year loss bars, your mix vs a plain index. */
+function StressBarsCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const summary = buildStressBars();
+  const signedPct = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 1, signDisplay: 'always'});
+  const pts = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+  const sevLabel = (s: StressSeverity) => t(`scenario.stress.sev.${s}`);
+  const sevShort = (s: StressSeverity) => t(`scenario.stress.sevShort.${s}`);
+
+  const data: StressBarDatum[] = summary.bars.map((b) => ({
+    key: b.severity,
+    severity: sevShort(b.severity),
+    severityFull: sevLabel(b.severity),
+    yourLoss: b.yourLoss,
+    indexLoss: b.indexLoss,
+    cushion: b.cushion
+  }));
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'band', color: chartTheme.scenario.loss, label: t('scenario.stress.legendIndex')},
+    {shape: 'band', color: chartTheme.scenario.cushioned, label: t('scenario.stress.legendYou')}
+  ];
+
+  const tableRows = summary.bars.map((b) => ({
+    scenario: sevLabel(b.severity),
+    index: signedPct(b.indexLoss),
+    you: signedPct(b.yourLoss),
+    cushion: pts(b.cushion)
+  }));
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="neg"
+        label={t('scenario.stress.stats.worstLabel')}
+        value={signedPct(summary.worstYearLoss)}
+        note={t('scenario.stress.stats.worstNote')}
+      />
+      <StatCard
+        tone="brand"
+        label={t('scenario.stress.stats.cushionLabel')}
+        value={pts(summary.headlineCushion)}
+        delta={{direction: 'up', value: t('scenario.stress.stats.cushionPill')}}
+      />
+      <StatCard
+        tone="gold"
+        label={t('scenario.stress.stats.severeLabel')}
+        value={signedPct(summary.severeLoss)}
+        note={t('scenario.stress.stats.severeNote')}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: '\\text{loss}', meaning: t('scenario.stress.eqSymLoss')},
+    {tex: '\\mu', meaning: t('scenario.stress.eqSymMu')},
+    {tex: 'z', meaning: t('scenario.stress.eqSymZ')},
+    {tex: '\\sigma', meaning: t('scenario.stress.eqSymSigma')}
+  ];
+
+  return (
+    <ChartCard
+      title={t('scenario.stress.title')}
+      stats={stats}
+      caption={t('scenario.stress.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('scenario.stress.tableCaption'),
+        columns: [
+          {key: 'scenario', label: t('scenario.stress.colScenario')},
+          {key: 'index', label: t('scenario.stress.colIndex'), numeric: true},
+          {key: 'you', label: t('scenario.stress.colYou'), numeric: true},
+          {key: 'cushion', label: t('scenario.stress.colCushion'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('scenario.stress.eqResult', {
+          b: bold,
+          loss: signedPct(summary.worstYearLoss),
+          cushion: pts(summary.headlineCushion)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: STRESS_FORMULA,
+        formulaAlt: t('scenario.stress.eqFormulaAlt'),
+        symbolsLabel: t('scenario.stress.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('scenario.stress.eqExampleLabel'),
+        exampleFormula: STRESS_EXAMPLE,
+        exampleAlt: t('scenario.stress.eqExampleAlt'),
+        exampleCaption: t('scenario.stress.eqExampleCaption'),
+        whyLabel: t('scenario.stress.eqWhyLabel'),
+        why: t('scenario.stress.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="calm" size={88} decorative animated={false} eager />
+      }
+    >
+      <StressBarsChart
+        data={data}
+        labels={{
+          index: t('scenario.stress.legendIndex'),
+          your: t('scenario.stress.legendYou'),
+          cushion: t('scenario.stress.tipCushion'),
+          waterline: t('scenario.stress.waterline')
+        }}
+        formatPercent={signedPct}
+        formatCushion={(v) =>
+          t('scenario.stress.cushionValue', {pct: pts(v)})
+        }
+        ariaLabel={t('scenario.stress.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** E2 — rolling returns: the annualised-return band narrowing as the hold grows. */
+function RollingReturnsCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const summary = buildRolling();
+  const signedPct = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 1, signDisplay: 'always'});
+  const pct = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+  const wholeYears = (y: number) => formatNumber(Math.round(y), locale);
+  const yearsAxis = (y: number) =>
+    t('scenario.rolling.yearsAxis', {years: wholeYears(y)});
+  const yearsTitle = (y: number) =>
+    t('scenario.rolling.yearsTitle', {years: wholeYears(y)});
+  const breakevenYears = Math.round(summary.breakevenYears);
+
+  const short = summary.marks[0]; // 1 year
+  const long = summary.marks[3]; // 10 years
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'line', color: chartTheme.scenario.median, label: t('scenario.rolling.legendMedian')},
+    {shape: 'band', color: chartTheme.scenario.band, label: t('scenario.rolling.legendBand')},
+    {shape: 'dot', color: chartTheme.scenario.median, label: t('scenario.rolling.legendBreakeven')}
+  ];
+
+  const tableRows = summary.marks.map((m) => ({
+    hold: yearsTitle(m.years),
+    rough: signedPct(m.p10),
+    median: signedPct(m.median),
+    good: signedPct(m.p90)
+  }));
+
+  const range = (p: {p10: number; p90: number}) => (
+    <span className="whitespace-nowrap">{`${signedPct(p.p10)} … ${signedPct(p.p90)}`}</span>
+  );
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="neg"
+        label={t('scenario.rolling.stats.shortLabel')}
+        value={range(short)}
+        note={t('scenario.rolling.stats.shortNote')}
+      />
+      <StatCard
+        tone="brand"
+        label={t('scenario.rolling.stats.longLabel')}
+        value={range(long)}
+        note={t('scenario.rolling.stats.longNote')}
+      />
+      <StatCard
+        tone="gold"
+        label={t('scenario.rolling.stats.breakevenLabel')}
+        value={t('scenario.rolling.stats.breakevenValue', {
+          years: formatNumber(breakevenYears, locale)
+        })}
+        note={t('scenario.rolling.stats.breakevenNote')}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: '\\sigma_n', meaning: t('scenario.rolling.eqSymSigmaN')},
+    {tex: '\\sigma', meaning: t('scenario.rolling.eqSymSigma')},
+    {tex: 'n', meaning: t('scenario.rolling.eqSymN')}
+  ];
+
+  return (
+    <ChartCard
+      title={t('scenario.rolling.title')}
+      stats={stats}
+      caption={t('scenario.rolling.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('scenario.rolling.tableCaption'),
+        columns: [
+          {key: 'hold', label: t('scenario.rolling.colHold')},
+          {key: 'rough', label: t('scenario.rolling.colRough'), numeric: true},
+          {key: 'median', label: t('scenario.rolling.colMedian'), numeric: true},
+          {key: 'good', label: t('scenario.rolling.colGood'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('scenario.rolling.eqResult', {
+          b: bold,
+          mean: signedPct(summary.mean),
+          sigma1: pct(summary.oneYearSigma),
+          sigma10: pct(summary.tenYearSigma),
+          years: formatNumber(breakevenYears, locale)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: ROLLING_FORMULA,
+        formulaAlt: t('scenario.rolling.eqFormulaAlt'),
+        symbolsLabel: t('scenario.rolling.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('scenario.rolling.eqExampleLabel'),
+        exampleFormula: ROLLING_EXAMPLE,
+        exampleAlt: t('scenario.rolling.eqExampleAlt'),
+        exampleCaption: t('scenario.rolling.eqExampleCaption'),
+        whyLabel: t('scenario.rolling.eqWhyLabel'),
+        why: t('scenario.rolling.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="balancing-beam" size={88} decorative animated={false} eager />
+      }
+    >
+      <RollingReturnsChart
+        data={summary.curve}
+        breakeven={{
+          years: summary.breakevenYears,
+          label: t('scenario.rolling.breakevenMarker', {
+            years: formatNumber(breakevenYears, locale)
+          })
+        }}
+        breakevenRuleLabel={t('scenario.rolling.breakevenRule')}
+        labels={{
+          median: t('scenario.rolling.tipMedian'),
+          good: t('scenario.rolling.tipGood'),
+          rough: t('scenario.rolling.tipRough')
+        }}
+        formatReturn={signedPct}
+        formatYears={yearsTitle}
+        formatYearsAxis={yearsAxis}
+        ariaLabel={t('scenario.rolling.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** E3 — benchmark comparison: your expected path vs a 60/40 reference, recast by horizon. */
+function BenchmarkCard({
+  locale,
+  className
+}: {
+  locale: string;
+  className?: string;
+}) {
+  const t = useTranslations('Charts');
+  // Default to long: the compounding edge (and the gap) is largest over 30 years.
+  const [horizon, setHorizon] = React.useState<Horizon>('long');
+  const data = React.useMemo(() => buildBenchmark(horizon), [horizon]);
+  const chf = (v: number) => formatCHF(v, locale);
+  const chfC = (v: number) => formatCHFCompact(v, locale);
+  const pct1 = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'line', color: chartTheme.scenario.you, label: t('scenario.benchmark.legendYou')},
+    {shape: 'dashed', color: chartTheme.scenario.reference, label: t('scenario.benchmark.legendReference')},
+    {shape: 'band', color: chartTheme.scenario.gap, label: t('scenario.benchmark.legendGap')}
+  ];
+
+  const tableRows = data.points.map((p) => ({
+    year: String(p.year),
+    you: chf(p.you),
+    reference: chf(p.reference),
+    gap: chf(p.gap)
+  }));
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="brand"
+        label={t('scenario.benchmark.stats.youLabel', {year: String(data.targetYear)})}
+        value={chf(data.yourFinal)}
+        note={t('scenario.benchmark.stats.youNote', {ret: pct1(data.yourReturn)})}
+      />
+      <StatCard
+        tone="neutral"
+        label={t('scenario.benchmark.stats.refLabel')}
+        value={chf(data.referenceFinal)}
+        note={t('scenario.benchmark.stats.refNote', {ret: pct1(data.referenceReturn)})}
+      />
+      <StatCard
+        tone="gold"
+        label={t('scenario.benchmark.stats.gapLabel')}
+        value={chfC(data.gap)}
+        delta={{direction: 'up', value: t('scenario.benchmark.stats.gapPill')}}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: 'FV', meaning: t('scenario.benchmark.eqSymFV')},
+    {tex: 'P', meaning: t('scenario.benchmark.eqSymP')},
+    {tex: 'C', meaning: t('scenario.benchmark.eqSymC')},
+    {tex: 'r', meaning: t('scenario.benchmark.eqSymR')},
+    {tex: 'n', meaning: t('scenario.benchmark.eqSymN')}
+  ];
+
+  // The worked example is fixed at the long horizon (the richest gap, like the projection
+  // card's fixed example), so the maths text can't drift when the horizon toggles.
+  const example = buildBenchmark('long');
+
+  return (
+    <ChartCard
+      className={className}
+      title={t('scenario.benchmark.title')}
+      stats={stats}
+      caption={t('scenario.benchmark.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      horizon={{
+        value: horizon,
+        onValueChange: (v) => setHorizon(v as Horizon),
+        label: t('horizon.label'),
+        options: HORIZON_OPTION_KEYS.map((key) => ({
+          value: key,
+          label: t(`horizon.${key}`)
+        }))
+      }}
+      legend={legend}
+      table={{
+        caption: t('scenario.benchmark.tableCaption'),
+        columns: [
+          {key: 'year', label: t('scenario.benchmark.colYear')},
+          {key: 'you', label: t('scenario.benchmark.colYou'), numeric: true},
+          {key: 'reference', label: t('scenario.benchmark.colReference'), numeric: true},
+          {key: 'gap', label: t('scenario.benchmark.colGap'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('scenario.benchmark.eqResult', {
+          b: bold,
+          year: String(example.targetYear),
+          gap: chf(example.gap),
+          yourReturn: pct1(example.yourReturn),
+          refReturn: pct1(example.referenceReturn)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: FV_FORMULA,
+        formulaAlt: t('scenario.benchmark.eqFormulaAlt'),
+        symbolsLabel: t('scenario.benchmark.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('scenario.benchmark.eqExampleLabel'),
+        exampleFormula: FV_EXAMPLE,
+        exampleAlt: t('scenario.benchmark.eqExampleAlt'),
+        exampleCaption: t('scenario.benchmark.eqExampleCaption'),
+        whyLabel: t('scenario.benchmark.eqWhyLabel'),
+        why: t('scenario.benchmark.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="growth-arrow" size={88} decorative animated={false} eager />
+      }
+    >
+      <BenchmarkLinesChart
+        data={data.points}
+        end={{
+          year: data.targetYear,
+          you: data.yourFinal,
+          label: t('scenario.benchmark.endLabel', {gap: chfC(data.gap)})
+        }}
+        labels={{
+          you: t('scenario.benchmark.tipYou'),
+          reference: t('scenario.benchmark.tipReference'),
+          gap: t('scenario.benchmark.tipGap')
+        }}
+        formatValue={chf}
+        formatAxisValue={chfC}
+        formatYear={(y) => t('scenario.benchmark.tooltipYear', {year: String(y)})}
+        ariaLabel={t('scenario.benchmark.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
 export function ChartsDemo({locale}: {locale: string}) {
   const t = useTranslations('Charts');
   // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
@@ -1950,6 +2372,22 @@ export function ChartsDemo({locale}: {locale: string}) {
           <PriceHistoryCard locale={locale} className="lg:col-span-2" />
           <AnalystTargetCard locale={locale} />
           <FundamentalsCard locale={locale} />
+        </ChartGrid>
+      </section>
+
+      <section data-demo-section="scenario" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('scenarioSectionTitle')}</h2>
+          <p className="text-body text-text">{t('scenarioSectionIntro')}</p>
+        </div>
+        {/* The forward benchmark comparison leads full-width (a 30-year time series earns
+            the room); the two "scenario" cards sit 2-up beneath it. Benchmark is card
+            nth(0) (it carries the horizon toggle for the e2e full cycle); stress = nth(1),
+            rolling = nth(2). */}
+        <ChartGrid>
+          <BenchmarkCard locale={locale} className="lg:col-span-2" />
+          <StressBarsCard locale={locale} />
+          <RollingReturnsCard locale={locale} />
         </ChartGrid>
       </section>
     </div>

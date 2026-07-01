@@ -183,6 +183,31 @@ export const chartTheme = {
       {offset: '45%', color: 'var(--green-500)', opacity: 0.28},
       {offset: '80%', color: 'var(--green-400)', opacity: 0.12},
       {offset: '100%', color: 'var(--green-400)', opacity: 0.03}
+    ],
+
+    /* Scenario rough-year bars (Slice 9 "Scenario & comparison"). Two glossy sheens for
+       the loss bars that hang below the 0% waterline: --neg for a plain stock index's
+       DEEPER fall, --sky for your mix's SHALLOWER, cushioned fall. Saturated at the
+       waterline (top) fading as the bar sinks. Never colour-alone — each bar also carries
+       a ▼ + label + number; the hue only says WHICH mix. */
+    stressIndex: [
+      {offset: '0%', color: 'var(--neg)', opacity: 1},
+      {offset: '60%', color: 'var(--neg)', opacity: 0.92},
+      {offset: '100%', color: 'var(--neg)', opacity: 0.8}
+    ],
+    stressYou: [
+      {offset: '0%', color: 'var(--sky)', opacity: 1},
+      {offset: '60%', color: 'var(--sky)', opacity: 0.92},
+      {offset: '100%', color: 'var(--sky)', opacity: 0.8}
+    ],
+
+    /* Scenario benchmark gap (Slice 9 "Scenario & comparison"). A faint --green wash
+       filling the space between your expected path and the 60/40 reference — the
+       "you're ahead" advantage. Decorative depth only; both lines are directly labelled
+       and the gap is in the table, never colour-alone. */
+    benchGap: [
+      {offset: '0%', color: 'var(--green-500)', opacity: 0.22},
+      {offset: '100%', color: 'var(--green-400)', opacity: 0.04}
     ]
   } as const,
 
@@ -263,5 +288,24 @@ export const chartTheme = {
     reach: 'var(--green-500)', // today → consensus (the upside/downside span)
     mean: 'var(--gold)', // the consensus (mean) target knob
     current: 'var(--ink)' // where it trades today
+  },
+
+  /* Scenario & comparison (Slice 9 "Scenario & comparison") — three forward-looking cards.
+     E1 rough-year bars: a plain index's DEEPER fall in --neg, your CUSHIONED fall in --sky,
+     both hanging below a 0% "a normal year" waterline (--ink dashed). E2 rolling band: the
+     green fan narrowing as the hold grows, a --ink break-even rule at 0%. E3 benchmark: your
+     expected path in on-light --green-700 (AA), the 60/40 reference in muted ink (dashed),
+     the widening gap tinted --green. Meaning never rests on colour alone — every series is
+     labelled + ▲/▼ + tabled. Tokens only. */
+  scenario: {
+    loss: 'var(--neg)', // E1 — a plain stock index's deeper fall (the scary reference)
+    cushioned: 'var(--sky)', // E1 — your mix's shallower, cushioned fall
+    waterline: 'var(--ink)', // E1/E2 — the 0% "a normal year" / break-even rule
+    band: 'var(--green-500)', // E2 — the rolling p10–p90 fan fill
+    bandStroke: 'var(--green-400)', // E2 — the fan's thin edge
+    median: 'var(--green-700)', // E2 — the expected annualised-return line (AA on light)
+    you: 'var(--green-700)', // E3 — your expected path (the hero line, AA on light)
+    reference: 'var(--text-muted)', // E3 — the 60/40 reference path (muted, dashed)
+    gap: 'var(--green-500)' // E3 — the "you're ahead" gap fill
   }
 } as const;

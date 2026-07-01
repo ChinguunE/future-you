@@ -1,4 +1,5 @@
 import {ALLOCATION, TILT_COST, type Holding, type Sleeve} from './allocation-data';
+import {normalCdf, PHI_Z05, Z05} from './normal';
 import {HORIZON_YEARS, type Horizon} from './sample-data';
 
 /**
@@ -15,33 +16,6 @@ import {HORIZON_YEARS, type Horizon} from './sample-data';
  */
 
 /* ------------------------------------------------------------------------- *
- * Shared normal helpers (pure, deterministic — NO sampling).                 *
- * ------------------------------------------------------------------------- */
-
-/** Standard-normal pdf, φ(z) = e^{−z²/2} / √(2π). */
-function normalPdf(z: number): number {
-  return 0.3989422804014327 * Math.exp((-z * z) / 2);
-}
-
-/**
- * Standard-normal CDF via the Zelen & Severo rational approximation (Abramowitz &
- * Stegun 26.2.17), accurate to ~7.5e-8 — the same closed form the growth gauge uses,
- * so both surfaces read the SAME normal (see sample-data.ts).
- */
-function normalCdf(x: number): number {
-  const t = 1 / (1 + 0.2316419 * Math.abs(x));
-  const phi = normalPdf(x);
-  const tail =
-    phi *
-    t *
-    (0.319381530 +
-      t *
-        (-0.356563782 +
-          t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
-  return x >= 0 ? 1 - tail : tail;
-}
-
-/* ------------------------------------------------------------------------- *
  * C1 — return distribution with a VaR / CVaR tail.                           *
  *                                                                            *
  * We model the AVERAGE yearly return over the holding period as Normal(μ, σ_h),  *
@@ -55,10 +29,9 @@ function normalCdf(x: number): number {
 const MU = TILT_COST.tiltedReturn; // 0.055
 const SIGMA_ANNUAL = TILT_COST.tiltedRisk; // 0.104
 
-/** The 5% tail. z₀.₀₅ = Φ⁻¹(0.05); φ(z₀.₀₅) feeds the expected-shortfall (CVaR) form. */
+/** The 5% tail. z₀.₀₅ (Z05) and φ(z₀.₀₅) (PHI_Z05) come from ./normal; the latter feeds
+ *  the expected-shortfall (CVaR) closed form below. */
 const TAIL_ALPHA = 0.05;
-const Z05 = -1.6448536269514722;
-const PHI_Z05 = normalPdf(Z05); // ≈ 0.10313
 
 export type ReturnBin = {
   /** the bin's mid return (a fraction, e.g. -0.08) — the x value */
@@ -131,8 +104,9 @@ export function buildReturnDistribution(horizon: Horizon): ReturnDistribution {
  * keyed "TICKER_A|TICKER_B" (A before B in HOLDINGS order); the diagonal is 1.       *
  * ------------------------------------------------------------------------- */
 
-/** ρ for a pair, keyed by the two tickers in HOLDINGS order (upper triangle only). */
-const CORRELATIONS: Record<string, number> = {
+/** ρ for a pair, keyed by the two tickers in HOLDINGS order (upper triangle only).
+ *  Exported so the scenario benchmark card reuses the SAME equity↔bond ρ. */
+export const CORRELATIONS: Record<string, number> = {
   'VWCE.DE|AGGS.SW': 0.15,
   'VWCE.DE|CSBGC3.SW': 0.0,
   'VWCE.DE|SGLN.L': -0.1,
@@ -330,8 +304,10 @@ function frontierReturn(risk: number): number {
   return (FRONTIER_RMAX * risk) / (risk + FRONTIER_H);
 }
 
-/** Illustrative single-holding (risk, return) points — riskier per unit of return. */
-const ASSET_POINTS: Record<string, FrontierPoint> = {
+/** Illustrative single-holding (risk, return) points — riskier per unit of return.
+ *  Exported so the scenario cards reuse VWCE.DE (a plain world-equity index) + AGGS.SW
+ *  (global bonds) as the building blocks of their reference mixes — no disagreement. */
+export const ASSET_POINTS: Record<string, FrontierPoint> = {
   'VWCE.DE': {risk: 0.15, return: 0.065},
   'AGGS.SW': {risk: 0.05, return: 0.02},
   'CSBGC3.SW': {risk: 0.008, return: 0.005},

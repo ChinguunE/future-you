@@ -2,6 +2,8 @@ import type {ContributionsPoint} from '@/components/charts/contributions-growth-
 import type {DrawdownPoint} from '@/components/charts/drawdown-chart';
 import type {ProjectionPoint} from '@/components/charts/growth-projection-chart';
 
+import {normalCdf, Z90} from './normal';
+
 /**
  * SAMPLE projection data for the dev-only charts demo — computed with a closed
  * form (compound future value + a band that widens with the square root of time),
@@ -21,15 +23,23 @@ export const HORIZON_YEARS: Record<Horizon, number> = {
 /** A fixed goal (CHF) — reachable on the long horizon, a stretch on the short one. */
 export const GOAL_VALUE = 100_000;
 
-const START_YEAR = 2026;
+export const START_YEAR = 2026;
 const PRINCIPAL = 10_000; // what you start with
 const MONTHLY = 300; // what you add each month
-const ANNUAL_RATE = 0.05; // ~5% a year
+export const ANNUAL_RATE = 0.05; // ~5% a year
 const VOL = 0.08; // spread proxy; the band = median * (1 ± VOL*sqrt(years))
 
-/** Compound future value of a lump sum plus a monthly contribution. */
-function futureValue(months: number): number {
-  const r = ANNUAL_RATE / 12;
+/**
+ * Compound future value of a lump sum plus a monthly contribution. The growth rate is
+ * ANNUAL_RATE by default (the projection fan's own 5%), but the scenario benchmark card
+ * passes a lower rate for a more conservative reference mix — so both projected paths
+ * share ONE growth formula and can never disagree.
+ */
+export function futureValue(
+  months: number,
+  annualRate: number = ANNUAL_RATE
+): number {
+  const r = annualRate / 12;
   if (months === 0) return PRINCIPAL;
   const growth = (1 + r) ** months;
   return PRINCIPAL * growth + MONTHLY * ((growth - 1) / r);
@@ -199,28 +209,10 @@ function contributed(months: number): number {
   return PRINCIPAL + MONTHLY * months;
 }
 
-/**
- * Standard-normal CDF via the Zelen & Severo rational approximation (Abramowitz &
- * Stegun 26.2.17) — accurate to ~7.5e-8, pure and deterministic (NO sampling). We
- * model terminal wealth as Normal(median, σ) whose 10th/90th percentiles match the
- * fan's own p10/p90 band, then read the goal-funding probability off it — so the
- * gauge is literally the share of the SAME shaded fan that clears the goal line.
- */
-function normalCdf(x: number): number {
-  const t = 1 / (1 + 0.2316419 * Math.abs(x));
-  const phi = 0.3989422804014327 * Math.exp((-x * x) / 2); // e^{-x²/2} / √(2π)
-  const tail =
-    phi *
-    t *
-    (0.319381530 +
-      t *
-        (-0.356563782 +
-          t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
-  return x >= 0 ? 1 - tail : tail;
-}
-
-/** The 90th-percentile z-score — ties σ to the fan's symmetric p10/p90 band. */
-const Z90 = 1.2815515594457412;
+// normalCdf + Z90 (the p10/p90 band z-score) are shared from ./normal so the gauge reads
+// the SAME bell as the return distribution. We model terminal wealth as Normal(median, σ)
+// whose 10th/90th percentiles match the fan's own p10/p90 band, then read the goal-funding
+// probability off it — the gauge is literally the share of the SAME fan that clears the goal.
 
 export type GoalFundingSummary = {
   /** P(terminal ≥ goal), a fraction 0..1 — mirrors ProjectionOut.goal_funding_probability */

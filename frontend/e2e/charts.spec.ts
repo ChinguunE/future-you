@@ -35,6 +35,7 @@ const MIX = '[data-demo-section="mix"]'; // Wave A "Your mix"
 const GROWTH = '[data-demo-section="growth"]'; // the 8a/8b growth + Wave B cards
 const RISK = '[data-demo-section="risk"]'; // Wave C "Your risk"
 const STOCK = '[data-demo-section="stock"]'; // Wave D "Your stocks"
+const SCENARIO = '[data-demo-section="scenario"]'; // Wave E "Scenario & comparison"
 const SECTOR = '.recharts-sector'; // a donut wedge
 const BAR = '.recharts-bar-rectangle'; // a mix-vs-optimal / risk bar (a <g> wrapper)
 const BAR_PATH = '.recharts-rectangle'; // the bar's inner path (carries the `d` geometry)
@@ -227,6 +228,18 @@ for (const locale of LOCALES) {
     ).toHaveAttribute('d', /.+/);
     await expect(stock.locator(CARD).nth(1).locator(ANALYST)).toBeVisible();
     await expect(stock.locator(CARD).nth(2).locator(FUNDAMENTALS)).toBeVisible();
+    // Wave E: the benchmark lines (nth0), the stress bars (nth1) and the rolling band
+    // (nth2) all settle at their final geometry immediately (Recharts draw-in gated off).
+    const scenario = page.locator(SCENARIO);
+    await expect(
+      scenario.locator(CARD).nth(0).locator(LINE).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(
+      scenario.locator(CARD).nth(1).locator(BAR_PATH).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(
+      scenario.locator(CARD).nth(2).locator(AREA).first()
+    ).toHaveAttribute('d', /.+/);
     await settleChart(page);
     await shot(page, project, `charts_reduced_${locale}`);
     await scan(page, `charts reduced ${locale} @ ${project}`);
@@ -438,5 +451,78 @@ for (const locale of LOCALES) {
     await tableShot(1, 'analyst');
     // ---- D3 fundamentals snapshot (table fallback) ----
     await tableShot(2, 'fundamentals');
+  });
+}
+
+/**
+ * Slice 9 · Wave E ("Scenario & comparison") gate — three FORWARD-looking cards (no crisis
+ * replay): a benchmark comparison (your mix's expected path vs a plain 60/40, full-width,
+ * with a horizon toggle + "show the maths"), rough-year stress bars (your mix vs a plain
+ * index, sinking below a 0% waterline), and a rolling-returns band that narrows with the
+ * hold. Screenshots the section default, the benchmark card's full cycle, and the stress +
+ * rolling cards' maths + table states, axe-scanning each (zero serious/critical WCAG-AA).
+ * The benchmark card's segmenteds are [horizon (nth0), view (nth1)]; the stress + rolling
+ * cards carry only the view switch. EN + FR × every viewport.
+ */
+for (const locale of LOCALES) {
+  test(`charts ${locale} · scenario section (benchmark / stress / rolling)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    const scenario = page.locator(SCENARIO);
+    await expect(scenario).toBeVisible();
+    const cards = scenario.locator(CARD);
+
+    // ---- Default: benchmark lines drew, stress bars drew, rolling band drew ----
+    await expect(cards.nth(0).locator(LINE).first()).toHaveAttribute('d', /.+/);
+    await expect(cards.nth(1).locator(BAR_PATH).first()).toHaveAttribute('d', /.+/);
+    await expect(cards.nth(2).locator(AREA).first()).toHaveAttribute('d', /.+/);
+    await settleChart(page);
+    await shot(page, project, `scenario_default_${locale}`);
+    await scan(page, `scenario default ${locale} @ ${project}`);
+
+    // ---- E3 benchmark: full cycle (default → maths → table → recast to short) ----
+    await exerciseCard(
+      page,
+      cards.nth(0),
+      cards.nth(0).locator(LINE),
+      project,
+      'scenario_benchmark',
+      locale,
+      0
+    );
+
+    // helper: expand a card's "show the maths", shot + scan, collapse again.
+    async function mathsShot(cardIndex: number, name: string) {
+      const card = cards.nth(cardIndex);
+      const trigger = card.locator(EQ_TRIGGER);
+      await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      await trigger.click();
+      await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      const content = card.locator(EQ_CONTENT);
+      await expect(content).toBeVisible();
+      await settleAnimations(content);
+      await shot(page, project, `scenario_${name}_maths_${locale}`);
+      await scan(page, `scenario ${name} maths ${locale} @ ${project}`);
+      await trigger.click();
+    }
+    // helper: flip a card's only view switch to the table, shot + scan, flip back.
+    async function tableShot(cardIndex: number, name: string) {
+      const card = cards.nth(cardIndex);
+      const view = card.locator(SEGMENTED).last();
+      await view.locator(SEG_ITEM).nth(1).click();
+      await expect(card.locator(TABLE)).toBeVisible();
+      await shot(page, project, `scenario_${name}_table_${locale}`);
+      await scan(page, `scenario ${name} table ${locale} @ ${project}`);
+      await view.locator(SEG_ITEM).nth(0).click();
+    }
+
+    // ---- E1 rough-year stress bars: show the maths, then the table ----
+    await mathsShot(1, 'stress');
+    await tableShot(1, 'stress');
+    // ---- E2 rolling returns: show the maths, then the table ----
+    await mathsShot(2, 'rolling');
+    await tableShot(2, 'rolling');
   });
 }
