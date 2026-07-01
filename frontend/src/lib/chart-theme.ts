@@ -25,6 +25,27 @@ export const chartTheme = {
     'var(--chart-5)'
   ],
 
+  /**
+   * Allocation sleeve → colour (Slice 9 "Your mix"). One hue per sleeve, drawn from
+   * the categorical set so the whole app agrees, and always paired with a direct
+   * label in every chart (never colour-alone, §11). `sleeveColor` is the `var(--…)`
+   * form Recharts + legend swatches take directly; `sleeveVar` is the bare token NAME
+   * for nivo, which must resolve a real colour to compute its ring/label shades
+   * (see useTokenColors — still token-sourced, never a hard-coded hex).
+   */
+  sleeveColor: {
+    equity: 'var(--chart-1)', // green — the growth engine
+    bond: 'var(--chart-4)', // sky — the steady ballast
+    cash: 'var(--chart-3)', // gold — the dry powder
+    diversifier: 'var(--chart-5)' // grape — the different-drummer sleeve
+  } as Record<string, string>,
+  sleeveVar: {
+    equity: '--chart-1',
+    bond: '--chart-4',
+    cash: '--chart-3',
+    diversifier: '--chart-5'
+  } as Record<string, string>,
+
   /* Growth-projection roles — distinguished by luminance AND shape (a solid line,
      a translucent band, a dashed rule, a dot), not colour alone. */
   median: 'var(--green-700)', // the central "most likely" line (on-light green, AA)
@@ -95,6 +116,31 @@ export const chartTheme = {
       {offset: '0%', color: 'var(--neg)', opacity: 0.14},
       {offset: '50%', color: 'var(--neg)', opacity: 0.4},
       {offset: '100%', color: 'var(--neg)', opacity: 0.62}
+    ],
+
+    /* Donut wedge sheens (Slice 9 "Your mix") — one per sleeve hue. A GENTLE same-hue
+       vertical sweep (top saturated → a touch lighter at the bottom), so a solid arc
+       reads glossy and top-lit without losing its colour or its meaning. The wedge is
+       still a solid, directly-labelled slice — the sheen is decorative depth only. */
+    wedgeEquity: [
+      {offset: '0%', color: 'var(--chart-1)', opacity: 1},
+      {offset: '60%', color: 'var(--chart-1)', opacity: 0.92},
+      {offset: '100%', color: 'var(--chart-1)', opacity: 0.8}
+    ],
+    wedgeBond: [
+      {offset: '0%', color: 'var(--chart-4)', opacity: 1},
+      {offset: '60%', color: 'var(--chart-4)', opacity: 0.92},
+      {offset: '100%', color: 'var(--chart-4)', opacity: 0.8}
+    ],
+    wedgeCash: [
+      {offset: '0%', color: 'var(--chart-3)', opacity: 1},
+      {offset: '60%', color: 'var(--chart-3)', opacity: 0.92},
+      {offset: '100%', color: 'var(--chart-3)', opacity: 0.8}
+    ],
+    wedgeDiversifier: [
+      {offset: '0%', color: 'var(--chart-5)', opacity: 1},
+      {offset: '60%', color: 'var(--chart-5)', opacity: 0.92},
+      {offset: '100%', color: 'var(--chart-5)', opacity: 0.8}
     ]
   } as const,
 

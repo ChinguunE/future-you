@@ -8,16 +8,31 @@ import {
   ChartGrid,
   type ChartCardLegendItem
 } from '@/components/charts/chart-card';
-import {StatCard} from '@/components/charts/stat-card';
+import {StatCard, StatRow} from '@/components/charts/stat-card';
 import {
   DrawdownChart,
   type DrawdownPoint
 } from '@/components/charts/drawdown-chart';
 import {GrowthProjectionChart} from '@/components/charts/growth-projection-chart';
+import {
+  AllocationDonutChart,
+  type AllocationSlice
+} from '@/components/charts/allocation-donut-chart';
+import {AllocationSunburstChart} from '@/components/charts/allocation-sunburst-chart';
+import {AllocationTreemapChart} from '@/components/charts/allocation-treemap-chart';
+import {
+  MixVsOptimalChart,
+  type MixVsOptimalDatum
+} from '@/components/charts/mix-vs-optimal-chart';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
-import {formatCHF, formatCHFCompact, formatPercent} from '@/lib/format';
+import {
+  formatCHF,
+  formatCHFCompact,
+  formatNumber,
+  formatPercent
+} from '@/lib/format';
 
 import {
   buildDrawdown,
@@ -25,6 +40,17 @@ import {
   GOAL_VALUE,
   type Horizon
 } from './sample-data';
+import {
+  ALLOCATION,
+  buildOptimalVsYou,
+  buildSunburst,
+  buildTreemap,
+  SLEEVE_ORDER,
+  TILT_COST,
+  type AssetClass,
+  type Sleeve,
+  type TreemapMetric
+} from './allocation-data';
 
 /**
  * The interactive island of /charts-demo (client): it owns the horizon state and
@@ -55,6 +81,13 @@ const FV_EXAMPLE =
 // and matches the worked example's V_trough / V_peak.
 const MDD_FORMULA =
   '\\text{MDD} = \\min_{t}\\left( \\dfrac{V_t}{V_{\\text{peak}}} - 1 \\right)';
+
+// Return per unit of risk (Sharpe-like) — language-neutral. The worked example uses
+// the sample tilt-cost figures; a bare ratio reads the same in EN and FR (thin spaces
+// aren't needed here — the values are small percentages, not grouped thousands).
+const SHARPE_FORMULA = 'S = \\dfrac{R}{\\sigma}';
+const SHARPE_EXAMPLE =
+  '\\dfrac{5.5\\%}{10.4\\%} \\approx 0.53 \\quad \\text{vs} \\quad \\dfrac{5.2\\%}{9.6\\%} \\approx 0.54';
 
 /** The growth fan (Slice 8a) — an honest median inside a p10–p90 range. */
 function ProjectionCard({locale}: {locale: string}) {
@@ -389,18 +422,404 @@ function PlanGlance({locale}: {locale: string}) {
   );
 }
 
-export function ChartsDemo({locale}: {locale: string}) {
-  // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
-  // strip on top, then the two upgraded cards 2-up. Each card stays fully interactive
-  // (its own horizon + view/table toggle + maths) — the calm guided flow never uses
-  // this layout; it stays one-thing-per-screen.
+/* ===================== Wave A — "Your mix" (Slice 9) ===================== */
+
+/** A1 — the allocation donut: your mix by sleeve, with a headline KPI in the hole. */
+function DonutCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const sleeveLabel = (s: Sleeve) => t(`mix.sleeve.${s}`);
+  const share = (v: number) => formatPercent(v, locale);
+
+  const slices: AllocationSlice[] = SLEEVE_ORDER.filter(
+    (s) => ALLOCATION.sleeves[s] > 0
+  ).map((s) => ({sleeve: s, label: sleeveLabel(s), value: ALLOCATION.sleeves[s]}));
+
+  const legend: ChartCardLegendItem[] = slices.map((s) => ({
+    shape: 'band',
+    color: chartTheme.sleeveColor[s.sleeve],
+    label: `${s.label} · ${share(s.value)}`
+  }));
+
+  const tableRows = slices.map((s) => ({
+    sleeve: s.label,
+    share: share(s.value),
+    role: t(`mix.donut.role.${s.sleeve}`)
+  }));
+
+  const stats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="brand"
+        label={t('mix.donut.stats.splitLabel')}
+        value={`${share(ALLOCATION.coreWeight)} / ${share(ALLOCATION.satelliteWeight)}`}
+        note={t('mix.donut.stats.splitNote')}
+      />
+    </div>
+  );
+
   return (
-    <div className="space-y-8">
+    <ChartCard
+      title={t('mix.donut.title')}
+      stats={stats}
+      caption={t('mix.donut.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('mix.donut.tableCaption'),
+        columns: [
+          {key: 'sleeve', label: t('mix.donut.colSleeve')},
+          {key: 'share', label: t('mix.donut.colShare'), numeric: true},
+          {key: 'role', label: t('mix.donut.colRole')}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="with-pie-chart" size={88} decorative animated={false} eager />
+      }
+    >
+      <AllocationDonutChart
+        slices={slices}
+        center={{
+          value: share(ALLOCATION.sleeves.equity),
+          label: t('mix.donut.centerLabel')
+        }}
+        shareLabel={t('mix.donut.shareLabel')}
+        formatShare={share}
+        ariaLabel={t('mix.donut.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** A2 — the sunburst: sleeve → asset class → holding, three nested rings. */
+function SunburstCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const sleeveLabel = (s: Sleeve) => t(`mix.sleeve.${s}`);
+  const acLabel = (ac: AssetClass) => t(`mix.assetClass.${ac}`);
+  const share = (v: number) => formatPercent(v, locale);
+
+  const data = buildSunburst({
+    root: t('mix.root'),
+    sleeve: sleeveLabel,
+    assetClass: acLabel
+  });
+
+  const legend: ChartCardLegendItem[] = SLEEVE_ORDER.filter(
+    (s) => ALLOCATION.sleeves[s] > 0
+  ).map((s) => ({
+    shape: 'band',
+    color: chartTheme.sleeveColor[s],
+    label: sleeveLabel(s)
+  }));
+
+  const tableRows = ALLOCATION.holdings.map((h) => ({
+    sleeve: sleeveLabel(h.sleeve),
+    assetClass: acLabel(h.assetClass),
+    holding: `${h.name} (${h.ticker})`,
+    weight: share(h.weight)
+  }));
+
+  // Counts derived from the data (never baked into the copy) so the note can't drift.
+  const sleeveCount = SLEEVE_ORDER.filter((s) => ALLOCATION.sleeves[s] > 0).length;
+  const classCount = new Set(ALLOCATION.holdings.map((h) => h.assetClass)).size;
+
+  const stats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="sky"
+        label={t('mix.sunburst.stats.label')}
+        value={formatNumber(ALLOCATION.holdings.length, locale)}
+        note={t('mix.sunburst.stats.note', {
+          sleeves: formatNumber(sleeveCount, locale),
+          classes: formatNumber(classCount, locale)
+        })}
+      />
+    </div>
+  );
+
+  return (
+    <ChartCard
+      title={t('mix.sunburst.title')}
+      stats={stats}
+      caption={t('mix.sunburst.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('mix.sunburst.tableCaption'),
+        columns: [
+          {key: 'sleeve', label: t('mix.sunburst.colSleeve')},
+          {key: 'assetClass', label: t('mix.sunburst.colAssetClass')},
+          {key: 'holding', label: t('mix.sunburst.colHolding')},
+          {key: 'weight', label: t('mix.sunburst.colWeight'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="with-magnifier" size={88} decorative animated={false} eager />
+      }
+    >
+      <AllocationSunburstChart
+        data={data}
+        shareLabel={t('mix.sunburst.shareLabel')}
+        formatShare={share}
+        ariaLabel={t('mix.sunburst.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** A3 — the treemap: every holding by money or by risk (a metric toggle). */
+function TreemapCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const [metric, setMetric] = React.useState<TreemapMetric>('weight');
+  const sleeveLabel = (s: Sleeve) => t(`mix.sleeve.${s}`);
+  const share = (v: number) => formatPercent(v, locale);
+
+  const data = buildTreemap(metric, t('mix.root'));
+  const isWeight = metric === 'weight';
+
+  const legend: ChartCardLegendItem[] = SLEEVE_ORDER.filter(
+    (s) => ALLOCATION.sleeves[s] > 0
+  ).map((s) => ({
+    shape: 'band',
+    color: chartTheme.sleeveColor[s],
+    label: sleeveLabel(s)
+  }));
+
+  const tableRows = ALLOCATION.holdings.map((h) => ({
+    holding: `${h.name} (${h.ticker})`,
+    sleeve: sleeveLabel(h.sleeve),
+    weight: share(h.weight),
+    risk: share(h.riskContribution)
+  }));
+
+  // The holding that carries the most risk PER FRANC invested — a small position can
+  // punch far above its weight (the divergence the weight/risk toggle reveals). Guard
+  // the ratio against a zero weight, so real engine data in Phase 5 can't yield NaN.
+  const riskPerFranc = (h: {riskContribution: number; weight: number}) =>
+    h.weight > 0 ? h.riskContribution / h.weight : 0;
+  const riskDriver = ALLOCATION.holdings.reduce((a, b) =>
+    riskPerFranc(b) > riskPerFranc(a) ? b : a
+  );
+
+  const stats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="neg"
+        label={t('mix.treemap.stats.label')}
+        value={riskDriver.name}
+        note={t('mix.treemap.stats.note', {
+          weight: share(riskDriver.weight),
+          risk: share(riskDriver.riskContribution)
+        })}
+      />
+    </div>
+  );
+
+  return (
+    <ChartCard
+      title={t('mix.treemap.title')}
+      stats={stats}
+      caption={t('mix.treemap.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      // The left-hand control slot carries the weight/risk metric toggle here (the
+      // treemap is a static allocation, so it has no time horizon).
+      horizon={{
+        value: metric,
+        onValueChange: (v) => setMetric(v as TreemapMetric),
+        label: t('mix.treemap.metricLabel'),
+        options: [
+          {value: 'weight', label: t('mix.treemap.metricWeight')},
+          {value: 'risk', label: t('mix.treemap.metricRisk')}
+        ]
+      }}
+      legend={legend}
+      table={{
+        caption: t('mix.treemap.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('mix.treemap.colHolding')},
+          {key: 'sleeve', label: t('mix.treemap.colSleeve')},
+          {key: 'weight', label: t('mix.treemap.colWeight'), numeric: true},
+          {key: 'risk', label: t('mix.treemap.colRisk'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+    >
+      <AllocationTreemapChart
+        data={data}
+        shareLabel={isWeight ? t('mix.treemap.shareWeight') : t('mix.treemap.shareRisk')}
+        formatShare={share}
+        ariaLabel={
+          isWeight ? t('mix.treemap.ariaLabelWeight') : t('mix.treemap.ariaLabelRisk')
+        }
+      />
+    </ChartCard>
+  );
+}
+
+/** A4 — your mix vs the optimal mix: per-holding grouped bars + the tilt-cost KPIs. */
+function OptimalCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const share = (v: number) => formatPercent(v, locale);
+  const share1 = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+  const signed1 = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 1, signDisplay: 'always'});
+
+  const data: MixVsOptimalDatum[] = buildOptimalVsYou();
+
+  const labels = {
+    optimal: t('mix.optimal.legendOptimal'),
+    your: t('mix.optimal.legendYours'),
+    over: t('mix.optimal.over'),
+    under: t('mix.optimal.under'),
+    same: t('mix.optimal.same')
+  };
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'band', color: chartTheme.series[3], label: labels.optimal},
+    {shape: 'band', color: chartTheme.series[0], label: labels.your}
+  ];
+
+  const tableRows = data.map((d) => {
+    const dir = d.delta > 0.0005 ? 'up' : d.delta < -0.0005 ? 'down' : 'flat';
+    const glyph = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '→';
+    const cls =
+      dir === 'up' ? 'text-pos' : dir === 'down' ? 'text-neg' : 'text-text-muted';
+    return {
+      holding: `${d.name} (${d.ticker})`,
+      optimal: share(d.optimal),
+      yours: share(d.your),
+      delta: (
+        <span className={`nums ${cls}`}>
+          <span aria-hidden className="mr-0.5">
+            {glyph}
+          </span>
+          {formatPercent(d.delta, locale, {signDisplay: 'always'})}
+        </span>
+      )
+    };
+  });
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-2">
+      <StatCard
+        tone="brand"
+        label={t('mix.optimal.stats.returnLabel')}
+        value={share1(TILT_COST.tiltedReturn)}
+        delta={{
+          direction: 'up',
+          value: signed1(TILT_COST.tiltedReturn - TILT_COST.optimalReturn),
+          label: t('mix.optimal.stats.vsOptimal')
+        }}
+      />
+      <StatCard
+        tone="neg"
+        label={t('mix.optimal.stats.riskLabel')}
+        value={share1(TILT_COST.tiltedRisk)}
+        note={`${signed1(TILT_COST.tiltedRisk - TILT_COST.optimalRisk)} ${t('mix.optimal.stats.vsOptimal')}`}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: 'S', meaning: t('mix.optimal.eqSymS')},
+    {tex: 'R', meaning: t('mix.optimal.eqSymR')},
+    {tex: '\\sigma', meaning: t('mix.optimal.eqSymSigma')}
+  ];
+
+  return (
+    <ChartCard
+      title={t('mix.optimal.title')}
+      stats={stats}
+      caption={t('mix.optimal.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('mix.optimal.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('mix.optimal.colHolding')},
+          {key: 'optimal', label: t('mix.optimal.colOptimal'), numeric: true},
+          {key: 'yours', label: t('mix.optimal.colYours'), numeric: true},
+          {key: 'delta', label: t('mix.optimal.colDelta'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('mix.optimal.eqResult', {
+          b: bold,
+          yourR: share1(TILT_COST.tiltedReturn),
+          optR: share1(TILT_COST.optimalReturn),
+          yourRisk: share1(TILT_COST.tiltedRisk),
+          optRisk: share1(TILT_COST.optimalRisk)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: SHARPE_FORMULA,
+        formulaAlt: t('mix.optimal.eqFormulaAlt'),
+        symbolsLabel: t('mix.optimal.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('mix.optimal.eqExampleLabel'),
+        exampleFormula: SHARPE_EXAMPLE,
+        exampleAlt: t('mix.optimal.eqExampleAlt'),
+        exampleCaption: t('mix.optimal.eqExampleCaption'),
+        whyLabel: t('mix.optimal.eqWhyLabel'),
+        why: t('mix.optimal.eqWhy')
+      }}
+    >
+      <MixVsOptimalChart
+        data={data}
+        labels={labels}
+        formatShare={share}
+        ariaLabel={t('mix.optimal.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+export function ChartsDemo({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
+  // strip on top, then the catalogue in labelled sections, each a 2-up ChartGrid. Each
+  // card stays fully interactive (its own toggles + maths); the calm guided flow never
+  // uses this layout. `data-demo-section` gives the e2e a stable handle per section.
+  return (
+    <div className="space-y-12">
       <PlanGlance locale={locale} />
-      <ChartGrid>
-        <ProjectionCard locale={locale} />
-        <DrawdownCard locale={locale} />
-      </ChartGrid>
+
+      <section data-demo-section="mix" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('mix.sectionTitle')}</h2>
+          <p className="text-body text-text">{t('mix.sectionIntro')}</p>
+        </div>
+        <ChartGrid>
+          <DonutCard locale={locale} />
+          <SunburstCard locale={locale} />
+          <TreemapCard locale={locale} />
+          <OptimalCard locale={locale} />
+        </ChartGrid>
+      </section>
+
+      <section data-demo-section="growth" className="space-y-4">
+        <ChartGrid>
+          <ProjectionCard locale={locale} />
+          <DrawdownCard locale={locale} />
+        </ChartGrid>
+      </section>
     </div>
   );
 }

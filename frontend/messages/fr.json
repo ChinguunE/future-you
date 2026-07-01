@@ -396,6 +396,113 @@
         "recoveredYesNote": "de retour à un sommet en {year}",
         "recoveredNoNote": "pas dans cette période"
       }
+    },
+    "mix": {
+      "sectionTitle": "Votre mix",
+      "sectionIntro": "Ce que vous détenez, comment tout s'emboîte, quelles parties pèsent le plus — et comment votre version se compare à celle des manuels. Chiffres d'exemple ; votre vrai mix arrive avec votre plan.",
+      "root": "Votre mix",
+      "sleeve": {
+        "equity": "Actions",
+        "bond": "Obligations",
+        "cash": "Liquidités",
+        "diversifier": "Diversifiant"
+      },
+      "assetClass": {
+        "world_equity": "Actions mondiales",
+        "us_equity": "Actions américaines",
+        "swiss_equity": "Actions suisses",
+        "europe_equity": "Actions européennes",
+        "global_agg_bonds": "Obligations mondiales (couvertes CHF)",
+        "cash_chf": "Liquidités CHF",
+        "gold": "Or"
+      },
+      "donut": {
+        "title": "Dans quoi suis-je investi ?",
+        "caption": "Votre argent se répartit en quatre poches : les actions le font croître, les obligations et les liquidités calment le trajet, et un diversifiant suit son propre rythme. Les parts sont les vrais poids — leur somme fait 100 %.",
+        "ariaLabel": "Un anneau de votre mix par poche : actions, obligations, liquidités et un diversifiant, chacun dimensionné selon sa part. Les mêmes données sont disponibles sous forme de tableau.",
+        "centerLabel": "en actifs de croissance",
+        "shareLabel": "Part de votre mix",
+        "tableCaption": "Votre mix par poche : la part de chaque poche et son rôle pour vous.",
+        "colSleeve": "Poche",
+        "colShare": "Part",
+        "colRole": "Son rôle",
+        "role": {
+          "equity": "Fait croître votre argent sur le long terme",
+          "bond": "Calme le trajet quand les marchés baissent",
+          "cash": "Argent disponible, faible risque",
+          "diversifier": "Évolue à contre-courant du reste"
+        },
+        "stats": {
+          "splitLabel": "Cœur vs vos choix",
+          "splitNote": "quatre fonds cœur, trois inclinaisons satellites"
+        }
+      },
+      "sunburst": {
+        "title": "Où se trouve chaque franc ?",
+        "caption": "Le même argent, en zoom : chaque poche s'ouvre sur ses classes d'actifs, et chaque classe sur les titres réels. Les anneaux s'éclaircissent vers l'extérieur.",
+        "ariaLabel": "Un rayon de soleil de votre mix en trois anneaux — poche, puis classe d'actifs, puis titre — chaque arc dimensionné selon sa part. Les mêmes données sont disponibles sous forme de tableau.",
+        "shareLabel": "Part de votre mix",
+        "tableCaption": "Chaque titre, avec la poche et la classe d'actifs où il se situe et sa part de votre mix.",
+        "colSleeve": "Poche",
+        "colAssetClass": "Classe d'actifs",
+        "colHolding": "Titre",
+        "colWeight": "Part",
+        "stats": {
+          "label": "Titres",
+          "note": "répartis en {sleeves} poches et {classes} classes d'actifs"
+        }
+      },
+      "treemap": {
+        "title": "Quels titres pèsent le plus ?",
+        "caption": "Chaque titre est une tuile. Dimensionnez par l'argent et les gros fonds dominent ; passez au risque et un petit titre nerveux peut soudain devenir énorme — le poids et le risque ne sont pas la même chose.",
+        "ariaLabelWeight": "Une carte proportionnelle de vos titres, chaque tuile dimensionnée selon sa part de votre argent. Les mêmes données sont disponibles sous forme de tableau.",
+        "ariaLabelRisk": "Une carte proportionnelle de vos titres, chaque tuile dimensionnée selon sa part du risque total du portefeuille. Les mêmes données sont disponibles sous forme de tableau.",
+        "metricLabel": "Dimensionner par",
+        "metricWeight": "Par argent",
+        "metricRisk": "Par risque",
+        "shareWeight": "Part de votre argent",
+        "shareRisk": "Part du risque total",
+        "tableCaption": "Chaque titre selon les deux mesures : sa part de votre argent, et sa part du risque total du plan.",
+        "colHolding": "Titre",
+        "colSleeve": "Poche",
+        "colWeight": "Par argent",
+        "colRisk": "Par risque",
+        "stats": {
+          "label": "Le plus de risque pour sa taille",
+          "note": "{weight} de l'argent, {risk} du risque"
+        }
+      },
+      "optimal": {
+        "title": "Qu'est-ce que pencher vers mes choix m'a coûté ?",
+        "caption": "Le mix optimal ne détient que les fonds cœur à bas coût. Le vôtre ajoute trois inclinaisons financées en rognant le cœur. Voici l'échange : un peu plus de rendement attendu, un peu plus de secousses.",
+        "ariaLabel": "Un graphique à barres groupées comparant, pour chaque titre, le poids du mix optimal et votre poids incliné. Les mêmes données sont disponibles sous forme de tableau.",
+        "legendOptimal": "Mix optimal",
+        "legendYours": "Votre mix",
+        "over": "plus que le mix optimal",
+        "under": "moins que le mix optimal",
+        "same": "comme le mix optimal",
+        "tableCaption": "Le poids de chaque titre dans le mix optimal et dans le vôtre, et la différence.",
+        "colHolding": "Titre",
+        "colOptimal": "Optimal",
+        "colYours": "Le vôtre",
+        "colDelta": "Différence",
+        "stats": {
+          "returnLabel": "Rendement attendu",
+          "riskLabel": "Risque (secousse annuelle)",
+          "vsOptimal": "vs optimal"
+        },
+        "eqResult": "Votre mix vise environ <b>{yourR}</b> par an contre <b>{optR}</b> pour le mix optimal — mais il oscille un peu plus (<b>{yourRisk}</b> contre <b>{optRisk}</b>). Chaque unité de risque achète donc un peu moins de rendement. Ce petit écart est le prix d'une inclinaison vers des noms auxquels vous croyez.",
+        "eqFormulaAlt": "Le rendement par unité de risque, S, égale le rendement attendu R divisé par le risque sigma.",
+        "eqSymbolsLabel": "Ce que chaque terme signifie",
+        "eqSymS": "Rendement par unité de risque — plus il est élevé, plus la récompense est grande pour les mêmes secousses.",
+        "eqSymR": "Rendement attendu — la croissance annuelle moyenne visée.",
+        "eqSymSigma": "Risque — l'ampleur des variations de valeur dans une année typique (volatilité).",
+        "eqExampleLabel": "Avec ces chiffres",
+        "eqExampleAlt": "Votre rendement d'environ 5,5 % divisé par votre risque d'environ 10,4 % donne à peu près 0,53, contre environ 0,54 pour le mix optimal.",
+        "eqExampleCaption": "Plus c'est haut, mieux c'est. Votre inclinaison coûte une fraction de ce ratio — un petit compromis assumé.",
+        "eqWhyLabel": "Pourquoi c'est un compromis",
+        "eqWhy": "Rien n'est gratuit : viser le rendement supplémentaire que vos choix pourraient apporter ajoute aussi un peu de risque. Cela en vaut la peine si vous comprenez et voulez cette inclinaison — pas si vous ne la voulez pas."
+      }
     }
   },
   "Illustrations": {

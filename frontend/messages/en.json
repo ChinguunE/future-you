@@ -396,6 +396,113 @@
         "recoveredYesNote": "back to a new high by {year}",
         "recoveredNoNote": "not within this timeframe"
       }
+    },
+    "mix": {
+      "sectionTitle": "Your mix",
+      "sectionIntro": "What you own, how it nests together, which parts carry the weight — and how your version compares to the textbook one. Sample numbers; your real mix arrives with your plan.",
+      "root": "Your mix",
+      "sleeve": {
+        "equity": "Equity",
+        "bond": "Bonds",
+        "cash": "Cash",
+        "diversifier": "Diversifier"
+      },
+      "assetClass": {
+        "world_equity": "Global equity",
+        "us_equity": "US equity",
+        "swiss_equity": "Swiss equity",
+        "europe_equity": "Europe equity",
+        "global_agg_bonds": "Global bonds (CHF-hedged)",
+        "cash_chf": "CHF cash",
+        "gold": "Gold"
+      },
+      "donut": {
+        "title": "What am I invested in?",
+        "caption": "Your money splits across four sleeves: equity grows it, bonds and cash steady the ride, and a diversifier marches to its own beat. The slices are the real weights — they add up to 100%.",
+        "ariaLabel": "A donut of your mix by sleeve: equity, bonds, cash and a diversifier, each sized by its share. The same data is available as a table.",
+        "centerLabel": "in growth assets",
+        "shareLabel": "Share of your mix",
+        "tableCaption": "Your mix by sleeve: each sleeve's share and what it does for you.",
+        "colSleeve": "Sleeve",
+        "colShare": "Share",
+        "colRole": "What it does",
+        "role": {
+          "equity": "Grows your money over the long run",
+          "bond": "Steadies the ride when markets dip",
+          "cash": "Ready money, low risk",
+          "diversifier": "Zigs when the rest zags"
+        },
+        "stats": {
+          "splitLabel": "Core vs your picks",
+          "splitNote": "four core funds, three satellite tilts"
+        }
+      },
+      "sunburst": {
+        "title": "Where does each franc sit?",
+        "caption": "The same money, zoomed in: each sleeve opens into its asset classes, and each asset class into the actual holdings. Rings step lighter as you go outward.",
+        "ariaLabel": "A sunburst of your mix in three rings — sleeve, then asset class, then holding — each arc sized by its share. The same data is available as a table.",
+        "shareLabel": "Share of your mix",
+        "tableCaption": "Every holding, with the sleeve and asset class it sits in and its share of your mix.",
+        "colSleeve": "Sleeve",
+        "colAssetClass": "Asset class",
+        "colHolding": "Holding",
+        "colWeight": "Share",
+        "stats": {
+          "label": "Holdings",
+          "note": "across {sleeves} sleeves and {classes} asset classes"
+        }
+      },
+      "treemap": {
+        "title": "Which holdings weigh the most?",
+        "caption": "Every holding as a tile. Size it by money and the big funds dominate; switch to risk and a small, jumpy holding can suddenly loom large — weight and risk are not the same thing.",
+        "ariaLabelWeight": "A treemap of your holdings, each tile sized by its share of your money. The same data is available as a table.",
+        "ariaLabelRisk": "A treemap of your holdings, each tile sized by its share of total portfolio risk. The same data is available as a table.",
+        "metricLabel": "Size tiles by",
+        "metricWeight": "By money",
+        "metricRisk": "By risk",
+        "shareWeight": "Share of your money",
+        "shareRisk": "Share of total risk",
+        "tableCaption": "Every holding by both measures: its share of your money, and its share of the plan's total risk.",
+        "colHolding": "Holding",
+        "colSleeve": "Sleeve",
+        "colWeight": "By money",
+        "colRisk": "By risk",
+        "stats": {
+          "label": "Most risk for its size",
+          "note": "{weight} of the money, {risk} of the risk"
+        }
+      },
+      "optimal": {
+        "title": "What did tilting toward my picks cost me?",
+        "caption": "The optimal mix holds only the low-cost core funds. Yours adds three tilts you funded by trimming the core. Here's the trade: a touch more expected return, a bit more bounce.",
+        "ariaLabel": "A grouped bar chart comparing, for each holding, the optimal mix weight and your tilted weight. The same data is available as a table.",
+        "legendOptimal": "Optimal mix",
+        "legendYours": "Your mix",
+        "over": "more than the optimal mix",
+        "under": "less than the optimal mix",
+        "same": "same as the optimal mix",
+        "tableCaption": "Each holding's weight in the optimal mix and in yours, and the difference.",
+        "colHolding": "Holding",
+        "colOptimal": "Optimal",
+        "colYours": "Yours",
+        "colDelta": "Difference",
+        "stats": {
+          "returnLabel": "Expected return",
+          "riskLabel": "Risk (a year's swing)",
+          "vsOptimal": "vs optimal"
+        },
+        "eqResult": "Your mix aims for about <b>{yourR}</b> a year versus <b>{optR}</b> for the optimal mix — but it swings a little more (<b>{yourRisk}</b> versus <b>{optRisk}</b>). So each unit of risk buys slightly less return. That small gap is the price of tilting toward names you believe in.",
+        "eqFormulaAlt": "Return per unit of risk, S, equals the expected return R divided by the risk sigma.",
+        "eqSymbolsLabel": "What each part means",
+        "eqSymS": "Return per unit of risk — higher means more reward for the same bumps.",
+        "eqSymR": "Expected return — the average yearly growth you're aiming for.",
+        "eqSymSigma": "Risk — how much the value swings in a typical year (volatility).",
+        "eqExampleLabel": "With these numbers",
+        "eqExampleAlt": "Your return of about 5.5% divided by your risk of about 10.4% is roughly 0.53, versus about 0.54 for the optimal mix.",
+        "eqExampleCaption": "Higher is better. Your tilt costs a sliver of this ratio — a small, deliberate trade.",
+        "eqWhyLabel": "Why it's a trade",
+        "eqWhy": "There's no free lunch: reaching for the extra return your picks might bring also adds a little risk. Worth it if you understand and want that tilt — not if you don't."
+      }
     }
   },
   "Illustrations": {
