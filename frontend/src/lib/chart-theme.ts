@@ -160,6 +160,17 @@ export const chartTheme = {
       {offset: '45%', color: 'var(--green-500)', opacity: 0.36},
       {offset: '80%', color: 'var(--green-400)', opacity: 0.15},
       {offset: '100%', color: 'var(--green-400)', opacity: 0.04}
+    ],
+
+    /* Return-distribution tail fill (Slice 9 "Your risk"). The histogram's WORST-5%
+       bars get a glossy --neg sheen (same top→bottom shape as the wedge sheens) so the
+       tail reads with real weight next to the calm green body bars. Never colour-alone
+       — the tail is also directly labelled + the VaR/CVaR rules mark the cutoff. The
+       body bars reuse `wedgeEquity` (green). */
+    histTail: [
+      {offset: '0%', color: 'var(--neg)', opacity: 1},
+      {offset: '60%', color: 'var(--neg)', opacity: 0.92},
+      {offset: '100%', color: 'var(--neg)', opacity: 0.8}
     ]
   } as const,
 
@@ -184,5 +195,31 @@ export const chartTheme = {
     trackOpacity: 0.16,
     knob: 'var(--green-600)', // the raised tip dot (same green as the sweep)
     width: 16
+  },
+
+  /* Correlation heatmap (Slice 9 "Your risk") — a DIVERGING scale built with
+     `color-mix` over these token hues, so a cell's colour is a live tint of the palette,
+     never a hard-coded hex (non-negotiable #3). Green = "move together" (high positive),
+     grape = "move apart" (negative), and the paper tint at the middle = "unrelated" (~0).
+     Colour is never the only signal: every cell also prints its number (tabular). `maxMix`
+     caps the strongest tint so a cell stays a legible tint over the cream paper — our
+     greens/grapes over paper never darken enough to need a white label, so every cell
+     keeps a dark-ink number that clears AA (verified in the axe pass). */
+  correlation: {
+    positive: 'var(--chart-1)', // green — the pair moves together
+    negative: 'var(--chart-5)', // grape — the pair moves apart
+    neutral: 'var(--paper)', // ~0 — unrelated
+    maxMix: 88
+  },
+
+  /* Efficient-frontier scatter (Slice 9 "Your risk"). The curve of the best return for
+     each level of risk, the OPTIMAL (best-paid) mix sitting on it, and a "you are here"
+     marker; faint dots mark single holdings (inefficient on their own). Distinguished by
+     shape + label, not colour alone (§11). Tokens only. */
+  frontier: {
+    curve: 'var(--green-500)', // the efficient-frontier line
+    optimal: 'var(--green-700)', // the optimal (best return-per-risk) mix, on the curve
+    you: 'var(--ink)', // the "you are here" point
+    asset: 'var(--text-muted)' // faint single-holding context dots
   }
 } as const;

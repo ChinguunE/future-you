@@ -32,9 +32,13 @@ const SURFACE = '.recharts-surface';
 
 // Sections (added in Slice 9) — a stable handle now that the demo holds many cards.
 const MIX = '[data-demo-section="mix"]'; // Wave A "Your mix"
-const GROWTH = '[data-demo-section="growth"]'; // the 8a/8b growth + risk cards
+const GROWTH = '[data-demo-section="growth"]'; // the 8a/8b growth + Wave B cards
+const RISK = '[data-demo-section="risk"]'; // Wave C "Your risk"
 const SECTOR = '.recharts-sector'; // a donut wedge
-const BAR = '.recharts-bar-rectangle'; // a mix-vs-optimal bar
+const BAR = '.recharts-bar-rectangle'; // a mix-vs-optimal / risk bar (a <g> wrapper)
+const BAR_PATH = '.recharts-rectangle'; // the bar's inner path (carries the `d` geometry)
+const REF_DOT = '.recharts-reference-dot'; // the frontier's optimal / you markers
+const GRID = '[data-slot="correlation-heatmap"]'; // the correlation heatmap (DOM, not SVG)
 // nivo (sunburst arcs / treemap tiles) render inside the chart region (role=group),
 // scoped so the query never matches the card's mascot illustration.
 const NIVO_ARC = '[role="group"] svg path';
@@ -201,6 +205,15 @@ for (const locale of LOCALES) {
     const mix = page.locator(MIX);
     await expect(mix.locator(SECTOR).first()).toBeVisible();
     await expect(mix.locator(CARD).nth(1).locator(NIVO_ARC).first()).toBeVisible();
+    // Wave C: the distribution histogram bars + the frontier markers are at their
+    // final geometry immediately (Recharts draw-in gated off); the DOM heatmap has no
+    // animation to gate.
+    const risk = page.locator(RISK);
+    await expect(risk.locator(CARD).nth(0).locator(BAR_PATH).first()).toHaveAttribute(
+      'd',
+      /.+/
+    );
+    await expect(risk.locator(CARD).nth(3).locator(REF_DOT).first()).toBeVisible();
     await settleChart(page);
     await shot(page, project, `charts_reduced_${locale}`);
     await scan(page, `charts reduced ${locale} @ ${project}`);
@@ -278,5 +291,66 @@ for (const locale of LOCALES) {
     await scan(page, `mix optimal maths ${locale} @ ${project}`);
     await trigger.click();
     await tableShot(3, 'optimal');
+  });
+}
+
+/**
+ * Slice 9 · Wave C ("Your risk") gate — the four risk charts: a Recharts
+ * return-distribution histogram with a shaded VaR/CVaR tail (its own horizon toggle +
+ * "show the maths"), a hand-built correlation heatmap (a DOM grid, not an SVG), a
+ * grouped risk-vs-weight bar, and a Recharts efficient-frontier scatter with a
+ * you-are-here marker. Screenshots the section default, the distribution card's full
+ * cycle, and each other card's table fallback, axe-scanning each (zero serious/critical
+ * WCAG-AA — this also gates the heatmap cell contrast). EN + FR × every viewport.
+ */
+for (const locale of LOCALES) {
+  test(`charts ${locale} · risk section (distribution / correlation / contribution / frontier)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    const risk = page.locator(RISK);
+    await expect(risk).toBeVisible();
+    const cards = risk.locator(CARD);
+
+    // ---- Default: all four risk cards drawn (histogram bars, the DOM heatmap grid,
+    //      the risk bars, and the frontier's you/optimal markers) ----
+    await expect(cards.nth(0).locator(BAR_PATH).first()).toHaveAttribute('d', /.+/);
+    await expect(cards.nth(1).locator(GRID)).toBeVisible();
+    await expect(cards.nth(2).locator(BAR).first()).toBeVisible();
+    await expect(cards.nth(3).locator(REF_DOT).first()).toBeVisible();
+    await settleChart(page);
+    await shot(page, project, `risk_default_${locale}`);
+    await scan(page, `risk default ${locale} @ ${project}`);
+
+    // ---- C1 distribution: full cycle (default → maths → table → recast to long) ----
+    await exerciseCard(
+      page,
+      cards.nth(0),
+      cards.nth(0).locator(BAR_PATH),
+      project,
+      'risk_distribution',
+      locale,
+      2
+    );
+
+    // helper: flip a card to its table view (the only/last segmented), shot + scan,
+    // then flip back to the chart so later full-page shots stay clean.
+    async function tableShot(cardIndex: number, name: string) {
+      const card = cards.nth(cardIndex);
+      const view = card.locator(SEGMENTED).last();
+      await view.locator(SEG_ITEM).nth(1).click();
+      await expect(card.locator(TABLE)).toBeVisible();
+      await shot(page, project, `risk_${name}_table_${locale}`);
+      await scan(page, `risk ${name} table ${locale} @ ${project}`);
+      await view.locator(SEG_ITEM).nth(0).click();
+    }
+
+    // ---- C2 correlation heatmap (table fallback) ----
+    await tableShot(1, 'correlation');
+    // ---- C3 risk-contribution bars (table fallback) ----
+    await tableShot(2, 'contribution');
+    // ---- C4 efficient frontier (table fallback) ----
+    await tableShot(3, 'frontier');
   });
 }

@@ -87,6 +87,35 @@ export function formatNumber(value: number, locale: string): string {
 }
 
 /**
+ * A plain decimal, locale-aware (e.g. a correlation `0.80` / `0,80`, or a ratio). Uses
+ * the region decimal separator (`.` en-CH, `,` fr-CH); `signDisplay: 'exceptZero'` puts
+ * a leading `+`/`−` on non-zero values so a negative correlation reads as `−0.12`.
+ */
+export function formatDecimal(
+  value: number,
+  locale: string,
+  opts?: {
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
+    signDisplay?: 'auto' | 'always' | 'never' | 'exceptZero';
+  }
+): string {
+  const mxf = opts?.maximumFractionDigits ?? 2;
+  const mnf = opts?.minimumFractionDigits ?? mxf;
+  const sd = opts?.signDisplay ?? 'auto';
+  return render(
+    get(`dec:${locale}:${mnf}:${mxf}:${sd}`, () =>
+      new Intl.NumberFormat(swiss(locale), {
+        minimumFractionDigits: mnf,
+        maximumFractionDigits: mxf,
+        signDisplay: sd
+      })
+    ),
+    value
+  );
+}
+
+/**
  * Locale-aware percent, e.g. `-22%` (en-CH) / `-22 %` (fr-CH — ICU adds the thin
  * space). Intl multiplies by 100, so pass a fraction (`-0.22`). Whole numbers by
  * default; used by the drawdown axis + tooltip. `signDisplay` lets a caller force a

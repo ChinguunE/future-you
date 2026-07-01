@@ -29,12 +29,17 @@ import {
   type GoalGaugeVerdict
 } from '@/components/charts/goal-funding-gauge';
 import {ContributionsGrowthChart} from '@/components/charts/contributions-growth-chart';
+import {ReturnDistributionChart} from '@/components/charts/return-distribution-chart';
+import {CorrelationHeatmap} from '@/components/charts/correlation-heatmap';
+import {RiskContributionChart} from '@/components/charts/risk-contribution-chart';
+import {EfficientFrontierChart} from '@/components/charts/efficient-frontier-chart';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
 import {
   formatCHF,
   formatCHFCompact,
+  formatDecimal,
   formatNumber,
   formatPercent
 } from '@/lib/format';
@@ -60,6 +65,15 @@ import {
   type Sleeve,
   type TreemapMetric
 } from './allocation-data';
+import {
+  buildCorrelationMatrix,
+  buildFrontier,
+  buildReturnDistribution,
+  buildRiskContribution,
+  correlationRelation,
+  topRiskDriver,
+  type CorrelationEntity
+} from './risk-data';
 
 /**
  * The interactive island of /charts-demo (client): it owns the horizon state and
@@ -1087,6 +1101,416 @@ function ContributionsCard({locale}: {locale: string}) {
   );
 }
 
+/* ===================== Wave C — "Your risk" (Slice 9) ===================== */
+
+// Value-at-Risk (the 1-in-20 bad year) — the bad-year return is the average return
+// minus about 1.65 risk-swings. Language-neutral (symbols + numbers); the example is
+// the SHORT-horizon sample (μ 5.5%, σ ≈ 4.7% → about −2.2%), the default the card opens on.
+const VAR_FORMULA = '\\text{VaR}_{95} = \\mu + z_{0.05}\\,\\sigma';
+const VAR_EXAMPLE = '5.5\\% + (-1.645)\\times 4.7\\% \\approx -2.2\\%';
+
+/** C1 — the return distribution: a bell of yearly returns with the worst-5% tail. */
+function DistributionCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  // Default to short: the tail is visibly negative here, and toggling out to long shows
+  // it pull back toward zero — the honest "time in the market narrows the range" story.
+  const [horizon, setHorizon] = React.useState<Horizon>('short');
+
+  const data = React.useMemo(() => buildReturnDistribution(horizon), [horizon]);
+
+  const ret1 = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+  const chance = (v: number) => formatPercent(v, locale);
+
+  const binWidth =
+    data.bins.length > 1 ? data.bins[1].mid - data.bins[0].mid : 0.01;
+  const tableRows = data.bins.map((b) => ({
+    range: `${ret1(b.mid - binWidth / 2)} … ${ret1(b.mid + binWidth / 2)}`,
+    chance: chance(b.mass)
+  }));
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'band', color: chartTheme.series[0], label: t('risk.distribution.legendTypical')},
+    {shape: 'band', color: chartTheme.neg, label: t('risk.distribution.legendWorst')},
+    {shape: 'dashed', color: chartTheme.annotation, label: t('risk.distribution.legendVar')},
+    {shape: 'dashed', color: chartTheme.neg, label: t('risk.distribution.legendCvar')}
+  ];
+
+  // The card's own KPIs recast with the horizon (unlike the static-mix cards): the
+  // 1-in-20 bad year and the average of that unlucky 5%, both from the same tail.
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-2">
+      <StatCard
+        tone="neg"
+        label={t('risk.distribution.stats.varLabel')}
+        value={ret1(data.var95)}
+        note={t('risk.distribution.stats.varNote')}
+      />
+      <StatCard
+        tone="neg"
+        label={t('risk.distribution.stats.cvarLabel')}
+        value={ret1(data.cvar95)}
+        note={t('risk.distribution.stats.cvarNote')}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: '\\mu', meaning: t('risk.distribution.eqSymMu')},
+    {tex: '\\sigma', meaning: t('risk.distribution.eqSymSigma')},
+    {tex: 'z_{0.05}', meaning: t('risk.distribution.eqSymZ')}
+  ];
+
+  return (
+    <ChartCard
+      title={t('risk.distribution.title')}
+      stats={stats}
+      caption={t('risk.distribution.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      horizon={{
+        value: horizon,
+        onValueChange: (v) => setHorizon(v as Horizon),
+        label: t('horizon.label'),
+        options: HORIZON_OPTION_KEYS.map((key) => ({
+          value: key,
+          label: t(`horizon.${key}`)
+        }))
+      }}
+      legend={legend}
+      table={{
+        caption: t('risk.distribution.tableCaption'),
+        columns: [
+          {key: 'range', label: t('risk.distribution.colRange')},
+          {key: 'chance', label: t('risk.distribution.colChance'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('risk.distribution.eqResult', {
+          b: bold,
+          years: String(HORIZON_YEARS[horizon]),
+          mean: ret1(data.mean),
+          var: ret1(data.var95),
+          cvar: ret1(data.cvar95)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: VAR_FORMULA,
+        formulaAlt: t('risk.distribution.eqFormulaAlt'),
+        symbolsLabel: t('risk.distribution.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('risk.distribution.eqExampleLabel'),
+        exampleFormula: VAR_EXAMPLE,
+        exampleAlt: t('risk.distribution.eqExampleAlt'),
+        exampleCaption: t('risk.distribution.eqExampleCaption'),
+        whyLabel: t('risk.distribution.eqWhyLabel'),
+        why: t('risk.distribution.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="balancing-beam" size={88} decorative animated={false} eager />
+      }
+    >
+      <ReturnDistributionChart
+        bins={data.bins}
+        var={{value: data.var95, label: t('risk.distribution.varLabel')}}
+        cvar={{value: data.cvar95, label: t('risk.distribution.cvarLabel')}}
+        labels={{
+          chance: t('risk.distribution.chance'),
+          typical: t('risk.distribution.typical'),
+          worst: t('risk.distribution.worst')
+        }}
+        formatReturn={ret1}
+        formatChance={chance}
+        ariaLabel={t('risk.distribution.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** C2 — the correlation heatmap: which holdings move together, which move apart. */
+function CorrelationCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const matrix = buildCorrelationMatrix();
+
+  const formatCorr = (v: number) =>
+    formatDecimal(v, locale, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+  const describeCell = (
+    a: CorrelationEntity,
+    b: CorrelationEntity,
+    value: number
+  ) => t('risk.correlation.pairValue', {a: a.name, b: b.name, value: formatCorr(value)});
+
+  // The table lists every distinct pair (the upper triangle), most-alike first.
+  const pairs = matrix.cells
+    .filter((c) => c.col > c.row)
+    .sort((x, y) => y.value - x.value)
+    .map((c) => {
+      const a = matrix.entities[c.row];
+      const b = matrix.entities[c.col];
+      return {
+        holding: a.name,
+        with: b.name,
+        corr: formatCorr(c.value),
+        relation: t(`risk.correlation.${correlationRelation(c.value)}`)
+      };
+    });
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-2">
+      <StatCard
+        tone="brand"
+        label={t('risk.correlation.stats.diversifyingLabel')}
+        value={formatCorr(matrix.mostDiversifying.value)}
+        note={t('risk.correlation.stats.diversifyingNote', {
+          a: matrix.mostDiversifying.a.name,
+          b: matrix.mostDiversifying.b.name
+        })}
+      />
+      <StatCard
+        tone="gold"
+        label={t('risk.correlation.stats.concentratedLabel')}
+        value={formatCorr(matrix.mostConcentrated.value)}
+        note={t('risk.correlation.stats.concentratedNote', {
+          a: matrix.mostConcentrated.a.name,
+          b: matrix.mostConcentrated.b.name
+        })}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('risk.correlation.title')}
+      stats={stats}
+      caption={t('risk.correlation.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      table={{
+        caption: t('risk.correlation.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('risk.correlation.colHolding')},
+          {key: 'with', label: t('risk.correlation.colWith')},
+          {key: 'corr', label: t('risk.correlation.colCorr'), numeric: true},
+          {key: 'relation', label: t('risk.correlation.colRelation')}
+        ],
+        rows: pairs
+      }}
+      mascot={
+        <Sprout pose="thinking" size={88} decorative animated={false} eager />
+      }
+    >
+      <CorrelationHeatmap
+        matrix={matrix}
+        labels={{
+          together: t('risk.correlation.together'),
+          apart: t('risk.correlation.apart'),
+          unrelated: t('risk.correlation.unrelated'),
+          self: t('risk.correlation.self'),
+          scaleApart: t('risk.correlation.scaleApart'),
+          scaleTogether: t('risk.correlation.scaleTogether')
+        }}
+        formatCorr={formatCorr}
+        describeCell={describeCell}
+        ariaLabel={t('risk.correlation.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** C3 — risk contribution vs weight: where the plan's risk actually comes from. */
+function ContributionCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const data = buildRiskContribution();
+  const driver = topRiskDriver();
+  const share = (v: number) => formatPercent(v, locale);
+  const ratio = (v: number) =>
+    `${formatDecimal(v, locale, {minimumFractionDigits: 1, maximumFractionDigits: 1})}×`;
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'band', color: chartTheme.series[3], label: t('risk.contribution.legendWeight')},
+    {shape: 'band', color: chartTheme.series[0], label: t('risk.contribution.legendRisk')}
+  ];
+
+  const tableRows = data.map((d) => ({
+    holding: `${d.name} (${d.ticker})`,
+    weight: share(d.weight),
+    risk: share(d.risk),
+    ratio: ratio(d.ratio)
+  }));
+
+  const stats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="neg"
+        label={t('risk.contribution.stats.driverLabel')}
+        value={driver.name}
+        note={t('risk.contribution.stats.driverNote', {
+          risk: share(driver.risk),
+          weight: share(driver.weight)
+        })}
+      />
+    </div>
+  );
+
+  return (
+    <ChartCard
+      title={t('risk.contribution.title')}
+      stats={stats}
+      caption={t('risk.contribution.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('risk.contribution.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('risk.contribution.colHolding')},
+          {key: 'weight', label: t('risk.contribution.colWeight'), numeric: true},
+          {key: 'risk', label: t('risk.contribution.colRisk'), numeric: true},
+          {key: 'ratio', label: t('risk.contribution.colRatio'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="pointing" size={88} decorative animated={false} eager />
+      }
+    >
+      <RiskContributionChart
+        data={data}
+        labels={{
+          weight: t('risk.contribution.tipWeight'),
+          risk: t('risk.contribution.tipRisk'),
+          ratioSuffix: t('risk.contribution.ratioSuffix'),
+          aboveWeight: t('risk.contribution.aboveWeight'),
+          belowWeight: t('risk.contribution.belowWeight')
+        }}
+        formatShare={share}
+        formatRatio={ratio}
+        ariaLabel={t('risk.contribution.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** C4 — the efficient frontier: are you being paid for the risk you take? */
+function FrontierCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const f = buildFrontier();
+  const pct = (v: number) => formatPercent(v, locale, {maximumFractionDigits: 1});
+  const dec2 = (v: number) =>
+    formatDecimal(v, locale, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const signed2 = (v: number) =>
+    formatDecimal(v, locale, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+      signDisplay: 'exceptZero'
+    });
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'line', color: chartTheme.frontier.curve, label: t('risk.frontier.legendLine')},
+    {shape: 'dot', color: chartTheme.frontier.optimal, label: t('risk.frontier.optimal')},
+    {shape: 'dot', color: chartTheme.frontier.you, label: t('risk.frontier.you')},
+    {shape: 'dot', color: chartTheme.frontier.asset, label: t('risk.frontier.legendAsset')}
+  ];
+
+  const sharpe = (p: {return: number; risk: number}) =>
+    p.risk > 0 ? p.return / p.risk : 0;
+
+  const tableRows = [
+    {
+      point: t('risk.frontier.pointOptimal'),
+      ret: pct(f.optimal.return),
+      risk: pct(f.optimal.risk),
+      sharpe: dec2(sharpe(f.optimal))
+    },
+    {
+      point: t('risk.frontier.pointYou'),
+      ret: pct(f.you.return),
+      risk: pct(f.you.risk),
+      sharpe: dec2(sharpe(f.you))
+    },
+    ...f.assets.map((a) => ({
+      point: `${a.name} (${a.ticker})`,
+      ret: pct(a.return),
+      risk: pct(a.risk),
+      sharpe: dec2(sharpe(a))
+    }))
+  ];
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-2">
+      <StatCard
+        tone="brand"
+        label={t('risk.frontier.stats.sharpeLabel')}
+        value={dec2(TILT_COST.tiltedSharpe)}
+        delta={{
+          direction: 'down',
+          value: signed2(TILT_COST.tiltedSharpe - TILT_COST.optimalSharpe),
+          label: t('risk.frontier.stats.vsOptimal')
+        }}
+      />
+      <StatCard
+        tone="gold"
+        label={t('risk.frontier.stats.spotLabel')}
+        value={pct(f.you.return)}
+        note={t('risk.frontier.stats.spotNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('risk.frontier.title')}
+      stats={stats}
+      caption={t('risk.frontier.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('risk.frontier.tableCaption'),
+        columns: [
+          {key: 'point', label: t('risk.frontier.colPoint')},
+          {key: 'ret', label: t('risk.frontier.colReturn'), numeric: true},
+          {key: 'risk', label: t('risk.frontier.colRisk'), numeric: true},
+          {key: 'sharpe', label: t('risk.frontier.colSharpe'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="on-hilltop" size={88} decorative animated={false} eager />
+      }
+    >
+      <EfficientFrontierChart
+        curve={f.curve}
+        optimal={f.optimal}
+        you={f.you}
+        assets={f.assets}
+        labels={{
+          optimal: t('risk.frontier.optimal'),
+          you: t('risk.frontier.you'),
+          riskRow: t('risk.frontier.riskRow'),
+          returnRow: t('risk.frontier.returnRow'),
+          riskAxis: t('risk.frontier.riskAxis'),
+          returnAxis: t('risk.frontier.returnAxis')
+        }}
+        formatPct={pct}
+        ariaLabel={t('risk.frontier.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
 export function ChartsDemo({locale}: {locale: string}) {
   const t = useTranslations('Charts');
   // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
@@ -1122,6 +1546,19 @@ export function ChartsDemo({locale}: {locale: string}) {
           <DrawdownCard locale={locale} />
           <GoalFundingCard locale={locale} />
           <ContributionsCard locale={locale} />
+        </ChartGrid>
+      </section>
+
+      <section data-demo-section="risk" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('riskSectionTitle')}</h2>
+          <p className="text-body text-text">{t('riskSectionIntro')}</p>
+        </div>
+        <ChartGrid>
+          <DistributionCard locale={locale} />
+          <CorrelationCard locale={locale} />
+          <ContributionCard locale={locale} />
+          <FrontierCard locale={locale} />
         </ChartGrid>
       </section>
     </div>
