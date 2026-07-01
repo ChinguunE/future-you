@@ -141,6 +141,25 @@ export const chartTheme = {
       {offset: '0%', color: 'var(--chart-5)', opacity: 1},
       {offset: '60%', color: 'var(--chart-5)', opacity: 0.92},
       {offset: '100%', color: 'var(--chart-5)', opacity: 0.8}
+    ],
+
+    /* Contributions-vs-growth stacked-area fills (Slice 9 "Your growth"). One same-hue
+       vertical sweep per band — saturated at the top of the band fading to near-clear
+       at the bottom, mirroring `growthBand`'s 4-stop shape so both stacked areas read
+       glossy and dimensional on our light palette without competing. `contributions`
+       = --sky (money you put in), `growthStack` = --green (money it earned); each band
+       is also directly labelled + legended, never colour-alone (§11). */
+    contributions: [
+      {offset: '0%', color: 'var(--sky)', opacity: 0.5},
+      {offset: '45%', color: 'var(--sky)', opacity: 0.28},
+      {offset: '80%', color: 'var(--sky)', opacity: 0.12},
+      {offset: '100%', color: 'var(--sky)', opacity: 0.04}
+    ],
+    growthStack: [
+      {offset: '0%', color: 'var(--green-500)', opacity: 0.62},
+      {offset: '45%', color: 'var(--green-500)', opacity: 0.36},
+      {offset: '80%', color: 'var(--green-400)', opacity: 0.15},
+      {offset: '100%', color: 'var(--green-400)', opacity: 0.04}
     ]
   } as const,
 
@@ -152,5 +171,18 @@ export const chartTheme = {
   /* On-chart markers get glossy depth: the crisp dot keeps its white halo ring, and
      a wider, faint same-hue halo sits beneath it (a soft cast). Decorative — the
      marker's meaning stays in its label + the tooltip + the table. */
-  marker: {haloRadius: 12, haloOpacity: 0.24}
+  marker: {haloRadius: 12, haloOpacity: 0.24},
+
+  /* Goal-funding gauge (Slice 9 "Your growth") — the semicircle arc's filled "your
+     odds" sweep, its pale "the rest" track, and the raised knob-dot at the tip. The
+     confident brand-action green (AA) fills the odds; a faint same-hue track shows
+     the remainder. Never colour-alone — the big % + the verdict word carry the
+     meaning; the arc only reinforces it. Round caps match `line.cap`. Tokens only. */
+  gauge: {
+    arc: 'var(--green-600)', // the filled odds sweep (brand action green, AA on white)
+    track: 'var(--green-500)', // the pale remainder track
+    trackOpacity: 0.16,
+    knob: 'var(--green-600)', // the raised tip dot (same green as the sweep)
+    width: 16
+  }
 } as const;

@@ -26,7 +26,8 @@ const EQ_TRIGGER = '[data-slot="accordion-trigger"]';
 const EQ_CONTENT = '[data-slot="accordion-content"]';
 const TABLE = '[data-slot="table"]';
 const LINE = '.recharts-line-curve'; // the fan's median line
-const AREA = '.recharts-area-curve'; // the drawdown's area stroke
+const AREA = '.recharts-area-curve'; // the drawdown / contributions area stroke
+const GAUGE_ARC = '[data-slot="gauge-arc"]'; // the goal-funding gauge's filled arc
 const SURFACE = '.recharts-surface';
 
 // Sections (added in Slice 9) — a stable handle now that the demo holds many cards.
@@ -145,6 +146,28 @@ for (const locale of LOCALES) {
     // Recast the underwater plot to the short (5y) horizon for its last shot.
     await exerciseCard(page, card, card.locator(AREA), project, 'drawdown', locale, 0);
   });
+
+  test(`charts ${locale} · goal-funding gauge (chart / maths / table / horizon)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    // Wave B card nth(2), appended after the fan + drawdown in the growth section.
+    const card = page.locator(GROWTH).locator(CARD).nth(2);
+    // Recast the gauge to the long (30y) horizon — the odds climb toward ~full.
+    await exerciseCard(page, card, card.locator(GAUGE_ARC), project, 'goal', locale, 2);
+  });
+
+  test(`charts ${locale} · contributions-vs-growth (chart / maths / table / horizon)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    // Wave B card nth(3): the stacked area (contributions + growth).
+    const card = page.locator(GROWTH).locator(CARD).nth(3);
+    // Recast to the short (5y) horizon for its last shot (no crossover there).
+    await exerciseCard(page, card, card.locator(AREA), project, 'contributions', locale, 0);
+  });
 }
 
 for (const locale of LOCALES) {
@@ -166,6 +189,14 @@ for (const locale of LOCALES) {
       'd',
       /.+/
     );
+    // Wave B: the goal gauge (SVG arc) + the contributions stacked area also settle
+    // at their final geometry immediately (gauge motion gated off; Recharts too).
+    await expect(
+      growth.locator(CARD).nth(2).locator(GAUGE_ARC).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(
+      growth.locator(CARD).nth(3).locator(AREA).first()
+    ).toHaveAttribute('d', /.+/);
     // The mix charts (Recharts donut + nivo sunburst) are also settled at once.
     const mix = page.locator(MIX);
     await expect(mix.locator(SECTOR).first()).toBeVisible();

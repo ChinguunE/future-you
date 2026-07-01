@@ -1,3 +1,4 @@
+import type {ContributionsPoint} from '@/components/charts/contributions-growth-chart';
 import type {DrawdownPoint} from '@/components/charts/drawdown-chart';
 import type {ProjectionPoint} from '@/components/charts/growth-projection-chart';
 
@@ -178,5 +179,137 @@ export function buildDrawdown(horizon: Horizon): {
       recoveryT: points[recoveryIdx].t,
       recovered
     }
+  };
+}
+
+/* ------------------------------------------------------------------------- *
+ * Wave B — "Your growth": goal-funding probability + contributions vs growth  *
+ *                                                                            *
+ * Both are DERIVED from the SAME closed-form scenario as the projection fan    *
+ * above (PRINCIPAL, MONTHLY, ANNUAL_RATE, VOL, GOAL_VALUE), so the new cards    *
+ * can never disagree with it — no second growth formula, no randomness. The     *
+ * shapes mirror the API contract in backend/app/api/schemas.py (ProjectionOut   *
+ * .goal_funding_probability + median/low/high_terminal); Phase 5's adapter maps  *
+ * the snake_case engine output → these camelCase types. Honesty invariants:      *
+ * contributions + growth = the median balance; probability ∈ [0, 1].            *
+ * ------------------------------------------------------------------------- */
+
+/** Cumulative money you put in after `months`: the initial pot + every deposit. */
+function contributed(months: number): number {
+  return PRINCIPAL + MONTHLY * months;
+}
+
+/**
+ * Standard-normal CDF via the Zelen & Severo rational approximation (Abramowitz &
+ * Stegun 26.2.17) — accurate to ~7.5e-8, pure and deterministic (NO sampling). We
+ * model terminal wealth as Normal(median, σ) whose 10th/90th percentiles match the
+ * fan's own p10/p90 band, then read the goal-funding probability off it — so the
+ * gauge is literally the share of the SAME shaded fan that clears the goal line.
+ */
+function normalCdf(x: number): number {
+  const t = 1 / (1 + 0.2316419 * Math.abs(x));
+  const phi = 0.3989422804014327 * Math.exp((-x * x) / 2); // e^{-x²/2} / √(2π)
+  const tail =
+    phi *
+    t *
+    (0.319381530 +
+      t *
+        (-0.356563782 +
+          t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
+  return x >= 0 ? 1 - tail : tail;
+}
+
+/** The 90th-percentile z-score — ties σ to the fan's symmetric p10/p90 band. */
+const Z90 = 1.2815515594457412;
+
+export type GoalFundingSummary = {
+  /** P(terminal ≥ goal), a fraction 0..1 — mirrors ProjectionOut.goal_funding_probability */
+  probability: number;
+  /** the goal being measured against (CHF) */
+  goal: number;
+  /** the year the terminal is measured at */
+  targetYear: number;
+  /** the most-likely / rough / good terminal (CHF, rounded) — mirrors *_terminal */
+  terminalMedian: number;
+  terminalLow: number;
+  terminalHigh: number;
+  /** median − goal (CHF, rounded; + = the most-likely path itself clears the goal) */
+  gapToGoal: number;
+  /** whether the most-likely path alone reaches the goal (median ≥ goal) */
+  medianReaches: boolean;
+};
+
+/** The goal-funding probability + terminal summary for a horizon. */
+export function buildGoalFunding(horizon: Horizon): GoalFundingSummary {
+  const years = HORIZON_YEARS[horizon];
+  const median = futureValue(years * 12);
+  const spread = VOL * Math.sqrt(years); // the same band the fan draws (0 today, widens)
+  const sigma = (median * spread) / Z90; // Normal σ whose p10/p90 match median(1∓spread)
+  const probability =
+    sigma > 0
+      ? normalCdf((median - GOAL_VALUE) / sigma)
+      : median >= GOAL_VALUE
+        ? 1
+        : 0;
+  return {
+    probability,
+    goal: GOAL_VALUE,
+    targetYear: START_YEAR + years,
+    terminalMedian: Math.round(median),
+    terminalLow: Math.round(median * (1 - spread)),
+    terminalHigh: Math.round(median * (1 + spread)),
+    gapToGoal: Math.round(median - GOAL_VALUE),
+    medianReaches: median >= GOAL_VALUE
+  };
+}
+
+/**
+ * The contributions-vs-growth series for a horizon: at each year, the money you put
+ * in (a straight, deterministic line) and the money it earned (balance − contributions),
+ * which stack to the SAME median balance the fan draws.
+ */
+export function buildContributionsVsGrowth(
+  horizon: Horizon
+): ContributionsPoint[] {
+  const years = HORIZON_YEARS[horizon];
+  const out: ContributionsPoint[] = [];
+  for (let y = 0; y <= years; y++) {
+    const months = y * 12;
+    const total = futureValue(months);
+    const contributions = contributed(months);
+    // Rounding could leave growth a hair below 0 at y=0; clamp so a band is never negative.
+    const growth = Math.max(0, total - contributions);
+    out.push({
+      year: START_YEAR + y,
+      contributions: Math.round(contributions),
+      growth: Math.round(growth),
+      total: Math.round(total)
+    });
+  }
+  return out;
+}
+
+export type ContributionsSplit = {
+  /** at the horizon end (CHF, rounded) */
+  contributions: number;
+  growth: number;
+  total: number;
+  /** growth as a share of the final balance (0..1) */
+  growthShare: number;
+  /** the first year growth exceeds contributions, else null (never within the horizon) */
+  crossoverYear: number | null;
+};
+
+/** The end-of-horizon split + the crossover year (for the KPIs and the pill). */
+export function buildContributionsSplit(horizon: Horizon): ContributionsSplit {
+  const series = buildContributionsVsGrowth(horizon);
+  const last = series[series.length - 1];
+  const crossover = series.find((p) => p.growth > p.contributions);
+  return {
+    contributions: last.contributions,
+    growth: last.growth,
+    total: last.total,
+    growthShare: last.total > 0 ? last.growth / last.total : 0,
+    crossoverYear: crossover ? crossover.year : null
   };
 }

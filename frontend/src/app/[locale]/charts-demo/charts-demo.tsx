@@ -24,6 +24,11 @@ import {
   MixVsOptimalChart,
   type MixVsOptimalDatum
 } from '@/components/charts/mix-vs-optimal-chart';
+import {
+  GoalFundingGauge,
+  type GoalGaugeVerdict
+} from '@/components/charts/goal-funding-gauge';
+import {ContributionsGrowthChart} from '@/components/charts/contributions-growth-chart';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
@@ -35,9 +40,13 @@ import {
 } from '@/lib/format';
 
 import {
+  buildContributionsSplit,
+  buildContributionsVsGrowth,
   buildDrawdown,
+  buildGoalFunding,
   buildProjection,
   GOAL_VALUE,
+  HORIZON_YEARS,
   type Horizon
 } from './sample-data';
 import {
@@ -791,6 +800,293 @@ function OptimalCard({locale}: {locale: string}) {
   );
 }
 
+/* ===================== Wave B — "Your growth" (Slice 9) ===================== */
+
+// Goal-funding: the chance the range of futures clears the goal — Φ of the
+// standardised gap between the most-likely amount and the goal. Language-neutral:
+// thin spaces (\,) keep the numbers reading the same in EN/FR, and "≈ 52%" avoids a
+// decimal point (a comma would mean a decimal in French). Numbers trace to the
+// medium-horizon sample (median 101'324, spread σ 24'497).
+const GAUGE_FORMULA = 'p = \\Phi\\!\\left(\\dfrac{M - G}{\\sigma}\\right)';
+const GAUGE_EXAMPLE =
+  '\\Phi\\!\\left(\\dfrac{101\\,324 - 100\\,000}{24\\,497}\\right) \\approx 52\\%';
+
+// Contributions vs growth: your balance is what you put in plus what it earned. The
+// worked example is the 30-year sample (10'000 start + 300×360 deposits + 176'355
+// of growth ≈ CHF 294'000).
+const GROWTH_FORMULA = 'V = (P + C\\,n) + G';
+const GROWTH_EXAMPLE =
+  '(10\\,000 + 300 \\times 360) + 176\\,355 \\approx \\text{CHF } 294\\,000';
+
+/** B1 — the goal-funding gauge: your odds of reaching the goal, recast by horizon. */
+function GoalFundingCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const [horizon, setHorizon] = React.useState<Horizon>('medium');
+  const share = (v: number) => formatPercent(v, locale);
+
+  const data = React.useMemo(() => buildGoalFunding(horizon), [horizon]);
+
+  // The verdict word carries the meaning alongside the % (never colour-alone): a
+  // ▲/→/▼ glyph + a plain word + a pos/neutral/neg tone, from the probability itself.
+  const verdict: GoalGaugeVerdict =
+    data.probability >= 0.75
+      ? {label: t('goal.verdict.onTrack'), glyph: '▲', tone: 'pos'}
+      : data.probability >= 0.4
+        ? {label: t('goal.verdict.withinReach'), glyph: '→', tone: 'neutral'}
+        : {label: t('goal.verdict.stretch'), glyph: '▼', tone: 'neg'};
+
+  // The table compares the odds across every horizon — the story the gauge tells one
+  // frame at a time — computed from the same builder so it can never drift.
+  const tableRows = HORIZON_OPTION_KEYS.map((key) => {
+    const g = buildGoalFunding(key);
+    return {
+      timeframe: t(`horizon.${key}`),
+      chance: share(g.probability),
+      likely: formatCHF(g.terminalMedian, locale)
+    };
+  });
+
+  // The card's own KPI shows a stat the gauge centre doesn't: how far the MOST-LIKELY
+  // path lands from the goal (the gauge shows the odds; this shows the middle outcome).
+  const stats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone={data.medianReaches ? 'brand' : 'gold'}
+        label={t('goal.stats.gapLabel')}
+        value={formatCHFCompact(Math.abs(data.gapToGoal), locale)}
+        delta={{
+          direction: data.medianReaches ? 'up' : 'down',
+          value: data.medianReaches
+            ? t('goal.stats.clears')
+            : t('goal.stats.short')
+        }}
+      />
+    </div>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: '\\Phi', meaning: t('goal.eqSymPhi')},
+    {tex: 'M', meaning: t('goal.eqSymM')},
+    {tex: 'G', meaning: t('goal.eqSymG')},
+    {tex: '\\sigma', meaning: t('goal.eqSymSigma')}
+  ];
+
+  // The worked example is fixed at the medium horizon (like the projection card), its
+  // numbers interpolated from the same builder so the prose can't drift.
+  const example = buildGoalFunding('medium');
+
+  return (
+    <ChartCard
+      title={t('goal.title')}
+      stats={stats}
+      caption={t('goal.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      horizon={{
+        value: horizon,
+        onValueChange: (v) => setHorizon(v as Horizon),
+        label: t('horizon.label'),
+        options: HORIZON_OPTION_KEYS.map((key) => ({
+          value: key,
+          label: t(`horizon.${key}`)
+        }))
+      }}
+      table={{
+        caption: t('goal.tableCaption'),
+        columns: [
+          {key: 'timeframe', label: t('goal.colTimeframe')},
+          {key: 'chance', label: t('goal.colChance'), numeric: true},
+          {key: 'likely', label: t('goal.colLikely'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('goal.eqResult', {
+          b: bold,
+          year: String(example.targetYear),
+          median: formatCHF(example.terminalMedian, locale),
+          prob: formatPercent(example.probability, locale),
+          goal: formatCHF(example.goal, locale)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: GAUGE_FORMULA,
+        formulaAlt: t('goal.eqFormulaAlt'),
+        symbolsLabel: t('goal.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('goal.eqExampleLabel'),
+        exampleFormula: GAUGE_EXAMPLE,
+        exampleAlt: t('goal.eqExampleAlt'),
+        exampleCaption: t('goal.eqExampleCaption'),
+        whyLabel: t('goal.eqWhyLabel'),
+        why: t('goal.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="catching-star" size={88} decorative animated={false} eager />
+      }
+    >
+      <GoalFundingGauge
+        probability={data.probability}
+        percentLabel={share(data.probability)}
+        subLabel={t('goal.centerSub', {
+          goal: formatCHF(data.goal, locale),
+          year: String(data.targetYear)
+        })}
+        verdict={verdict}
+        ariaLabel={t('goal.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** B2 — contributions vs growth: what you added vs what it earned, over time. */
+function ContributionsCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  // Default to long: the crossover (growth overtaking deposits) only shows on a long
+  // enough horizon — the richest "compounding takes over" story.
+  const [horizon, setHorizon] = React.useState<Horizon>('long');
+  const share = (v: number) => formatPercent(v, locale);
+
+  const data = React.useMemo(
+    () => buildContributionsVsGrowth(horizon),
+    [horizon]
+  );
+  const split = React.useMemo(() => buildContributionsSplit(horizon), [horizon]);
+
+  const labels = {
+    contributions: t('contributions.added'),
+    growth: t('contributions.earned'),
+    total: t('contributions.total')
+  };
+
+  const legend: ChartCardLegendItem[] = [
+    {
+      shape: 'band',
+      color: chartTheme.contributions,
+      label: t('contributions.legendAdded')
+    },
+    {
+      shape: 'band',
+      color: chartTheme.growth,
+      label: t('contributions.legendEarned')
+    }
+  ];
+
+  const tableRows = data.map((d) => ({
+    year: String(d.year),
+    added: formatCHF(d.contributions, locale),
+    earned: formatCHF(d.growth, locale),
+    total: formatCHF(d.total, locale)
+  }));
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="sky"
+        label={t('contributions.stats.addedLabel')}
+        value={formatCHFCompact(split.contributions, locale)}
+        note={t('contributions.stats.addedNote')}
+      />
+      <StatCard
+        tone="brand"
+        label={t('contributions.stats.earnedLabel')}
+        value={formatCHFCompact(split.growth, locale)}
+        delta={{direction: 'up', value: t('contributions.stats.earnedDelta')}}
+      />
+      <StatCard
+        tone="gold"
+        label={t('contributions.stats.shareLabel')}
+        value={share(split.growthShare)}
+        note={t('contributions.stats.shareNote')}
+      />
+    </StatRow>
+  );
+
+  const symbols: EquationSymbol[] = [
+    {tex: 'V', meaning: t('contributions.eqSymV')},
+    {tex: 'P', meaning: t('contributions.eqSymP')},
+    {tex: 'C', meaning: t('contributions.eqSymC')},
+    {tex: 'n', meaning: t('contributions.eqSymN')},
+    {tex: 'G', meaning: t('contributions.eqSymG')}
+  ];
+
+  // The worked example is fixed at the long horizon (where growth overtakes deposits),
+  // its numbers interpolated from the same builder so the prose can't drift.
+  const example = buildContributionsSplit('long');
+
+  return (
+    <ChartCard
+      title={t('contributions.title')}
+      stats={stats}
+      caption={t('contributions.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      horizon={{
+        value: horizon,
+        onValueChange: (v) => setHorizon(v as Horizon),
+        label: t('horizon.label'),
+        options: HORIZON_OPTION_KEYS.map((key) => ({
+          value: key,
+          label: t(`horizon.${key}`)
+        }))
+      }}
+      legend={legend}
+      table={{
+        caption: t('contributions.tableCaption'),
+        columns: [
+          {key: 'year', label: t('contributions.colYear')},
+          {key: 'added', label: t('contributions.colAdded'), numeric: true},
+          {key: 'earned', label: t('contributions.colEarned'), numeric: true},
+          {key: 'total', label: t('contributions.colTotal'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      maths={{
+        result: t.rich('contributions.eqResult', {
+          b: bold,
+          years: String(HORIZON_YEARS.long),
+          added: formatCHF(example.contributions, locale),
+          earned: formatCHF(example.growth, locale),
+          total: formatCHF(example.total, locale)
+        }),
+        showMathsLabel: t('showMaths'),
+        formula: GROWTH_FORMULA,
+        formulaAlt: t('contributions.eqFormulaAlt'),
+        symbolsLabel: t('contributions.eqSymbolsLabel'),
+        symbols,
+        exampleLabel: t('contributions.eqExampleLabel'),
+        exampleFormula: GROWTH_EXAMPLE,
+        exampleAlt: t('contributions.eqExampleAlt'),
+        exampleCaption: t('contributions.eqExampleCaption'),
+        whyLabel: t('contributions.eqWhyLabel'),
+        why: t('contributions.eqWhy')
+      }}
+      mascot={
+        <Sprout pose="coin-trail" size={88} decorative animated={false} eager />
+      }
+    >
+      <ContributionsGrowthChart
+        data={data}
+        crossover={
+          split.crossoverYear
+            ? {year: split.crossoverYear, label: t('contributions.crossoverLabel')}
+            : undefined
+        }
+        labels={labels}
+        formatValue={(n) => formatCHF(n, locale)}
+        formatAxisValue={(n) => formatCHFCompact(n, locale)}
+        formatYear={(y) => t('contributions.tooltipYear', {year: String(y)})}
+        ariaLabel={t('contributions.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
 export function ChartsDemo({locale}: {locale: string}) {
   const t = useTranslations('Charts');
   // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
@@ -815,9 +1111,17 @@ export function ChartsDemo({locale}: {locale: string}) {
       </section>
 
       <section data-demo-section="growth" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('growthSectionTitle')}</h2>
+          <p className="text-body text-text">{t('growthSectionIntro')}</p>
+        </div>
+        {/* Appended AFTER the fan + drawdown so the existing 8a/8b e2e keep their
+            nth(0)/nth(1) handles; the two Wave B cards are nth(2)/nth(3). */}
         <ChartGrid>
           <ProjectionCard locale={locale} />
           <DrawdownCard locale={locale} />
+          <GoalFundingCard locale={locale} />
+          <ContributionsCard locale={locale} />
         </ChartGrid>
       </section>
     </div>
