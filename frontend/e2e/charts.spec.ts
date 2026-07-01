@@ -1,29 +1,32 @@
-import {expect, test, type Page} from '@playwright/test';
+import {expect, test, type Locator, type Page} from '@playwright/test';
 import {mkdirSync} from 'node:fs';
 
 import {axeScan, countSerious, logViolations} from './lib/a11y';
 import {settleImages} from './lib/images';
 
 /**
- * Slice 8 (analytics foundation) gate — the shared chart-theme + the ChartCard
- * wrapper, proven by the honest growth projection (DESIGN §12). Captures the states
- * the static route can't show on its own: the DEFAULT chart (median line inside the
- * p10-p90 band, with the legend + "you are here"/"your goal" markers), the "Show the
- * maths" block EXPANDED (the reused EquationBlock), the "View as TABLE" fallback,
- * and the LONG horizon recasting the timeline — then runs axe-core on each,
- * requiring zero serious/critical WCAG-AA violations. A reduced-motion pair proves
- * the chart renders at its final state immediately (Recharts draw-in is gated off).
- * Runs EN + FR across every viewport (mobile/tablet/desktop).
+ * Slice 8 (analytics layer) gate — the shared chart-theme + the ChartCard wrapper,
+ * proven across TWO genuinely different chart types (DESIGN §12):
+ *   - 8a the honest growth fan (upside range: a median line inside a p10-p90 band);
+ *   - 8b the drawdown underwater plot (downside "stomach test": a soft --neg area
+ *     dipping below a 0% water line, the worst dip marked with a floating pill).
+ * For each card it captures the states the static route can't show: the DEFAULT
+ * chart + legend + caption, the "Show the maths" block EXPANDED (the reused
+ * EquationBlock), the "View as TABLE" fallback, and a HORIZON recast — then runs
+ * axe-core on each, requiring zero serious/critical WCAG-AA violations. A
+ * reduced-motion pass proves both charts render at their final state immediately
+ * (Recharts draw-in is gated off). Runs EN + FR across every viewport.
  */
 const LOCALES = ['en', 'fr'] as const;
 
 const CARD = '[data-slot="chart-card"]';
-const SEGMENTED = `${CARD} [data-slot="segmented"]`;
+const SEGMENTED = '[data-slot="segmented"]';
 const SEG_ITEM = '[data-slot="segmented-item"]';
 const EQ_TRIGGER = '[data-slot="accordion-trigger"]';
 const EQ_CONTENT = '[data-slot="accordion-content"]';
 const TABLE = '[data-slot="table"]';
-const LINE = '.recharts-line-curve';
+const LINE = '.recharts-line-curve'; // the fan's median line
+const AREA = '.recharts-area-curve'; // the drawdown's area stroke
 const SURFACE = '.recharts-surface';
 
 async function ready(page: Page, route: string) {
@@ -42,9 +45,8 @@ async function settleChart(page: Page) {
 }
 
 // Wait out an open animation on an element (the EquationBlock content) + its images.
-async function settleAnimations(page: Page, selector: string) {
-  const node = page.locator(selector).first();
-  await node.evaluate((el) =>
+async function settleAnimations(scope: Locator) {
+  await scope.evaluate((el) =>
     Promise.all(
       el.getAnimations({subtree: true}).map((a) => a.finished.catch(() => undefined))
     )
@@ -63,62 +65,96 @@ async function scan(page: Page, label: string) {
   expect(countSerious(violations), 'serious/critical axe violations').toBe(0);
 }
 
+/**
+ * Exercise one ChartCard's four states (default → maths → table → horizon recast),
+ * screenshotting + axe-scanning each. `present` proves the chart's own geometry
+ * drew; `horizonIndex` picks which timeframe to recast to for the last shot.
+ */
+async function exerciseCard(
+  page: Page,
+  card: Locator,
+  present: Locator,
+  project: string,
+  prefix: string,
+  locale: string,
+  horizonIndex: number
+) {
+  await expect(card).toBeVisible();
+  await expect(present.first()).toHaveAttribute('d', /.+/);
+  await settleChart(page);
+  await shot(page, project, `${prefix}_default_${locale}`);
+  await scan(page, `${prefix} default ${locale} @ ${project}`);
+
+  // ---- Show the maths: the reused EquationBlock expands ----
+  const trigger = card.locator(EQ_TRIGGER);
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  const content = card.locator(EQ_CONTENT);
+  await expect(content).toBeVisible();
+  await settleAnimations(content);
+  await shot(page, project, `${prefix}_maths_${locale}`);
+  await scan(page, `${prefix} maths ${locale} @ ${project}`);
+  await trigger.click(); // collapse again for the next shots
+
+  // ---- View as table: the accessible fallback (view switch = 2nd segmented) ----
+  const viewSwitch = card.locator(SEGMENTED).nth(1);
+  await viewSwitch.locator(SEG_ITEM).nth(1).click();
+  await expect(card.locator(TABLE)).toBeVisible();
+  await shot(page, project, `${prefix}_table_${locale}`);
+  await scan(page, `${prefix} table ${locale} @ ${project}`);
+
+  // ---- Horizon recast: back to the chart, then choose a different timeframe ----
+  await viewSwitch.locator(SEG_ITEM).nth(0).click();
+  const horizonSwitch = card.locator(SEGMENTED).nth(0);
+  const target = horizonSwitch.locator(SEG_ITEM).nth(horizonIndex);
+  await target.click();
+  await expect(target).toHaveAttribute('data-state', 'on');
+  await settleChart(page);
+  await shot(page, project, `${prefix}_horizon_${locale}`);
+  await scan(page, `${prefix} horizon ${locale} @ ${project}`);
+}
+
 for (const locale of LOCALES) {
   test(`charts ${locale} · projection card (chart / maths / table / horizon)`, async ({
     page
   }, testInfo) => {
     const project = testInfo.project.name;
     await ready(page, `/${locale}/charts-demo`);
+    const card = page.locator(CARD).nth(0);
+    // Recast the fan to the long (30y) horizon for its last shot.
+    await exerciseCard(page, card, card.locator(LINE), project, 'charts', locale, 2);
+  });
 
-    // ---- Default: the fan chart, the legend and the caption ----
-    await expect(page.locator(CARD)).toBeVisible();
-    // The median line drew (a path with real geometry) — the fan is present.
-    await expect(page.locator(LINE).first()).toHaveAttribute('d', /.+/);
-    await settleChart(page);
-    await shot(page, project, `charts_default_${locale}`);
-    await scan(page, `charts default ${locale} @ ${project}`);
-
-    // ---- Show the maths: the reused EquationBlock expands ----
-    const trigger = page.locator(`${CARD} ${EQ_TRIGGER}`);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await trigger.click();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(page.locator(EQ_CONTENT)).toBeVisible();
-    await settleAnimations(page, EQ_CONTENT);
-    await shot(page, project, `charts_maths_${locale}`);
-    await scan(page, `charts maths ${locale} @ ${project}`);
-    await trigger.click(); // collapse again for the next shots
-
-    // ---- View as table: the accessible fallback (2nd segmented, 2nd item) ----
-    const viewSwitch = page.locator(SEGMENTED).nth(1);
-    await viewSwitch.locator(SEG_ITEM).nth(1).click();
-    await expect(page.locator(TABLE)).toBeVisible();
-    await shot(page, project, `charts_table_${locale}`);
-    await scan(page, `charts table ${locale} @ ${project}`);
-
-    // ---- Horizon recast: back to the chart, choose the long (30y) horizon ----
-    await viewSwitch.locator(SEG_ITEM).nth(0).click();
-    const horizonSwitch = page.locator(SEGMENTED).nth(0);
-    const longItem = horizonSwitch.locator(SEG_ITEM).nth(2);
-    await longItem.click();
-    await expect(longItem).toHaveAttribute('data-state', 'on');
-    await settleChart(page);
-    await shot(page, project, `charts_long_${locale}`);
-    await scan(page, `charts long ${locale} @ ${project}`);
+  test(`charts ${locale} · drawdown card (chart / maths / table / horizon)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    const card = page.locator(CARD).nth(1);
+    // Recast the underwater plot to the short (5y) horizon for its last shot.
+    await exerciseCard(page, card, card.locator(AREA), project, 'drawdown', locale, 0);
   });
 }
 
 for (const locale of LOCALES) {
-  test(`charts ${locale} · reduced-motion projection is instant`, async ({
+  test(`charts ${locale} · reduced-motion charts are instant`, async ({
     page
   }, testInfo) => {
     const project = testInfo.project.name;
     await page.emulateMedia({reducedMotion: 'reduce'});
     await ready(page, `/${locale}/charts-demo`);
 
-    // With reduced motion the chart does not draw in — the median path is present
-    // at its final geometry immediately (isAnimationActive is gated off in the chart).
-    await expect(page.locator(LINE).first()).toHaveAttribute('d', /.+/);
+    // With reduced motion neither chart draws in — both are at final geometry
+    // immediately (isAnimationActive is gated off in each chart).
+    await expect(page.locator(CARD).nth(0).locator(LINE).first()).toHaveAttribute(
+      'd',
+      /.+/
+    );
+    await expect(page.locator(CARD).nth(1).locator(AREA).first()).toHaveAttribute(
+      'd',
+      /.+/
+    );
     await settleChart(page);
     await shot(page, project, `charts_reduced_${locale}`);
     await scan(page, `charts reduced ${locale} @ ${project}`);
