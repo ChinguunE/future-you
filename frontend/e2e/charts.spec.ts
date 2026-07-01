@@ -34,11 +34,15 @@ const SURFACE = '.recharts-surface';
 const MIX = '[data-demo-section="mix"]'; // Wave A "Your mix"
 const GROWTH = '[data-demo-section="growth"]'; // the 8a/8b growth + Wave B cards
 const RISK = '[data-demo-section="risk"]'; // Wave C "Your risk"
+const STOCK = '[data-demo-section="stock"]'; // Wave D "Your stocks"
 const SECTOR = '.recharts-sector'; // a donut wedge
 const BAR = '.recharts-bar-rectangle'; // a mix-vs-optimal / risk bar (a <g> wrapper)
 const BAR_PATH = '.recharts-rectangle'; // the bar's inner path (carries the `d` geometry)
 const REF_DOT = '.recharts-reference-dot'; // the frontier's optimal / you markers
 const GRID = '[data-slot="correlation-heatmap"]'; // the correlation heatmap (DOM, not SVG)
+const CANDLES = '[data-slot="candle"]'; // a hand-rolled candlestick body (Wave D)
+const ANALYST = '[data-slot="analyst-target"]'; // the analyst-target range bar (DOM, Wave D)
+const FUNDAMENTALS = '[data-slot="fundamentals"]'; // the fundamentals snapshot (DOM, Wave D)
 // nivo (sunburst arcs / treemap tiles) render inside the chart region (role=group),
 // scoped so the query never matches the card's mascot illustration.
 const NIVO_ARC = '[role="group"] svg path';
@@ -214,6 +218,15 @@ for (const locale of LOCALES) {
       /.+/
     );
     await expect(risk.locator(CARD).nth(3).locator(REF_DOT).first()).toBeVisible();
+    // Wave D: the price line settles at once (Recharts draw-in gated off); the analyst
+    // + fundamentals charts are hand-built DOM with no animation to gate, so both are
+    // present immediately.
+    const stock = page.locator(STOCK);
+    await expect(
+      stock.locator(CARD).nth(0).locator(LINE).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(stock.locator(CARD).nth(1).locator(ANALYST)).toBeVisible();
+    await expect(stock.locator(CARD).nth(2).locator(FUNDAMENTALS)).toBeVisible();
     await settleChart(page);
     await shot(page, project, `charts_reduced_${locale}`);
     await scan(page, `charts reduced ${locale} @ ${project}`);
@@ -352,5 +365,78 @@ for (const locale of LOCALES) {
     await tableShot(2, 'contribution');
     // ---- C4 efficient frontier (table fallback) ----
     await tableShot(3, 'frontier');
+  });
+}
+
+/**
+ * Slice 9 · Wave D ("Your stocks") gate — the three per-stock charts anchored on NVIDIA:
+ * a price-history line/area with a candlestick "advanced" toggle + a 1M–Max range, an
+ * analyst-target low/mean/high range bar (hand-built DOM), and a fundamentals snapshot
+ * (a beta-vs-market bar + quality flags, hand-built DOM). Screenshots the section
+ * default, the price card's candles view + table + range recast, and the other two
+ * cards' table fallbacks, axe-scanning each (zero serious/critical WCAG-AA). The price
+ * card's segmenteds are [range (nth0), view (nth1), line/candles (nth2)]; the analyst +
+ * fundamentals cards carry only the view switch. EN + FR × every viewport.
+ */
+for (const locale of LOCALES) {
+  test(`charts ${locale} · stock section (price / analyst / fundamentals)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    const stock = page.locator(STOCK);
+    await expect(stock).toBeVisible();
+    const cards = stock.locator(CARD);
+
+    // ---- Default: the price line drew; the analyst rail + fundamentals panel are up ----
+    await expect(cards.nth(0).locator(LINE).first()).toHaveAttribute('d', /.+/);
+    await expect(cards.nth(1).locator(ANALYST)).toBeVisible();
+    await expect(cards.nth(2).locator(FUNDAMENTALS)).toBeVisible();
+    await settleChart(page);
+    await shot(page, project, `stock_default_${locale}`);
+    await scan(page, `stock default ${locale} @ ${project}`);
+
+    // ---- D1 price: the candlestick "advanced" view (mode toggle = 3rd segmented) ----
+    const price = cards.nth(0);
+    const modeSwitch = price.locator(SEGMENTED).nth(2);
+    await modeSwitch.locator(SEG_ITEM).nth(1).click(); // → candles
+    await expect(price.locator(CANDLES).first()).toBeVisible();
+    await settleChart(page);
+    await shot(page, project, `stock_price_candles_${locale}`);
+    await scan(page, `stock price candles ${locale} @ ${project}`);
+    await modeSwitch.locator(SEG_ITEM).nth(0).click(); // back to line
+
+    // ---- D1 price: table fallback (view switch = 2nd segmented) ----
+    const priceView = price.locator(SEGMENTED).nth(1);
+    await priceView.locator(SEG_ITEM).nth(1).click();
+    await expect(price.locator(TABLE)).toBeVisible();
+    await shot(page, project, `stock_price_table_${locale}`);
+    await scan(page, `stock price table ${locale} @ ${project}`);
+    await priceView.locator(SEG_ITEM).nth(0).click();
+
+    // ---- D1 price: recast the range to Max (range = 1st segmented, last item) ----
+    const range = price.locator(SEGMENTED).nth(0);
+    const maxItem = range.locator(SEG_ITEM).nth(3);
+    await maxItem.click();
+    await expect(maxItem).toHaveAttribute('data-state', 'on');
+    await settleChart(page);
+    await shot(page, project, `stock_price_max_${locale}`);
+    await scan(page, `stock price max ${locale} @ ${project}`);
+
+    // helper: flip a card's only view switch to the table, shot + scan, flip back.
+    async function tableShot(cardIndex: number, name: string) {
+      const card = cards.nth(cardIndex);
+      const view = card.locator(SEGMENTED).last();
+      await view.locator(SEG_ITEM).nth(1).click();
+      await expect(card.locator(TABLE)).toBeVisible();
+      await shot(page, project, `stock_${name}_table_${locale}`);
+      await scan(page, `stock ${name} table ${locale} @ ${project}`);
+      await view.locator(SEG_ITEM).nth(0).click();
+    }
+
+    // ---- D2 analyst targets (table fallback) ----
+    await tableShot(1, 'analyst');
+    // ---- D3 fundamentals snapshot (table fallback) ----
+    await tableShot(2, 'fundamentals');
   });
 }

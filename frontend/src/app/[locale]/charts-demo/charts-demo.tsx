@@ -33,6 +33,12 @@ import {ReturnDistributionChart} from '@/components/charts/return-distribution-c
 import {CorrelationHeatmap} from '@/components/charts/correlation-heatmap';
 import {RiskContributionChart} from '@/components/charts/risk-contribution-chart';
 import {EfficientFrontierChart} from '@/components/charts/efficient-frontier-chart';
+import {
+  PriceHistoryChart,
+  type PriceHistoryMode
+} from '@/components/charts/price-history-chart';
+import {AnalystTargetChart} from '@/components/charts/analyst-target-chart';
+import {FundamentalsSnapshot} from '@/components/charts/fundamentals-snapshot';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
@@ -40,6 +46,8 @@ import {
   formatCHF,
   formatCHFCompact,
   formatDecimal,
+  formatMoney,
+  formatMoneyCompact,
   formatNumber,
   formatPercent
 } from '@/lib/format';
@@ -74,6 +82,14 @@ import {
   topRiskDriver,
   type CorrelationEntity
 } from './risk-data';
+import {
+  buildAnalystTargets,
+  buildFundamentals,
+  buildPriceSeries,
+  STOCK,
+  STOCK_RANGES,
+  type StockRange
+} from './stock-data';
 
 /**
  * The interactive island of /charts-demo (client): it owns the horizon state and
@@ -1511,6 +1527,367 @@ function FrontierCard({locale}: {locale: string}) {
   );
 }
 
+/* ===================== Wave D — "Your stocks" (Slice 9) ===================== */
+
+/** D1 — the price history: a close-price line/area with a candlestick "advanced" toggle. */
+function PriceHistoryCard({
+  locale,
+  className
+}: {
+  locale: string;
+  className?: string;
+}) {
+  const t = useTranslations('Charts');
+  const [range, setRange] = React.useState<StockRange>('1Y');
+  const [mode, setMode] = React.useState<PriceHistoryMode>('line');
+
+  const series = React.useMemo(() => buildPriceSeries(range), [range]);
+
+  const price = (v: number) =>
+    formatMoney(v, locale, STOCK.currency, {maximumFractionDigits: 2});
+  const axisPrice = (v: number) =>
+    formatMoney(v, locale, STOCK.currency, {maximumFractionDigits: 0});
+  const signedPct = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 1, signDisplay: 'always'});
+
+  // Locale-aware, SSR-deterministic date labels (UTC-pinned). The axis granularity
+  // follows the range — day + month for the shorter views, month + year for "Max".
+  const shortRange = range !== 'max';
+  const axisDateFmt = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(`${locale}-CH`, {
+        timeZone: 'UTC',
+        ...(shortRange
+          ? {day: 'numeric', month: 'short'}
+          : {month: 'short', year: 'numeric'})
+      }),
+    [locale, shortRange]
+  );
+  const tipDateFmt = React.useMemo(
+    () =>
+      new Intl.DateTimeFormat(`${locale}-CH`, {
+        timeZone: 'UTC',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }),
+    [locale]
+  );
+  const formatAxisDate = (ms: number) => axisDateFmt.format(ms);
+  const formatTipDate = (ms: number) => tipDateFmt.format(ms);
+
+  const up = series.changePct >= 0;
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'line', color: chartTheme.price.line, label: t('stock.price.legendClose')},
+    {shape: 'band', color: chartTheme.candle.up, label: t('stock.price.legendUp')},
+    {shape: 'band', color: chartTheme.candle.down, label: t('stock.price.legendDown')}
+  ];
+
+  const tableRows = series.candles.map((c) => ({
+    date: formatTipDate(c.date),
+    open: price(c.open),
+    high: price(c.high),
+    low: price(c.low),
+    close: price(c.close)
+  }));
+
+  const stats = (
+    <StatRow className="max-w-2xl @2xl:grid-cols-3">
+      <StatCard
+        tone="brand"
+        label={t('stock.price.stats.currentLabel')}
+        value={price(series.last.close)}
+        note={t('stock.price.stats.currentNote')}
+      />
+      <StatCard
+        tone={up ? 'brand' : 'neg'}
+        label={t('stock.price.stats.changeLabel', {
+          range: t(`stock.price.range.${range}`)
+        })}
+        value={signedPct(series.changePct)}
+        delta={{direction: up ? 'up' : 'down', value: price(series.changeAbs)}}
+      />
+      <StatCard
+        tone="gold"
+        label={t('stock.price.stats.rangeLabel')}
+        value={
+          <span className="whitespace-nowrap">{`${axisPrice(series.low)} – ${axisPrice(
+            series.high
+          )}`}</span>
+        }
+        note={t('stock.price.stats.rangeNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      className={className}
+      title={t('stock.price.title', {name: STOCK.name})}
+      stats={stats}
+      caption={t('stock.price.caption', {name: STOCK.name})}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      horizon={{
+        value: range,
+        onValueChange: (v) => setRange(v as StockRange),
+        label: t('horizon.label'),
+        options: STOCK_RANGES.map((r) => ({
+          value: r,
+          label: t(`stock.price.range.${r}`)
+        }))
+      }}
+      legend={legend}
+      table={{
+        caption: t('stock.price.tableCaption'),
+        columns: [
+          {key: 'date', label: t('stock.price.colDate')},
+          {key: 'open', label: t('stock.price.colOpen'), numeric: true},
+          {key: 'high', label: t('stock.price.colHigh'), numeric: true},
+          {key: 'low', label: t('stock.price.colLow'), numeric: true},
+          {key: 'close', label: t('stock.price.colClose'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="riding-wave" size={88} decorative animated={false} eager />
+      }
+    >
+      <PriceHistoryChart
+        points={series.points}
+        candles={series.candles}
+        mode={mode}
+        onModeChange={setMode}
+        modeLabels={{
+          label: t('stock.price.modeLabel'),
+          line: t('stock.price.modeLine'),
+          candles: t('stock.price.modeCandles')
+        }}
+        labels={{
+          open: t('stock.price.open'),
+          high: t('stock.price.high'),
+          low: t('stock.price.low'),
+          close: t('stock.price.close')
+        }}
+        formatPrice={price}
+        formatAxisPrice={axisPrice}
+        formatAxisDate={formatAxisDate}
+        formatTipDate={formatTipDate}
+        ariaLabel={t('stock.price.ariaLabel', {name: STOCK.name})}
+      />
+    </ChartCard>
+  );
+}
+
+/** D2 — analyst price targets: the low/mean/high consensus range + today + upside. */
+function AnalystTargetCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const a = buildAnalystTargets();
+
+  const price = (v: number) =>
+    formatMoney(v, locale, STOCK.currency, {maximumFractionDigits: 0});
+  const price2 = (v: number) =>
+    formatMoney(v, locale, STOCK.currency, {maximumFractionDigits: 2});
+  const signedPct = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 0, signDisplay: 'always'});
+
+  const up = a.mean >= a.current;
+  const toPct = (target: number) => target / a.current - 1;
+
+  const legend: ChartCardLegendItem[] = [
+    {shape: 'band', color: 'var(--green-300)', label: t('stock.analyst.legendRange')},
+    {shape: 'dot', color: chartTheme.analyst.mean, label: t('stock.analyst.legendConsensus')},
+    {shape: 'dot', color: chartTheme.analyst.current, label: t('stock.analyst.legendToday')}
+  ];
+
+  const tableRows = [
+    {point: t('stock.analyst.rowLow'), price: price2(a.low), vs: signedPct(toPct(a.low))},
+    {
+      point: t('stock.analyst.rowConsensus'),
+      price: price2(a.mean),
+      vs: signedPct(toPct(a.mean))
+    },
+    {point: t('stock.analyst.rowHigh'), price: price2(a.high), vs: signedPct(toPct(a.high))},
+    {point: t('stock.analyst.rowToday'), price: price2(a.current), vs: '—'}
+  ];
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone={up ? 'brand' : 'neg'}
+        label={t('stock.analyst.stats.consensusLabel')}
+        value={price(a.mean)}
+        delta={{
+          direction: up ? 'up' : 'down',
+          value: signedPct(a.upside),
+          label: t('stock.analyst.stats.consensusDelta')
+        }}
+      />
+      <StatCard
+        tone="neutral"
+        label={t('stock.analyst.stats.rangeLabel')}
+        value={
+          <span className="whitespace-nowrap">{`${price(a.low)} – ${price(a.high)}`}</span>
+        }
+        note={t('stock.analyst.stats.rangeNote')}
+      />
+      <StatCard
+        tone="sky"
+        label={t('stock.analyst.stats.countLabel')}
+        value={formatNumber(a.count, locale)}
+        note={t('stock.analyst.stats.countNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('stock.analyst.title', {name: STOCK.name})}
+      stats={stats}
+      caption={t('stock.analyst.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      legend={legend}
+      table={{
+        caption: t('stock.analyst.tableCaption'),
+        columns: [
+          {key: 'point', label: t('stock.analyst.colPoint')},
+          {key: 'price', label: t('stock.analyst.colPrice'), numeric: true},
+          {key: 'vs', label: t('stock.analyst.colVs'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="catching-star" size={88} decorative animated={false} eager />
+      }
+    >
+      <AnalystTargetChart
+        current={a.current}
+        low={a.low}
+        mean={a.mean}
+        high={a.high}
+        labels={{
+          today: t('stock.analyst.today'),
+          low: t('stock.analyst.low'),
+          consensus: t('stock.analyst.consensus'),
+          high: t('stock.analyst.high'),
+          upside: t('stock.analyst.upside'),
+          downside: t('stock.analyst.downside')
+        }}
+        formatPrice={price2}
+        formatUpside={signedPct}
+        ariaLabel={t('stock.analyst.ariaLabel', {name: STOCK.name})}
+      />
+    </ChartCard>
+  );
+}
+
+/** D3 — the fundamentals snapshot: the real facts (market cap, beta, quality flags). */
+function FundamentalsCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const f = buildFundamentals();
+
+  const price = (v: number) =>
+    formatMoney(v, locale, STOCK.currency, {maximumFractionDigits: 2});
+  const cap = (v: number) => formatMoneyCompact(v, locale, STOCK.currency);
+  const mult = (v: number) =>
+    `${formatDecimal(v, locale, {minimumFractionDigits: 1, maximumFractionDigits: 1})}×`;
+  const yesNo = (on: boolean) =>
+    on ? t('stock.fundamentals.yes') : t('stock.fundamentals.no');
+
+  const betaLabel = mult(f.beta);
+
+  const flags = [
+    {label: t('stock.fundamentals.flagProfitable'), on: f.isProfitable},
+    {label: t('stock.fundamentals.flagDividend'), on: f.paysDividend},
+    {label: t('stock.fundamentals.flagIndex', {index: f.indexName}), on: f.isIndexMember}
+  ];
+
+  const tableRows = [
+    {fact: t('stock.fundamentals.rowPrice'), value: price(f.currentPrice)},
+    {fact: t('stock.fundamentals.rowCap'), value: cap(f.marketCap)},
+    {fact: t('stock.fundamentals.rowBeta'), value: betaLabel},
+    {
+      fact: t('stock.fundamentals.rowListed'),
+      value: t('stock.fundamentals.listedValue', {
+        year: String(f.firstTradeYear),
+        years: f.yearsListed
+      })
+    },
+    {fact: t('stock.fundamentals.flagProfitable'), value: yesNo(f.isProfitable)},
+    {fact: t('stock.fundamentals.flagDividend'), value: yesNo(f.paysDividend)},
+    {
+      fact: t('stock.fundamentals.flagIndex', {index: f.indexName}),
+      value: yesNo(f.isIndexMember)
+    }
+  ];
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="brand"
+        label={t('stock.fundamentals.stats.capLabel')}
+        value={cap(f.marketCap)}
+        note={t('stock.fundamentals.stats.capNote')}
+      />
+      <StatCard
+        tone="gold"
+        label={t('stock.fundamentals.stats.betaLabel')}
+        value={betaLabel}
+        note={t('stock.fundamentals.stats.betaNote')}
+      />
+      <StatCard
+        tone="sky"
+        label={t('stock.fundamentals.stats.listedLabel')}
+        value={String(f.firstTradeYear)}
+        note={t('stock.fundamentals.stats.listedNote', {years: f.yearsListed})}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('stock.fundamentals.title', {name: STOCK.name})}
+      stats={stats}
+      caption={t('stock.fundamentals.caption')}
+      viewLabels={{
+        chart: t('viewChart'),
+        table: t('viewTable'),
+        group: t('viewGroup')
+      }}
+      table={{
+        caption: t('stock.fundamentals.tableCaption'),
+        columns: [
+          {key: 'fact', label: t('stock.fundamentals.colFact')},
+          {key: 'value', label: t('stock.fundamentals.colValue'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="reading" size={88} decorative animated={false} eager />
+      }
+    >
+      <FundamentalsSnapshot
+        beta={f.beta}
+        betaMarket={f.betaMarket}
+        betaLabel={betaLabel}
+        betaTitle={t('stock.fundamentals.betaTitle')}
+        marketLabel={t('stock.fundamentals.market', {value: mult(f.betaMarket)})}
+        betaCaption={t('stock.fundamentals.betaCaption', {beta: betaLabel})}
+        flags={flags}
+        ariaLabel={t('stock.fundamentals.ariaLabel', {name: STOCK.name})}
+      />
+    </ChartCard>
+  );
+}
+
 export function ChartsDemo({locale}: {locale: string}) {
   const t = useTranslations('Charts');
   // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
@@ -1559,6 +1936,20 @@ export function ChartsDemo({locale}: {locale: string}) {
           <CorrelationCard locale={locale} />
           <ContributionCard locale={locale} />
           <FrontierCard locale={locale} />
+        </ChartGrid>
+      </section>
+
+      <section data-demo-section="stock" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('stockSectionTitle')}</h2>
+          <p className="text-body text-text">{t('stockSectionIntro')}</p>
+        </div>
+        {/* The price time-series leads full-width (it earns the room); the analyst
+            targets + fundamentals sit 2-up beneath it. */}
+        <ChartGrid>
+          <PriceHistoryCard locale={locale} className="lg:col-span-2" />
+          <AnalystTargetCard locale={locale} />
+          <FundamentalsCard locale={locale} />
         </ChartGrid>
       </section>
     </div>

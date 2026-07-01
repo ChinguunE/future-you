@@ -171,6 +171,18 @@ export const chartTheme = {
       {offset: '0%', color: 'var(--neg)', opacity: 1},
       {offset: '60%', color: 'var(--neg)', opacity: 0.92},
       {offset: '100%', color: 'var(--neg)', opacity: 0.8}
+    ],
+
+    /* Price-history area fill (Slice 9 "Your stocks"). The close-price area gets the
+       same glossy 4-stop --green fade as the growth fan (a saturated top fading to
+       near-clear), so a rising price reads with real body while the darker --green-700
+       line still sits clearly on top. It's ONE real series — past closes — directly
+       labelled + tabled, never a false single promise about the future. */
+    priceArea: [
+      {offset: '0%', color: 'var(--green-500)', opacity: 0.5},
+      {offset: '45%', color: 'var(--green-500)', opacity: 0.28},
+      {offset: '80%', color: 'var(--green-400)', opacity: 0.12},
+      {offset: '100%', color: 'var(--green-400)', opacity: 0.03}
     ]
   } as const,
 
@@ -221,5 +233,35 @@ export const chartTheme = {
     optimal: 'var(--green-700)', // the optimal (best return-per-risk) mix, on the curve
     you: 'var(--ink)', // the "you are here" point
     asset: 'var(--text-muted)' // faint single-holding context dots
+  },
+
+  /* Price-history line + latest-price dot (Slice 9 "Your stocks"). The close-price
+     line is on-light --green-700 (AA) over the glossy `priceArea` fade; the crisp
+     ink dot marks "today". A real past series, always paired with its axis + table. */
+  price: {
+    line: 'var(--green-700)',
+    dot: 'var(--ink)'
+  },
+
+  /* Candlesticks (Slice 9 "Your stocks", the "advanced" toggle). A rising session
+     (close ≥ open) fills the brand action green; a falling one fills --neg. Meaning
+     is never colour-alone: the body sits open→close (its POSITION encodes direction),
+     the thin wick shows the day's range, and the tooltip spells out O/H/L/C. Rounded
+     bodies + wick caps match the soft brand, not a cold trading terminal. Tokens only. */
+  candle: {
+    up: 'var(--green-600)', // a rising session (close ≥ open)
+    down: 'var(--neg)', // a falling session (close < open)
+    radius: 2 // gently rounded bodies (brand-soft, not sharp)
+  },
+
+  /* Analyst price targets (Slice 9 "Your stocks"). A low→high consensus RAIL with the
+     mean marked by a gold knob and the current price by an ink marker; the reach from
+     today to the mean is tinted by direction. Upside/downside is carried by ▲/▼ + words
+     + marker position, never colour alone (§11). Tokens only. */
+  analyst: {
+    rail: 'var(--muted)', // the pale low→high track
+    reach: 'var(--green-500)', // today → consensus (the upside/downside span)
+    mean: 'var(--gold)', // the consensus (mean) target knob
+    current: 'var(--ink)' // where it trades today
   }
 } as const;

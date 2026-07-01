@@ -309,6 +309,8 @@
     "growthSectionIntro": "Où votre épargne pourrait croître, vos chances d'atteindre votre objectif, ce qui fait grossir le solde, et à quel point le parcours peut être agité. Chiffres d'exemple ; votre vraie croissance arrive avec votre plan.",
     "riskSectionTitle": "Votre risque",
     "riskSectionIntro": "À quel point une année peut secouer, si vos titres bougent ensemble, d'où vient vraiment le risque, et s'il est bien rémunéré. Chiffres d'exemple ; votre risque réel arrive avec votre plan.",
+    "stockSectionTitle": "Vos actions",
+    "stockSectionIntro": "Un regard plus attentif sur une seule position : son cours au fil du temps, où les analystes la voient, et les faits concrets sur l'entreprise. Chiffres d'exemple ; votre vraie recherche arrive avec votre plan.",
     "showMaths": "Afficher les calculs",
     "viewChart": "Graphique",
     "viewTable": "Tableau",
@@ -681,6 +683,101 @@
           "vsOptimal": "vs optimal",
           "spotLabel": "Vous êtes ici",
           "spotNote": "un cran au-delà du point le mieux payé"
+        }
+      }
+    },
+    "stock": {
+      "price": {
+        "title": "Comment {name} a-t-elle évolué ?",
+        "caption": "La ligne verte est le cours de clôture de {name} au fil du temps. Activez les chandeliers pour voir, à chaque période, l'ouverture, le plus haut, le plus bas et la clôture — un chandelier par période, vert quand il monte, rouge quand il baisse. Changez la période pour passer du dernier mois à tout son historique.",
+        "ariaLabel": "L'historique du cours de {name} : le cours de clôture sur la période choisie, avec une option pour passer aux chandeliers. Les mêmes données sont disponibles sous forme de tableau.",
+        "range": {
+          "1M": "1M",
+          "6M": "6M",
+          "1Y": "1A",
+          "max": "Max"
+        },
+        "modeLabel": "Type de graphique",
+        "modeLine": "Ligne",
+        "modeCandles": "Chandeliers",
+        "legendClose": "Cours de clôture",
+        "legendUp": "Séance en hausse",
+        "legendDown": "Séance en baisse",
+        "open": "Ouverture",
+        "high": "Plus haut",
+        "low": "Plus bas",
+        "close": "Clôture",
+        "tableCaption": "Le cours sur la période choisie : pour chaque période, l'ouverture, le plus haut, le plus bas et la clôture.",
+        "colDate": "Date",
+        "colOpen": "Ouv.",
+        "colHigh": "Haut",
+        "colLow": "Bas",
+        "colClose": "Clôt.",
+        "stats": {
+          "currentLabel": "Cours actuel",
+          "currentNote": "la dernière clôture",
+          "changeLabel": "Variation ({range})",
+          "rangeLabel": "Amplitude sur la période",
+          "rangeNote": "du plus bas au plus haut"
+        }
+      },
+      "analyst": {
+        "title": "Où les analystes voient-ils {name} ?",
+        "caption": "Les analystes publient un objectif de cours — la valeur qu'ils estiment dans un an. Le rail va de leur estimation la plus basse à la plus haute ; le point doré est la moyenne (le consensus), et le repère foncé est le cours actuel. C'est un éventail d'avis, pas une promesse.",
+        "ariaLabel": "Les objectifs de cours des analystes pour {name} : une fourchette du plus bas au plus haut, avec le consensus moyen et le cours actuel, ainsi que la variation implicite vers le consensus. Les mêmes données sont disponibles sous forme de tableau.",
+        "today": "Cours actuel",
+        "low": "Objectif le plus bas",
+        "consensus": "Consensus",
+        "high": "Objectif le plus haut",
+        "upside": "jusqu'au consensus",
+        "downside": "jusqu'au consensus",
+        "legendRange": "Du plus bas au plus haut",
+        "legendConsensus": "Consensus (moyenne)",
+        "legendToday": "Cours actuel",
+        "rowLow": "Objectif le plus bas",
+        "rowConsensus": "Consensus",
+        "rowHigh": "Objectif le plus haut",
+        "rowToday": "Cours actuel",
+        "tableCaption": "Les objectifs des analystes et le cours actuel, chacun avec la variation qu'il implique depuis aujourd'hui.",
+        "colPoint": "Point",
+        "colPrice": "Prix",
+        "colVs": "vs aujourd'hui",
+        "stats": {
+          "consensusLabel": "Objectif consensus",
+          "consensusDelta": "jusqu'au consensus",
+          "rangeLabel": "Fourchette des analystes",
+          "rangeNote": "de l'estimation la plus basse à la plus haute",
+          "countLabel": "Analystes",
+          "countNote": "ayant fourni un objectif"
+        }
+      },
+      "fundamentals": {
+        "title": "Quel genre d'entreprise est {name} ?",
+        "caption": "Une fiche d'identité rapide à partir des faits dont nous disposons : sa taille, son amplitude par rapport au marché, depuis combien de temps elle est cotée, et quelques indicateurs de qualité. Ce sont les vrais chiffres de l'instantané — rien ici n'est une estimation.",
+        "ariaLabel": "Un aperçu des fondamentaux de {name} : son amplitude par rapport au marché et ses indicateurs de qualité. Les mêmes données sont disponibles sous forme de tableau.",
+        "betaTitle": "Son amplitude par rapport au marché",
+        "market": "Marché · {value}",
+        "betaCaption": "Environ {beta} plus nerveuse que le marché",
+        "flagProfitable": "Rentable",
+        "flagDividend": "Verse un dividende",
+        "flagIndex": "Dans le {index}",
+        "yes": "Oui",
+        "no": "Non",
+        "rowPrice": "Cours actuel",
+        "rowCap": "Valeur boursière",
+        "rowBeta": "Amplitude vs marché",
+        "rowListed": "Cotée depuis",
+        "listedValue": "{year} · {years} ans",
+        "tableCaption": "Les faits dont nous disposons pour cette action, directement issus de l'instantané.",
+        "colFact": "Fait",
+        "colValue": "Valeur",
+        "stats": {
+          "capLabel": "Valeur boursière",
+          "capNote": "ce que vaut toute l'entreprise",
+          "betaLabel": "Amplitude vs marché",
+          "betaNote": "le marché lui-même est à 1,0×",
+          "listedLabel": "Cotée depuis",
+          "listedNote": "{years} ans sur le marché"
         }
       }
     }

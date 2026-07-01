@@ -76,6 +76,55 @@ export function formatCHFCompact(value: number, locale: string): string {
   );
 }
 
+/**
+ * A money value in ANY currency (e.g. a US stock priced in USD → `$170.24`). Same
+ * Swiss-apostrophe grouping + SSR-determinism as `formatCHF`, but the currency and the
+ * cents are caller-controlled: prices show two decimals, a whole figure passes 0.
+ * `narrowSymbol` keeps it compact (`$`, not `US$`); CHF still renders as `CHF`.
+ * Reused by the per-stock research charts now and Phase 5's asset pages later.
+ */
+export function formatMoney(
+  value: number,
+  locale: string,
+  currency: string,
+  opts?: {maximumFractionDigits?: number; minimumFractionDigits?: number}
+): string {
+  const mxf = opts?.maximumFractionDigits ?? 2;
+  const mnf = opts?.minimumFractionDigits ?? mxf;
+  return render(
+    get(`money:${locale}:${currency}:${mnf}:${mxf}`, () =>
+      new Intl.NumberFormat(swiss(locale), {
+        style: 'currency',
+        currency,
+        currencyDisplay: 'narrowSymbol',
+        minimumFractionDigits: mnf,
+        maximumFractionDigits: mxf
+      })
+    ),
+    value
+  );
+}
+
+/** Compact money for large figures / axis ticks (e.g. a market cap `$2.9T`, `2,9 Bn $`). */
+export function formatMoneyCompact(
+  value: number,
+  locale: string,
+  currency: string
+): string {
+  return render(
+    get(`moneyc:${locale}:${currency}`, () =>
+      new Intl.NumberFormat(swiss(locale), {
+        style: 'currency',
+        currency,
+        currencyDisplay: 'narrowSymbol',
+        notation: 'compact',
+        maximumFractionDigits: 1
+      })
+    ),
+    value
+  );
+}
+
 /** Plain integer with locale grouping (e.g. a count of holdings). */
 export function formatNumber(value: number, locale: string): string {
   return render(

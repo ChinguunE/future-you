@@ -309,6 +309,8 @@
     "growthSectionIntro": "Where your savings could grow, the odds of reaching your goal, what builds the balance, and how bumpy the ride might be. Sample numbers; your real growth arrives with your plan.",
     "riskSectionTitle": "Your risk",
     "riskSectionIntro": "How bumpy a year could be, whether your holdings move together, where the risk really comes from, and whether you're being paid for it. Sample numbers; your real risk arrives with your plan.",
+    "stockSectionTitle": "Your stocks",
+    "stockSectionIntro": "A closer look at a single holding: its price over time, where analysts think it's headed, and the plain facts about the company. Sample numbers; your real research arrives with your plan.",
     "showMaths": "Show the maths",
     "viewChart": "Chart",
     "viewTable": "Table",
@@ -681,6 +683,101 @@
           "vsOptimal": "vs optimal",
           "spotLabel": "You are here",
           "spotNote": "a step past the best-paid point"
+        }
+      }
+    },
+    "stock": {
+      "price": {
+        "title": "How has {name} moved?",
+        "caption": "The green line is {name}'s closing price over time. Switch on candlesticks to see each period's open, high, low and close — one candle per period, green when it rose, red when it fell. Change the time frame to zoom from the last month out to its whole history.",
+        "ariaLabel": "A price history of {name}: the closing price over the chosen time frame, with an option to switch to candlesticks. The same data is available as a table.",
+        "range": {
+          "1M": "1M",
+          "6M": "6M",
+          "1Y": "1Y",
+          "max": "Max"
+        },
+        "modeLabel": "Chart type",
+        "modeLine": "Line",
+        "modeCandles": "Candles",
+        "legendClose": "Closing price",
+        "legendUp": "Up session",
+        "legendDown": "Down session",
+        "open": "Open",
+        "high": "High",
+        "low": "Low",
+        "close": "Close",
+        "tableCaption": "The price over the chosen time frame: each period's open, high, low and close.",
+        "colDate": "Date",
+        "colOpen": "Open",
+        "colHigh": "High",
+        "colLow": "Low",
+        "colClose": "Close",
+        "stats": {
+          "currentLabel": "Trades today",
+          "currentNote": "the latest close",
+          "changeLabel": "Change ({range})",
+          "rangeLabel": "Range over the period",
+          "rangeNote": "its low to its high"
+        }
+      },
+      "analyst": {
+        "title": "Where do analysts think {name} is headed?",
+        "caption": "Analysts publish a price target — where they think the stock is worth in a year. The rail spans their lowest to highest call; the gold dot is the average (the consensus), and the ink marker is where it trades today. It's a spread of opinions, not a promise.",
+        "ariaLabel": "Analyst price targets for {name}: a low-to-high range with the average consensus and today's price marked, and the implied move to the consensus. The same data is available as a table.",
+        "today": "Trades today",
+        "low": "Lowest target",
+        "consensus": "Consensus",
+        "high": "Highest target",
+        "upside": "to consensus",
+        "downside": "to consensus",
+        "legendRange": "Low to high target",
+        "legendConsensus": "Consensus (average)",
+        "legendToday": "Trades today",
+        "rowLow": "Lowest target",
+        "rowConsensus": "Consensus",
+        "rowHigh": "Highest target",
+        "rowToday": "Trades today",
+        "tableCaption": "The analyst targets and today's price, each with the move it implies from today.",
+        "colPoint": "Point",
+        "colPrice": "Price",
+        "colVs": "vs today",
+        "stats": {
+          "consensusLabel": "Consensus target",
+          "consensusDelta": "to consensus",
+          "rangeLabel": "Analyst range",
+          "rangeNote": "lowest to highest call",
+          "countLabel": "Analysts",
+          "countNote": "contributing a target"
+        }
+      },
+      "fundamentals": {
+        "title": "What kind of company is {name}?",
+        "caption": "A quick ID card from the facts we hold: how big it is, how much it swings versus the market, how long it's been listed, and a few quality flags. These are the real snapshot figures — nothing here is an estimate.",
+        "ariaLabel": "A fundamentals snapshot of {name}: how much it moves versus the market, and its quality flags. The same data is available as a table.",
+        "betaTitle": "How much it moves vs the market",
+        "market": "Market · {value}",
+        "betaCaption": "About {beta} as jumpy as the market",
+        "flagProfitable": "Profitable",
+        "flagDividend": "Pays a dividend",
+        "flagIndex": "In the {index}",
+        "yes": "Yes",
+        "no": "No",
+        "rowPrice": "Trades today",
+        "rowCap": "Market value",
+        "rowBeta": "Moves vs market",
+        "rowListed": "Listed since",
+        "listedValue": "{year} · {years} years",
+        "tableCaption": "The facts we hold for this stock, straight from the snapshot.",
+        "colFact": "Fact",
+        "colValue": "Value",
+        "stats": {
+          "capLabel": "Market value",
+          "capNote": "what the whole company is worth",
+          "betaLabel": "Moves vs market",
+          "betaNote": "market itself is 1.0×",
+          "listedLabel": "Listed since",
+          "listedNote": "{years} years on the market"
         }
       }
     }
