@@ -20,6 +20,19 @@
       "done": "Terminé",
       "current": "Étape en cours",
       "locked": "Verrouillé"
+    },
+    "quiz": {
+      "step": "Étape {current} sur {total}",
+      "progressLabel": "Votre progression",
+      "back": "Retour",
+      "question": "Si vos placements chutaient de 20 % en un mois, que feriez-vous ?",
+      "answers": {
+        "cautious": "En vendre une partie pour me rassurer",
+        "balanced": "Attendre et m'en tenir au plan",
+        "adventurous": "En acheter plus pendant que les prix sont bas"
+      },
+      "continue": "Continuer",
+      "sproutAlt": "Sprout réfléchit"
     }
   },
   "Landing": {

@@ -20,6 +20,19 @@
       "done": "Completed",
       "current": "Current step",
       "locked": "Locked"
+    },
+    "quiz": {
+      "step": "Step {current} of {total}",
+      "progressLabel": "Your progress",
+      "back": "Back",
+      "question": "If your investments dropped 20% in a month, what would you do?",
+      "answers": {
+        "cautious": "Sell some to feel safer",
+        "balanced": "Wait and see — stick to the plan",
+        "adventurous": "Buy more while prices are low"
+      },
+      "continue": "Continue",
+      "sproutAlt": "Sprout thinking it over"
     }
   },
   "Landing": {

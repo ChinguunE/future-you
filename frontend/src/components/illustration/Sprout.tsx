@@ -1,5 +1,6 @@
 'use client';
 
+import {useSyncExternalStore} from 'react';
 import {
   motion,
   useReducedMotion,
@@ -42,6 +43,9 @@ const IDLE_TRANSITION: Transition = {
   scaleY: {duration: 5.6, repeat: Infinity, ease: 'easeInOut', times: [0, 0.82, 0.9, 1]}
 };
 
+// A no-op store subscription (idle "am I hydrated?" flag never changes after mount).
+const subscribeNoop = () => () => {};
+
 /**
  * <Sprout> — the companion mascot (DESIGN §8), used BIG with personality. Pick a
  * pose per moment (`<Sprout pose="thinking" />`); it idles with a soft bob/breath
@@ -59,7 +63,14 @@ export function Sprout({
   className
 }: SproutProps) {
   const reduceMotion = useReducedMotion();
-  const idle = animated && !reduceMotion;
+  // Gate the idle animation behind hydration so the server HTML and the first
+  // client render are identical (a still <span>) regardless of the reduced-motion
+  // media query — otherwise useReducedMotion resolving on the client causes a
+  // hydration mismatch (surfaced by Next as a dev "Issue"). useSyncExternalStore
+  // returns the server snapshot (false) through hydration, then true — idling
+  // begins a tick later, with no mismatch.
+  const isHydrated = useSyncExternalStore(subscribeNoop, () => true, () => false);
+  const idle = animated && isHydrated && !reduceMotion;
 
   const art = (
     <Illustration
