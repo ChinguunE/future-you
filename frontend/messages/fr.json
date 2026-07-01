@@ -300,6 +300,54 @@
     "defDiversification": "Répartir votre argent sur de nombreux placements pour qu'une seule mauvaise surprise ne fasse pas tout couler.",
     "defVolatility": "L'ampleur des hausses et des baisses du prix d'un placement — de plus grands écarts, un parcours plus mouvementé."
   },
+  "Charts": {
+    "eyebrow": "Couche analytique",
+    "title": "Des graphiques qui disent la vérité",
+    "intro": "Chaque graphique répond à une question simple, montre une fourchette plutôt qu'une fausse promesse, et peut afficher ses calculs ou se transformer en tableau. Les chiffres ici sont un exemple — vos vrais chiffres arrivent avec votre plan.",
+    "showMaths": "Afficher les calculs",
+    "viewChart": "Graphique",
+    "viewTable": "Tableau",
+    "viewGroup": "Basculer entre le graphique et un tableau des mêmes chiffres",
+    "horizon": {
+      "label": "Horizon",
+      "short": "5 ans",
+      "medium": "15 ans",
+      "long": "30 ans"
+    },
+    "projection": {
+      "title": "Jusqu'où mon épargne pourrait-elle croître ?",
+      "caption": "La ligne verte est le parcours le plus probable ; la bande ombrée est la fourchette entre un mauvais scénario et un bon. Plus vous regardez loin, plus cette fourchette s'élargit — et plus atteindre votre objectif dépend du temps.",
+      "here": "Vous êtes ici",
+      "goal": "Votre objectif",
+      "tooltipYear": "En {year}",
+      "likely": "Le plus probable",
+      "good": "Un bon scénario",
+      "rough": "Un mauvais scénario",
+      "ariaLabel": "Une projection de votre épargne dans le temps : une ligne du plus probable à l'intérieur d'une fourchette ombrée de bons et de mauvais scénarios, avec votre objectif et votre point de départ indiqués. Les mêmes données sont disponibles sous forme de tableau.",
+      "legendLikely": "Le plus probable",
+      "legendRange": "Fourchette des résultats (80 % du temps)",
+      "legendGoal": "Votre objectif",
+      "legendHere": "Vous êtes ici",
+      "tableCaption": "La même projection sous forme de tableau : pour chaque année, un mauvais scénario, le montant le plus probable et un bon scénario.",
+      "colYear": "Année",
+      "colRough": "Un mauvais scénario",
+      "colLikely": "Le plus probable",
+      "colGood": "Un bon scénario",
+      "eqResult": "En commençant avec CHF 10 000 et en ajoutant CHF 300 par mois, si cela croît d'environ 5 % par an, dans 15 ans le parcours le plus probable atteint environ <b>CHF 100 000</b> — mais le vrai résultat se situe quelque part sur toute la bande ombrée.",
+      "eqFormulaAlt": "La valeur future est égale à P multiplié par un plus r, le tout élevé à la puissance n, plus C multiplié par la quantité un plus r à la puissance n moins un, divisée par r.",
+      "eqSymbolsLabel": "Ce que signifie chaque terme",
+      "eqSymFV": "Valeur future — le montant le plus probable auquel votre épargne pourrait croître.",
+      "eqSymP": "Capital — ce avec quoi vous commencez aujourd'hui (CHF 10 000).",
+      "eqSymC": "Versement — ce que vous ajoutez chaque mois (CHF 300).",
+      "eqSymR": "Taux de croissance mensuel — environ 5 % par an, réparti sur 12 mois.",
+      "eqSymN": "Nombre de mois où vous restez investi (15 ans = 180).",
+      "eqExampleLabel": "Avec ces chiffres",
+      "eqExampleAlt": "Avec les chiffres de l'exemple, la valeur future s'établit à environ 100 000 francs suisses.",
+      "eqExampleCaption": "Ce n'est que la ligne du milieu. La bande autour d'elle vient de la variation possible des rendements d'une année à l'autre — c'est pourquoi nous ne montrons jamais une promesse unique.",
+      "eqWhyLabel": "Pourquoi une bande, pas une ligne",
+      "eqWhy": "Personne ne connaît le rendement exact chaque année, donc une ligne unique serait une fausse promesse. La bande montre la fourchette où tombent la plupart des résultats — honnête sur ce que l'on peut et ne peut pas savoir."
+    }
+  },
   "Illustrations": {
     "alt": {
       "characters": {

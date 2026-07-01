@@ -300,6 +300,54 @@
     "defDiversification": "Spreading your money across many investments so one bad apple can't sink everything.",
     "defVolatility": "How much an investment's price swings up and down — bigger swings mean a bumpier ride."
   },
+  "Charts": {
+    "eyebrow": "Analytics layer",
+    "title": "Charts that tell the truth",
+    "intro": "Every chart answers a plain question, shows a range instead of a false promise, and can open its maths or turn into a table. The figures here are a sample — your real numbers arrive with your plan.",
+    "showMaths": "Show the maths",
+    "viewChart": "Chart",
+    "viewTable": "Table",
+    "viewGroup": "Switch between the chart and a table of the same numbers",
+    "horizon": {
+      "label": "Time frame",
+      "short": "5 years",
+      "medium": "15 years",
+      "long": "30 years"
+    },
+    "projection": {
+      "title": "Where could my savings grow?",
+      "caption": "The green line is the most likely path; the shaded band is the range from a rough run to a good one. The further ahead you look, the wider that range — and the more reaching your goal depends on time.",
+      "here": "You are here",
+      "goal": "Your goal",
+      "tooltipYear": "In {year}",
+      "likely": "Most likely",
+      "good": "A good run",
+      "rough": "A rough run",
+      "ariaLabel": "A projection of your savings over time: a most-likely line inside a shaded range of good and rough outcomes, with your goal and your starting point marked. The same data is available as a table.",
+      "legendLikely": "Most likely",
+      "legendRange": "Range of outcomes (80% of the time)",
+      "legendGoal": "Your goal",
+      "legendHere": "You are here",
+      "tableCaption": "The same projection as a table: for each year, a rough run, the most likely amount, and a good run.",
+      "colYear": "Year",
+      "colRough": "A rough run",
+      "colLikely": "Most likely",
+      "colGood": "A good run",
+      "eqResult": "Starting with CHF 10,000 and adding CHF 300 a month, if it grows about 5% a year, in 15 years the most likely path lands near <b>CHF 100,000</b> — but the real result lands somewhere across the shaded band.",
+      "eqFormulaAlt": "Future value equals P times one plus r, all raised to the power n, plus C times the quantity one plus r to the power n minus one, divided by r.",
+      "eqSymbolsLabel": "What each part means",
+      "eqSymFV": "Future value — the most likely amount your savings could grow to.",
+      "eqSymP": "Principal — what you start with today (CHF 10,000).",
+      "eqSymC": "Contribution — what you add each month (CHF 300).",
+      "eqSymR": "Monthly growth rate — about 5% a year, split across 12 months.",
+      "eqSymN": "Number of months you stay invested (15 years = 180).",
+      "eqExampleLabel": "With these numbers",
+      "eqExampleAlt": "Using the example numbers, the future value works out to about 100,000 Swiss francs.",
+      "eqExampleCaption": "This is only the middle line. The band around it comes from how much returns can vary year to year — which is why we never show a single promise.",
+      "eqWhyLabel": "Why a band, not a line",
+      "eqWhy": "Nobody knows the exact return each year, so a single line would be a false promise. The band shows the range most outcomes fall in — honest about what we can and can't know."
+    }
+  },
   "Illustrations": {
     "alt": {
       "characters": {
