@@ -67,5 +67,44 @@ export const chartTheme = {
    * `isAnimationActive={false}` + duration 0, because Recharts animates in JS and
    * the global `prefers-reduced-motion` CSS media query does not reach it.
    */
-  animation: {duration: 640, easing: 'ease-out' as const}
+  animation: {duration: 640, easing: 'ease-out' as const},
+
+  /**
+   * Richer multi-stop gradient fills (DESIGN §12 richness pass — the "premium
+   * dashboard" bar, re-skinned to our LIGHT palette). Each is an array of SVG stops
+   * rendered into a chart's <defs> via <ChartGradient>. "Premium but restrained":
+   * real presence at the top fading to near-nothing at the bottom, so a fill reads
+   * glossy and dimensional without going gaudy or dark. Colours stay token-only, so
+   * the fills still match the app and never drift (non-negotiable #3).
+   */
+  gradients: {
+    /* The growth p10–p90 fan — a RICH, saturated 4-stop --green sweep (deep, glossy
+       green at the top of the band fading to near-clear at the bottom), so the range
+       reads with real body and depth like a premium dashboard fill, on our light
+       palette. The darker --green-700 median line still reads clearly on top. */
+    growthBand: [
+      {offset: '0%', color: 'var(--green-500)', opacity: 0.62},
+      {offset: '40%', color: 'var(--green-500)', opacity: 0.36},
+      {offset: '78%', color: 'var(--green-400)', opacity: 0.15},
+      {offset: '100%', color: 'var(--green-400)', opacity: 0.03}
+    ],
+    /* The drawdown underwater fill — a RICH 3-stop --neg sweep, deeper = more
+       saturated (a real red blush at the trough, not a faint wash). Still tasteful
+       reassurance on light, never a solid alarm block. Top = the water line. */
+    drawdown: [
+      {offset: '0%', color: 'var(--neg)', opacity: 0.14},
+      {offset: '50%', color: 'var(--neg)', opacity: 0.4},
+      {offset: '100%', color: 'var(--neg)', opacity: 0.62}
+    ]
+  } as const,
+
+  /* A soft translucent "glow" underlay drawn beneath a crisp series line so it lifts
+     off the fill with depth (premium gloss without an SVG filter). The crisp line is
+     drawn on top at full weight; this is decorative only — the data is unchanged. */
+  glow: {width: 11, opacity: 0.32},
+
+  /* On-chart markers get glossy depth: the crisp dot keeps its white halo ring, and
+     a wider, faint same-hue halo sits beneath it (a soft cast). Decorative — the
+     marker's meaning stays in its label + the tooltip + the table. */
+  marker: {haloRadius: 12, haloOpacity: 0.24}
 } as const;

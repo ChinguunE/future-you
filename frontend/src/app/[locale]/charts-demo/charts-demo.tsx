@@ -3,7 +3,12 @@
 import * as React from 'react';
 import {useTranslations} from 'next-intl';
 
-import {ChartCard, type ChartCardLegendItem} from '@/components/charts/chart-card';
+import {
+  ChartCard,
+  ChartGrid,
+  type ChartCardLegendItem
+} from '@/components/charts/chart-card';
+import {StatCard} from '@/components/charts/stat-card';
 import {
   DrawdownChart,
   type DrawdownPoint
@@ -80,9 +85,29 @@ function ProjectionCard({locale}: {locale: string}) {
     good: formatCHF(d.p90, locale)
   }));
 
+  // The card's own KPI header shows ONLY the stat unique to this chart — the rough→
+  // good RANGE (the "most likely" + "your goal" figures live in the dashboard glance
+  // strip, so nothing is repeated). Derived from the same sample data the fan draws.
+  const last = data[data.length - 1];
+  const yearStr = String(last.year);
+  const projectionStats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="neutral"
+        label={t('projection.stats.rangeLabel', {year: yearStr})}
+        value={`${formatCHFCompact(last.p10, locale)} – ${formatCHFCompact(
+          last.p90,
+          locale
+        )}`}
+        note={t('projection.stats.rangeNote')}
+      />
+    </div>
+  );
+
   return (
     <ChartCard
       title={t('projection.title')}
+      stats={projectionStats}
       caption={t('projection.caption')}
       viewLabels={{
         chart: t('viewChart'),
@@ -200,9 +225,31 @@ function DrawdownCard({locale}: {locale: string}) {
     peak: formatCHF(p.peak, locale)
   }));
 
+  // The card's own KPI header shows ONLY the stat unique to this chart — the PEAK →
+  // TROUGH it fell across (worst dip + recovered live in the dashboard glance strip,
+  // so nothing is repeated). One line, from the same summary the chart marks.
+  const drawdownStats = (
+    <div className="max-w-sm">
+      <StatCard
+        tone="neutral"
+        label={t('drawdown.stats.peakToTroughLabel')}
+        value={
+          <span className="whitespace-nowrap">
+            {`${formatCHFCompact(summary.peakValue, locale)} → ${formatCHFCompact(
+              summary.troughValue,
+              locale
+            )}`}
+          </span>
+        }
+        note={t('drawdown.stats.peakToTroughNote')}
+      />
+    </div>
+  );
+
   return (
     <ChartCard
       title={t('drawdown.title')}
+      stats={drawdownStats}
       caption={t('drawdown.caption')}
       viewLabels={{
         chart: t('viewChart'),
@@ -278,11 +325,82 @@ function DrawdownCard({locale}: {locale: string}) {
   );
 }
 
-export function ChartsDemo({locale}: {locale: string}) {
+/**
+ * The dashboard KPI strip (DESIGN §6 research/dashboard mode + §12 richness pass) —
+ * the premium-dashboard pattern of a headline stat row above the detailed cards. It
+ * summarises the plan at each card's DEFAULT horizon (15y growth, 30y drawdown), all
+ * from the same sample engine as the charts below. Reuses the projection + drawdown
+ * stat strings, so the row can never drift from the cards' own headers.
+ */
+function PlanGlance({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const projection = React.useMemo(() => buildProjection('medium'), []);
+  const {summary} = React.useMemo(() => buildDrawdown('long'), []);
+
+  const last = projection[projection.length - 1];
+  const gain = last.median - projection[0].median;
+  const yearStr = String(last.year);
+  const recoveryYear = Math.round(summary.recoveryT);
+
   return (
-    <div className="space-y-10">
-      <ProjectionCard locale={locale} />
-      <DrawdownCard locale={locale} />
+    // Its own container so the 4-up KPI strip flows by the section's width: one
+    // column on phones, two on tablets, four across on desktop.
+    <section className="@container space-y-3">
+      <h2 className="text-h3 text-ink">{t('glanceTitle')}</h2>
+      <div className="grid grid-cols-1 gap-3 @md:grid-cols-2 @4xl:grid-cols-4">
+        <StatCard
+          tone="brand"
+          label={t('projection.stats.likelyLabel', {year: yearStr})}
+          value={formatCHF(last.median, locale)}
+          delta={{
+            direction: 'up',
+            value: formatCHFCompact(gain, locale),
+            label: t('projection.stats.likelyDelta')
+          }}
+        />
+        <StatCard
+          tone="neg"
+          label={t('drawdown.stats.worstLabel')}
+          value={formatPercent(summary.maxDrawdown, locale)}
+          delta={{direction: 'down', value: t('drawdown.stats.worstPill')}}
+        />
+        <StatCard
+          tone="gold"
+          label={t('projection.stats.goalLabel')}
+          value={formatCHF(GOAL_VALUE, locale)}
+          note={t('projection.stats.goalNote')}
+        />
+        <StatCard
+          tone={summary.recovered ? 'brand' : 'neutral'}
+          label={t('drawdown.stats.recoveredLabel')}
+          value={
+            summary.recovered
+              ? t('drawdown.stats.recoveredYes')
+              : t('drawdown.stats.recoveredNo')
+          }
+          note={
+            summary.recovered
+              ? t('drawdown.stats.recoveredYesNote', {year: String(recoveryYear)})
+              : t('drawdown.stats.recoveredNoNote')
+          }
+        />
+      </div>
+    </section>
+  );
+}
+
+export function ChartsDemo({locale}: {locale: string}) {
+  // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
+  // strip on top, then the two upgraded cards 2-up. Each card stays fully interactive
+  // (its own horizon + view/table toggle + maths) — the calm guided flow never uses
+  // this layout; it stays one-thing-per-screen.
+  return (
+    <div className="space-y-8">
+      <PlanGlance locale={locale} />
+      <ChartGrid>
+        <ProjectionCard locale={locale} />
+        <DrawdownCard locale={locale} />
+      </ChartGrid>
     </div>
   );
 }

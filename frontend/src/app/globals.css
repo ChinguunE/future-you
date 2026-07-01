@@ -177,6 +177,41 @@
   /* The one dark highlight card per page (DESIGN §13) — ink → deep grape. */
   --highlight-from: var(--ink);
   --highlight-to:   var(--grape-deep);
+
+  /* -------------------------------------------------------------------------
+     ANALYTICS RICHNESS PASS (DESIGN §6 "research/dashboard" mode + §12) — the
+     "premium dashboard" bar, re-skinned to our LIGHT palette. Scoped to the
+     analytics surfaces (stat-cards, chart cards); the guided flow stays calm.
+     Every wash is a color-mix over white (in-system, never a raw hex), pale
+     enough that the number (--ink) and the delta text (--pos/--neg, both AA)
+     stay legible. Consistency stays enforced, not hoped for (non-negotiable #3).
+     ------------------------------------------------------------------------- */
+
+  /* KPI stat-card surfaces — one soft tint + hairline edge per tone. */
+  --stat-brand-bg:     color-mix(in oklab, var(--green-500)  8%, var(--white));
+  --stat-brand-edge:   color-mix(in oklab, var(--green-500) 26%, var(--white));
+  --stat-neg-bg:       color-mix(in oklab, var(--neg)        7%, var(--white));
+  --stat-neg-edge:     color-mix(in oklab, var(--neg)       24%, var(--white));
+  --stat-gold-bg:      color-mix(in oklab, var(--gold)      13%, var(--white));
+  --stat-gold-edge:    color-mix(in oklab, var(--gold)      38%, var(--white));
+  --stat-sky-bg:       color-mix(in oklab, var(--sky)       13%, var(--white));
+  --stat-sky-edge:     color-mix(in oklab, var(--sky)       40%, var(--white));
+  --stat-neutral-bg:   var(--white);
+  --stat-neutral-edge: var(--border);
+
+  /* Delta-pill washes — the ▲/▼ pill sits on a pale same-hue wash; the glyph +
+     label carry the meaning, so the colour only reinforces (never colour-alone). */
+  --pill-pos-bg:  color-mix(in oklab, var(--pos)  13%, var(--white));
+  --pill-neg-bg:  color-mix(in oklab, var(--neg)  13%, var(--white));
+  --pill-flat-bg: var(--muted);
+
+  /* Soft glossy depth shared by the richer analytics cards + stat-cards: a slightly
+     lifted cast shadow with a 1px inner top-highlight, so a card reads dimensional
+     on the light field (the reference dashboards' gloss, tuned calm for light). */
+  --gloss-top:     inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  --shadow-lifted: 0 6px 20px rgba(20, 48, 43, 0.10);
+  --stat-shadow:   var(--shadow-card), var(--gloss-top);
+  --chart-shadow:  var(--shadow-lifted), var(--gloss-top);
 }
 
 /* ============================================================================

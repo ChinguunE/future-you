@@ -304,6 +304,7 @@
     "eyebrow": "Couche analytique",
     "title": "Des graphiques qui disent la vérité",
     "intro": "Chaque graphique répond à une question simple, montre une fourchette plutôt qu'une fausse promesse, et peut afficher ses calculs ou se transformer en tableau. Les chiffres ici sont un exemple — vos vrais chiffres arrivent avec votre plan.",
+    "glanceTitle": "Votre plan en un coup d'œil",
     "showMaths": "Afficher les calculs",
     "viewChart": "Graphique",
     "viewTable": "Tableau",
@@ -345,7 +346,15 @@
       "eqExampleAlt": "Avec les chiffres de l'exemple, la valeur future s'établit à environ 100 000 francs suisses.",
       "eqExampleCaption": "Ce n'est que la ligne du milieu. La bande autour d'elle vient de la variation possible des rendements d'une année à l'autre — c'est pourquoi nous ne montrons jamais une promesse unique.",
       "eqWhyLabel": "Pourquoi une bande, pas une ligne",
-      "eqWhy": "Personne ne connaît le rendement exact chaque année, donc une ligne unique serait une fausse promesse. La bande montre la fourchette où tombent la plupart des résultats — honnête sur ce que l'on peut et ne peut pas savoir."
+      "eqWhy": "Personne ne connaît le rendement exact chaque année, donc une ligne unique serait une fausse promesse. La bande montre la fourchette où tombent la plupart des résultats — honnête sur ce que l'on peut et ne peut pas savoir.",
+      "stats": {
+        "likelyLabel": "Le plus probable d'ici {year}",
+        "likelyDelta": "vs aujourd'hui",
+        "rangeLabel": "Fourchette d'ici {year}",
+        "rangeNote": "80 % des scénarios",
+        "goalLabel": "Votre objectif",
+        "goalNote": "l'objectif que vous avez fixé"
+      }
     },
     "drawdown": {
       "title": "Jusqu'où pourrait-il chuter en cours de route ?",
@@ -375,7 +384,18 @@
       "eqExampleAlt": "La valeur au creux divisée par la valeur au sommet, moins un, donne environ le pourcentage de drawdown maximal.",
       "eqExampleCaption": "Sommet {peak} → creux {trough}.",
       "eqWhyLabel": "Pourquoi c'est important",
-      "eqWhy": "C'est le test du ventre — non pas le rendement final, mais le passage le plus dur à tenir sans vendre. Les plans plus grands, tenus plus longtemps, connaîtront souvent des baisses plus profondes… et remontent quand même."
+      "eqWhy": "C'est le test du ventre — non pas le rendement final, mais le passage le plus dur à tenir sans vendre. Les plans plus grands, tenus plus longtemps, connaîtront souvent des baisses plus profondes… et remontent quand même.",
+      "stats": {
+        "worstLabel": "Pire chute",
+        "worstPill": "pire baisse",
+        "peakToTroughLabel": "Sommet → creux",
+        "peakToTroughNote": "avant de remonter",
+        "recoveredLabel": "Remonté",
+        "recoveredYes": "Oui",
+        "recoveredNo": "Pas encore",
+        "recoveredYesNote": "de retour à un sommet en {year}",
+        "recoveredNoNote": "pas dans cette période"
+      }
     }
   },
   "Illustrations": {

@@ -304,6 +304,7 @@
     "eyebrow": "Analytics layer",
     "title": "Charts that tell the truth",
     "intro": "Every chart answers a plain question, shows a range instead of a false promise, and can open its maths or turn into a table. The figures here are a sample — your real numbers arrive with your plan.",
+    "glanceTitle": "Your plan at a glance",
     "showMaths": "Show the maths",
     "viewChart": "Chart",
     "viewTable": "Table",
@@ -345,7 +346,15 @@
       "eqExampleAlt": "Using the example numbers, the future value works out to about 100,000 Swiss francs.",
       "eqExampleCaption": "This is only the middle line. The band around it comes from how much returns can vary year to year — which is why we never show a single promise.",
       "eqWhyLabel": "Why a band, not a line",
-      "eqWhy": "Nobody knows the exact return each year, so a single line would be a false promise. The band shows the range most outcomes fall in — honest about what we can and can't know."
+      "eqWhy": "Nobody knows the exact return each year, so a single line would be a false promise. The band shows the range most outcomes fall in — honest about what we can and can't know.",
+      "stats": {
+        "likelyLabel": "Most likely by {year}",
+        "likelyDelta": "vs today",
+        "rangeLabel": "Range by {year}",
+        "rangeNote": "80% of outcomes",
+        "goalLabel": "Your goal",
+        "goalNote": "the target you set"
+      }
     },
     "drawdown": {
       "title": "How far could it fall along the way?",
@@ -375,7 +384,18 @@
       "eqExampleAlt": "The trough value divided by the peak value, minus one, is about the maximum drawdown percentage.",
       "eqExampleCaption": "Peak {peak} → trough {trough}.",
       "eqWhyLabel": "Why it matters",
-      "eqWhy": "It's the stomach test — not the final return, but the hardest stretch you'd have to hold through without selling. Bigger, longer-held plans usually see deeper dips and still recover."
+      "eqWhy": "It's the stomach test — not the final return, but the hardest stretch you'd have to hold through without selling. Bigger, longer-held plans usually see deeper dips and still recover.",
+      "stats": {
+        "worstLabel": "Worst dip",
+        "worstPill": "deepest fall",
+        "peakToTroughLabel": "Peak → trough",
+        "peakToTroughNote": "before it climbed back",
+        "recoveredLabel": "Recovered",
+        "recoveredYes": "Yes",
+        "recoveredNo": "Not yet",
+        "recoveredYesNote": "back to a new high by {year}",
+        "recoveredNoNote": "not within this timeframe"
+      }
     }
   },
   "Illustrations": {

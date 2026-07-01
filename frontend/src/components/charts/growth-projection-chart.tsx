@@ -16,6 +16,7 @@ import {
 } from "recharts"
 
 import { chartTheme } from "@/lib/chart-theme"
+import { ChartGradient } from "@/components/charts/chart-defs"
 import {
   ChartTooltipCard,
   ChartTooltipRow,
@@ -135,6 +136,7 @@ export function GrowthProjectionChart({
   const reduced = useReducedMotion()
   const animate = !reduced
   const duration = reduced ? 0 : chartTheme.animation.duration
+  const bandGradientId = React.useId()
 
   // The band is drawn from a [low, high] tuple per point (Recharts range area).
   const rows: ProjectionDatum[] = React.useMemo(
@@ -164,6 +166,17 @@ export function GrowthProjectionChart({
           margin={{ top: 24, right: 16, bottom: 4, left: 4 }}
           accessibilityLayer
         >
+          <defs>
+            {/* Richer multi-stop fan fill (DESIGN §12 richness pass): a saturated
+                --green-500 top fading to almost clear, so the range has real body
+                while the median line still reads on top. Still a range, never a
+                false single line — the honesty is unchanged, only the styling. */}
+            <ChartGradient
+              id={bandGradientId}
+              stops={chartTheme.gradients.growthBand}
+            />
+          </defs>
+
           <CartesianGrid
             vertical={false}
             stroke={chartTheme.grid.stroke}
@@ -207,11 +220,26 @@ export function GrowthProjectionChart({
             dataKey="band"
             stroke={chartTheme.bandStroke}
             strokeWidth={1}
-            fill={chartTheme.band}
-            fillOpacity={chartTheme.bandOpacity}
+            fill={`url(#${bandGradientId})`}
+            fillOpacity={1}
             isAnimationActive={animate}
             animationDuration={duration}
             activeDot={false}
+          />
+          {/* A soft glow beneath the median so it lifts off the fan (decorative
+              depth — identical values, drawn first so the crisp line sits on top). */}
+          <Line
+            type="monotone"
+            dataKey="median"
+            stroke={chartTheme.band}
+            strokeWidth={chartTheme.glow.width}
+            strokeOpacity={chartTheme.glow.opacity}
+            strokeLinecap={chartTheme.line.cap}
+            strokeLinejoin={chartTheme.line.join}
+            dot={false}
+            activeDot={false}
+            isAnimationActive={animate}
+            animationDuration={duration}
           />
           {/* The most likely outcome. */}
           <Line
@@ -244,6 +272,19 @@ export function GrowthProjectionChart({
             />
           ) : null}
 
+          {/* A faint halo beneath the "you are here" dot — a soft glossy cast
+              (decorative; the crisp dot + its label carry the meaning). */}
+          {here ? (
+            <ReferenceDot
+              x={here.year}
+              y={here.value}
+              r={chartTheme.marker.haloRadius}
+              fill={chartTheme.here}
+              fillOpacity={chartTheme.marker.haloOpacity}
+              stroke="none"
+              ifOverflow="extendDomain"
+            />
+          ) : null}
           {here ? (
             <ReferenceDot
               x={here.year}

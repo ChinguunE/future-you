@@ -75,6 +75,9 @@ export type ChartCardViewLabels = {
 export type ChartCardProps = {
   /** the plain-language question */
   title: React.ReactNode
+  /** an optional KPI stat-card header (a <StatRow> of <StatCard>s — DESIGN §12
+   *  richness pass), shown between the title and the controls in dashboard mode */
+  stats?: React.ReactNode
   /** the "what this tells you" line, in plain words */
   caption: React.ReactNode
   viewLabels: ChartCardViewLabels
@@ -193,6 +196,7 @@ function ChartDataTable({ table }: { table: ChartCardTable }) {
 
 export function ChartCard({
   title,
+  stats,
   caption,
   viewLabels,
   table,
@@ -208,12 +212,18 @@ export function ChartCard({
   const horizonLabelId = React.useId()
 
   return (
-    <Card data-slot="chart-card" className={cn("gap-5", className)}>
+    // `@container` lets the KPI stat header (StatRow) adapt to THIS card's width,
+    // not the viewport — so its franc numbers never clip when the card is half-width
+    // in the 2-up dashboard grid (DESIGN §12 richness pass).
+    <Card data-slot="chart-card" className={cn("@container gap-5", className)}>
       {/* Title (the plain-language question) + an optional Sprout. */}
       <div className="flex items-start justify-between gap-4">
         <CardTitle className="max-w-prose">{title}</CardTitle>
         {mascot ? <div className="-mt-1 shrink-0">{mascot}</div> : null}
       </div>
+
+      {/* Optional KPI stat-card header (dashboard mode — DESIGN §12 richness pass). */}
+      {stats}
 
       {/* Controls: the horizon toggle (left) + the chart/table view switch (right). */}
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -270,5 +280,28 @@ export function ChartCard({
       {/* Optional "Show the maths" (the reused EquationBlock, collapsed). */}
       {maths ? <EquationBlock {...maths} /> : null}
     </Card>
+  )
+}
+
+/**
+ * ChartGrid — the "denser 2-up" dashboard layout (DESIGN §6 research/dashboard mode):
+ * one column on phones, two side-by-side from `lg` up, so chart-cards sit together
+ * like a dashboard instead of one long scroll. The guided flow never uses this; it
+ * stays one-thing-per-screen. Override the columns via className.
+ */
+export function ChartGrid({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      data-slot="chart-grid"
+      className={cn("grid grid-cols-1 gap-6 lg:grid-cols-2", className)}
+    >
+      {children}
+    </div>
   )
 }

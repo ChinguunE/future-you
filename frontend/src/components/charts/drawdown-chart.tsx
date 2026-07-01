@@ -16,6 +16,7 @@ import {
 } from "recharts"
 
 import { chartTheme } from "@/lib/chart-theme"
+import { ChartGradient } from "@/components/charts/chart-defs"
 import {
   ChartTooltipCard,
   ChartTooltipRow,
@@ -234,12 +235,10 @@ export function DrawdownChart({
           accessibilityLayer
         >
           <defs>
-            {/* Deeper = more saturated: the fill fades from near-nothing at the
-                water line to a soft --neg blush at the bottom (calm, not alarm). */}
-            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={chartTheme.neg} stopOpacity={0.04} />
-              <stop offset="100%" stopColor={chartTheme.neg} stopOpacity={0.3} />
-            </linearGradient>
+            {/* Deeper = more saturated (DESIGN §12 richness pass): the fill fades
+                from near-nothing at the water line to a soft --neg blush at the
+                bottom — glossier than before, still calm reassurance, never alarm. */}
+            <ChartGradient id={gradientId} stops={chartTheme.gradients.drawdown} />
           </defs>
 
           <CartesianGrid
@@ -315,13 +314,30 @@ export function DrawdownChart({
             }
           />
 
-          {/* The drawdown itself — a soft area hanging below the water line. */}
+          {/* A soft glow tracing the drawdown line so it lifts off the rich fill
+              (decorative depth, no fill — identical values, drawn first). */}
           <Area
             type="monotone"
             dataKey="drawdown"
             baseValue={0}
             stroke={chartTheme.neg}
-            strokeWidth={2}
+            strokeWidth={chartTheme.glow.width}
+            strokeOpacity={chartTheme.glow.opacity}
+            strokeLinecap={chartTheme.line.cap}
+            strokeLinejoin={chartTheme.line.join}
+            fill="none"
+            dot={false}
+            activeDot={false}
+            isAnimationActive={animate}
+            animationDuration={duration}
+          />
+          {/* The drawdown itself — a rich area hanging below the water line. */}
+          <Area
+            type="monotone"
+            dataKey="drawdown"
+            baseValue={0}
+            stroke={chartTheme.neg}
+            strokeWidth={2.5}
             strokeLinecap={chartTheme.line.cap}
             strokeLinejoin={chartTheme.line.join}
             fill={`url(#${gradientId})`}
@@ -336,6 +352,17 @@ export function DrawdownChart({
             animationDuration={duration}
           />
 
+          {/* A faint halo beneath the trough dot — a soft glossy cast (decorative;
+              the crisp dot + its floating pill + the tooltip carry the meaning). */}
+          <ReferenceDot
+            x={trough.t}
+            y={trough.drawdown}
+            r={chartTheme.marker.haloRadius}
+            fill={chartTheme.neg}
+            fillOpacity={chartTheme.marker.haloOpacity}
+            stroke="none"
+            ifOverflow="extendDomain"
+          />
           {/* The deepest fall, marked + labelled with a floating pill. */}
           <ReferenceDot
             x={trough.t}

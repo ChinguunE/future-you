@@ -28,7 +28,10 @@ export default async function ChartsDemoPage({
 
   return (
     <main className="min-h-dvh bg-canvas">
-      <div className="mx-auto max-w-3xl px-6 py-12">
+      {/* Wider than the guided flow's ~720px: the dashboard mode (DESIGN §6) uses a
+          wider grid so the two upgraded charts can sit 2-up. The intro copy stays
+          capped at a readable measure via max-w-prose below. */}
+      <div className="mx-auto max-w-6xl px-6 py-12">
         <header className="mb-12 flex flex-col items-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left">
           <Sprout pose="with-pie-chart" size="xl" priority />
           <div>

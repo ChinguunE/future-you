@@ -25,7 +25,9 @@ function ChartTooltipCard({
     <div
       data-slot="chart-tooltip"
       className={cn(
-        "min-w-44 rounded-md bg-white px-3 py-2 text-small shadow-[var(--shadow-card)] ring-1 ring-border",
+        // richer glossy depth (DESIGN §12 richness pass): a lifted cast shadow +
+        // a 1px inner top-highlight, still a calm white card on our light palette.
+        "min-w-44 rounded-md bg-white px-3 py-2 text-small shadow-[var(--chart-shadow)] ring-1 ring-border",
         className
       )}
     >
