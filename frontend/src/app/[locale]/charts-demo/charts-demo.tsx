@@ -45,6 +45,15 @@ import {
 } from '@/components/charts/stress-bars-chart';
 import {RollingReturnsChart} from '@/components/charts/rolling-returns-chart';
 import {BenchmarkLinesChart} from '@/components/charts/benchmark-lines-chart';
+import {
+  HoldingsTable,
+  type HoldingsTableRow
+} from '@/components/charts/holdings-table';
+import {
+  ExposureTable,
+  type ExposureTableRow
+} from '@/components/charts/exposure-table';
+import {IncomeSplit, type IncomeGroup} from '@/components/charts/income-split';
 import {Sprout} from '@/components/illustration/Sprout';
 import type {EquationSymbol} from '@/components/ui/equation-block';
 import {chartTheme} from '@/lib/chart-theme';
@@ -102,6 +111,12 @@ import {
   buildStressBars,
   type StressSeverity
 } from './scenario-data';
+import {
+  buildExposure,
+  buildHoldings,
+  buildIncome,
+  type HoldingRow
+} from './tables-data';
 
 /**
  * The interactive island of /charts-demo (client): it owns the horizon state and
@@ -2310,6 +2325,331 @@ function BenchmarkCard({
   );
 }
 
+/* ============== Wave F — "Tables, first-class" (Slice 9) ============== */
+
+/** Shared view-switch labels for the Wave-F cards: the rich "Visual" presentation vs the
+ *  plain "Table" fallback (these cards aren't charts, so "Chart"/"Table" wouldn't read). */
+function useTableViewLabels() {
+  const t = useTranslations('Charts');
+  return {
+    chart: t('tables.viewVisual'),
+    table: t('tables.viewPlain'),
+    group: t('tables.viewGroup')
+  };
+}
+
+/** F1 — the sortable holdings table: every holding with weight, risk, and a trend spark. */
+function HoldingsCard({
+  locale,
+  className
+}: {
+  locale: string;
+  className?: string;
+}) {
+  const t = useTranslations('Charts');
+  const viewLabels = useTableViewLabels();
+  const share = (v: number) => formatPercent(v, locale);
+  const signed1 = (v: number) =>
+    formatPercent(v, locale, {maximumFractionDigits: 1, signDisplay: 'always'});
+  const glyph = (dir: HoldingRow['trendDir']) =>
+    dir === 'up' ? '▲' : dir === 'down' ? '▼' : '→';
+  const trendCls = (dir: HoldingRow['trendDir']) =>
+    dir === 'up' ? 'text-pos' : dir === 'down' ? 'text-neg' : 'text-text-muted';
+
+  const holdings = buildHoldings();
+
+  // Map the sample rows → the component's own row type, resolving the localised type +
+  // role labels here (i18n stays in the page; the component stays prop-driven + reusable).
+  const rows: HoldingsTableRow[] = holdings.map((h) => ({
+    ticker: h.ticker,
+    name: h.name,
+    typeLabel: t(`mix.assetClass.${h.assetClass}`),
+    roleLabel: t(`tables.role.${h.role}`),
+    role: h.role,
+    sleeve: h.sleeve,
+    weight: h.weight,
+    risk: h.riskContribution,
+    spark: h.spark,
+    trendPct: h.trendPct,
+    trendDir: h.trendDir
+  }));
+
+  // The plain-table fallback: the same numbers as static text (trend as a signed % with a
+  // ▲/▼ glyph + tone, never colour-alone), ordered by weight like the table's default sort.
+  const tableRows = [...holdings]
+    .sort((a, b) => b.weight - a.weight)
+    .map((h) => ({
+      holding: `${h.name} (${h.ticker})`,
+      type: t(`mix.assetClass.${h.assetClass}`),
+      weight: share(h.weight),
+      risk: share(h.riskContribution),
+      trend: (
+        <span className={`nums ${trendCls(h.trendDir)}`}>
+          <span aria-hidden className="mr-0.5">
+            {glyph(h.trendDir)}
+          </span>
+          {signed1(h.trendPct)}
+        </span>
+      )
+    }));
+
+  // KPI header: the biggest position, the count, and the core-vs-satellite split — all
+  // derived from the same rows so they can't drift from the table.
+  const biggest = holdings.reduce((a, b) => (b.weight > a.weight ? b : a));
+  const coreShare = holdings
+    .filter((h) => h.role === 'core')
+    .reduce((acc, h) => acc + h.weight, 0);
+  const satelliteShare = 1 - coreShare;
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="brand"
+        label={t('tables.holdings.stats.biggestLabel')}
+        value={biggest.name}
+        note={t('tables.holdings.stats.biggestNote', {weight: share(biggest.weight)})}
+      />
+      <StatCard
+        tone="sky"
+        label={t('tables.holdings.stats.countLabel')}
+        value={formatNumber(holdings.length, locale)}
+        note={t('tables.holdings.stats.countNote')}
+      />
+      <StatCard
+        tone="gold"
+        label={t('tables.holdings.stats.splitLabel')}
+        value={`${share(coreShare)} / ${share(satelliteShare)}`}
+        note={t('tables.holdings.stats.splitNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      className={className}
+      title={t('tables.holdings.title')}
+      stats={stats}
+      caption={t('tables.holdings.caption')}
+      viewLabels={viewLabels}
+      table={{
+        caption: t('tables.holdings.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('tables.holdings.colHolding')},
+          {key: 'type', label: t('tables.holdings.colType')},
+          {key: 'weight', label: t('tables.holdings.colWeight'), numeric: true},
+          {key: 'risk', label: t('tables.holdings.colRisk'), numeric: true},
+          {key: 'trend', label: t('tables.holdings.colTrend'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="pointing" size={88} decorative animated={false} eager />
+      }
+    >
+      <HoldingsTable
+        rows={rows}
+        labels={{
+          colHolding: t('tables.holdings.colHolding'),
+          colType: t('tables.holdings.colType'),
+          colWeight: t('tables.holdings.colWeight'),
+          colRisk: t('tables.holdings.colRisk'),
+          colTrend: t('tables.holdings.colTrend')
+        }}
+        formatWeight={share}
+        formatRisk={share}
+        formatTrend={signed1}
+        sortByLabel={(column) => t('tables.sortBy', {column})}
+        ariaLabel={t('tables.holdings.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** F2 — where your money sits: exposure by investment type (asset class), ranked. */
+function ExposureCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const viewLabels = useTableViewLabels();
+  const share = (v: number) => formatPercent(v, locale);
+  const count = (v: number) => formatNumber(v, locale);
+
+  const exposure = buildExposure();
+
+  const rows: ExposureTableRow[] = exposure.map((e) => ({
+    key: e.assetClass,
+    typeLabel: t(`mix.assetClass.${e.assetClass}`),
+    sleeve: e.sleeve,
+    share: e.share,
+    holdingCount: e.holdingCount
+  }));
+
+  const tableRows = exposure.map((e) => ({
+    type: t(`mix.assetClass.${e.assetClass}`),
+    share: share(e.share),
+    holdings: count(e.holdingCount)
+  }));
+
+  // KPI header: the biggest exposure, the number of distinct types, and the growth
+  // (equity) share — all derived from the same ranked rows.
+  const biggest = exposure[0];
+  const equityShare = exposure
+    .filter((e) => e.sleeve === 'equity')
+    .reduce((acc, e) => acc + e.share, 0);
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="brand"
+        label={t('tables.exposure.stats.biggestLabel')}
+        value={t(`mix.assetClass.${biggest.assetClass}`)}
+        note={t('tables.exposure.stats.biggestNote', {share: share(biggest.share)})}
+      />
+      <StatCard
+        tone="sky"
+        label={t('tables.exposure.stats.typesLabel')}
+        value={formatNumber(exposure.length, locale)}
+        note={t('tables.exposure.stats.typesNote')}
+      />
+      <StatCard
+        tone="gold"
+        label={t('tables.exposure.stats.equityLabel')}
+        value={share(equityShare)}
+        note={t('tables.exposure.stats.equityNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('tables.exposure.title')}
+      stats={stats}
+      caption={t('tables.exposure.caption')}
+      viewLabels={viewLabels}
+      table={{
+        caption: t('tables.exposure.tableCaption'),
+        columns: [
+          {key: 'type', label: t('tables.exposure.colType')},
+          {key: 'share', label: t('tables.exposure.colShare'), numeric: true},
+          {key: 'holdings', label: t('tables.exposure.colHoldings'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="with-pie-chart" size={88} decorative animated={false} eager />
+      }
+    >
+      <ExposureTable
+        rows={rows}
+        labels={{
+          colType: t('tables.exposure.colType'),
+          colShare: t('tables.exposure.colShare'),
+          colHoldings: t('tables.exposure.colHoldings')
+        }}
+        formatShare={share}
+        formatCount={count}
+        ariaLabel={t('tables.exposure.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
+/** F3 — which holdings pay you: income character (distributes cash vs reinvests). */
+function IncomeCard({locale}: {locale: string}) {
+  const t = useTranslations('Charts');
+  const viewLabels = useTableViewLabels();
+  const share = (v: number) => formatPercent(v, locale);
+
+  const income = buildIncome();
+
+  const distributes: IncomeGroup = {
+    label: t('tables.income.distributesLabel'),
+    share: income.distributesShare,
+    holdings: income.distributes.map((r) => ({
+      ticker: r.ticker,
+      name: r.name,
+      sleeve: r.sleeve,
+      weight: r.weight
+    }))
+  };
+  const reinvests: IncomeGroup = {
+    label: t('tables.income.reinvestsLabel'),
+    share: income.reinvestsShare,
+    holdings: income.reinvests.map((r) => ({
+      ticker: r.ticker,
+      name: r.name,
+      sleeve: r.sleeve,
+      weight: r.weight
+    }))
+  };
+
+  // The plain-table fallback: every holding, its income character, and its weight.
+  const tableRows = [...income.distributes, ...income.reinvests].map((r) => ({
+    holding: `${r.name} (${r.ticker})`,
+    character:
+      r.character === 'distributes'
+        ? t('tables.income.distributesShort')
+        : t('tables.income.reinvestsShort'),
+    weight: share(r.weight)
+  }));
+
+  const stats = (
+    <StatRow className="max-w-xl @2xl:grid-cols-3">
+      <StatCard
+        tone="gold"
+        label={t('tables.income.stats.payingLabel')}
+        value={share(income.distributesShare)}
+        note={t('tables.income.stats.payingNote')}
+      />
+      <StatCard
+        tone="brand"
+        label={t('tables.income.stats.reinvestLabel')}
+        value={share(income.reinvestsShare)}
+        note={t('tables.income.stats.reinvestNote')}
+      />
+      <StatCard
+        tone="sky"
+        label={t('tables.income.stats.payersLabel')}
+        value={formatNumber(income.distributesCount, locale)}
+        note={t('tables.income.stats.payersNote')}
+      />
+    </StatRow>
+  );
+
+  return (
+    <ChartCard
+      title={t('tables.income.title')}
+      stats={stats}
+      caption={t('tables.income.caption')}
+      viewLabels={viewLabels}
+      table={{
+        caption: t('tables.income.tableCaption'),
+        columns: [
+          {key: 'holding', label: t('tables.income.colHolding')},
+          {key: 'character', label: t('tables.income.colCharacter')},
+          {key: 'weight', label: t('tables.income.colWeight'), numeric: true}
+        ],
+        rows: tableRows
+      }}
+      mascot={
+        <Sprout pose="coin-trail" size={88} decorative animated={false} eager />
+      }
+    >
+      <IncomeSplit
+        distributes={distributes}
+        reinvests={reinvests}
+        labels={{
+          barAria: t('tables.income.barAria', {
+            income: share(income.distributesShare),
+            reinvest: share(income.reinvestsShare)
+          })
+        }}
+        formatShare={share}
+        formatWeight={share}
+        ariaLabel={t('tables.income.ariaLabel')}
+      />
+    </ChartCard>
+  );
+}
+
 export function ChartsDemo({locale}: {locale: string}) {
   const t = useTranslations('Charts');
   // The denser "premium dashboard" composition (DESIGN §6 research mode): a KPI stat
@@ -2388,6 +2728,21 @@ export function ChartsDemo({locale}: {locale: string}) {
           <BenchmarkCard locale={locale} className="lg:col-span-2" />
           <StressBarsCard locale={locale} />
           <RollingReturnsCard locale={locale} />
+        </ChartGrid>
+      </section>
+
+      <section data-demo-section="tables" className="space-y-4">
+        <div className="max-w-prose space-y-1.5">
+          <h2 className="text-h2 text-ink">{t('tablesSectionTitle')}</h2>
+          <p className="text-body text-text">{t('tablesSectionIntro')}</p>
+        </div>
+        {/* The sortable holdings table leads full-width (its five columns earn the room);
+            the exposure + income tables sit 2-up beneath it. Holdings is card nth(0), the
+            exposure table nth(1), the income split nth(2). */}
+        <ChartGrid>
+          <HoldingsCard locale={locale} className="lg:col-span-2" />
+          <ExposureCard locale={locale} />
+          <IncomeCard locale={locale} />
         </ChartGrid>
       </section>
     </div>

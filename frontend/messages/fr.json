@@ -908,6 +908,76 @@
         "eqWhyLabel": "Pourquoi comparer",
         "eqWhy": "Un simple 60/40 est un repère juste et sans effort. Le battre sur la trajectoire attendue ne vaut le coup que si vous êtes à l'aise avec le risque supplémentaire — que montrent les cartes des mauvaises années et des rendements par durée."
       }
+    },
+    "tablesSectionTitle": "Vos placements",
+    "tablesSectionIntro": "Le plan sous forme de tableaux à lire ligne par ligne : chaque placement trié comme vous le souhaitez, la répartition de votre argent par type, et les placements qui vous versent des liquidités en cours de route. Chiffres d'exemple ; vos vrais placements arrivent avec votre plan.",
+    "tables": {
+      "viewVisual": "Visuel",
+      "viewPlain": "Simple",
+      "viewGroup": "Basculer entre le tableau visuel et un tableau simple des mêmes chiffres",
+      "role": {
+        "core": "Cœur",
+        "satellite": "Satellite"
+      },
+      "holdings": {
+        "title": "Que détenez-vous exactement ?",
+        "caption": "Tous vos placements dans un seul tableau triable — touchez un en-tête de colonne pour classer par poids, risque ou tendance. La petite courbe est un tracé indicatif fondé sur le rendement attendu et la volatilité de chaque placement — pas un mouvement de marché réel —, avec sa variation nette indiquée à côté.",
+        "tableCaption": "Vos placements avec leur poids, leur part de risque et leur tendance indicative.",
+        "colHolding": "Placement",
+        "colType": "Type",
+        "colWeight": "Poids",
+        "colRisk": "Risque",
+        "colTrend": "Tendance",
+        "ariaLabel": "Un tableau triable de vos placements, chacun avec son poids, sa part de risque et une courbe de tendance indicative. Touchez un en-tête de colonne pour trier.",
+        "stats": {
+          "biggestLabel": "Plus grosse position",
+          "biggestNote": "{weight} de votre argent",
+          "countLabel": "Placements",
+          "countNote": "dans l'ensemble de votre plan",
+          "splitLabel": "Cœur / satellite",
+          "splitNote": "cœur stable et vos inclinaisons"
+        }
+      },
+      "exposure": {
+        "title": "Où se trouve votre argent ?",
+        "caption": "Votre argent regroupé par type de placement — actions mondiales, obligations, or et le reste — classé du plus grand au plus petit. (Les secteurs d'activité détaillés ne figurent pas encore dans nos données.)",
+        "tableCaption": "Votre exposition par type de placement, du plus grand au plus petit.",
+        "colType": "Type",
+        "colShare": "Part",
+        "colHoldings": "Placements",
+        "ariaLabel": "Un tableau classé de votre exposition par type de placement, chacun avec sa part du plan et le nombre de placements qui le composent.",
+        "stats": {
+          "biggestLabel": "Plus grande exposition",
+          "biggestNote": "{share} du plan",
+          "typesLabel": "Types de placement",
+          "typesNote": "sortes distinctes que vous détenez",
+          "equityLabel": "En actions",
+          "equityNote": "votre moteur de croissance"
+        }
+      },
+      "income": {
+        "title": "Quels placements vous versent des revenus ?",
+        "caption": "Certains placements vous versent des liquidités (un dividende) ; d'autres les réinvestissent pour vous à l'intérieur du fonds. Voici lesquels — nous n'avons pas de chiffres de rendement, il n'y a donc aucun pourcentage à promettre.",
+        "tableCaption": "Chaque placement — s'il vous verse un revenu ou le réinvestit — et son poids.",
+        "colHolding": "Placement",
+        "colCharacter": "Revenu",
+        "colWeight": "Poids",
+        "ariaLabel": "Comment vos placements se répartissent entre ceux qui versent un revenu et ceux qui le réinvestissent, avec la part de chaque côté dans le plan.",
+        "barAria": "{income} du plan vous verse un revenu ; {reinvest} le réinvestit.",
+        "distributesLabel": "Vous verse un revenu",
+        "reinvestsLabel": "Le réinvestit pour vous",
+        "distributesShort": "Verse un revenu",
+        "reinvestsShort": "Réinvestit",
+        "stats": {
+          "payingLabel": "Verse un revenu",
+          "payingNote": "des liquidités vous sont versées",
+          "reinvestLabel": "Réinvesti",
+          "reinvestNote": "croît à l'intérieur du fonds",
+          "payersLabel": "Sources de revenu",
+          "payersNote": "placements qui versent un dividende"
+        }
+      },
+      "sortBy": "Trier par {column}"
     }
   },
   "Illustrations": {

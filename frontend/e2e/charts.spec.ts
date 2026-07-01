@@ -36,6 +36,7 @@ const GROWTH = '[data-demo-section="growth"]'; // the 8a/8b growth + Wave B card
 const RISK = '[data-demo-section="risk"]'; // Wave C "Your risk"
 const STOCK = '[data-demo-section="stock"]'; // Wave D "Your stocks"
 const SCENARIO = '[data-demo-section="scenario"]'; // Wave E "Scenario & comparison"
+const TABLES = '[data-demo-section="tables"]'; // Wave F "Tables, first-class"
 const SECTOR = '.recharts-sector'; // a donut wedge
 const BAR = '.recharts-bar-rectangle'; // a mix-vs-optimal / risk bar (a <g> wrapper)
 const BAR_PATH = '.recharts-rectangle'; // the bar's inner path (carries the `d` geometry)
@@ -44,6 +45,10 @@ const GRID = '[data-slot="correlation-heatmap"]'; // the correlation heatmap (DO
 const CANDLES = '[data-slot="candle"]'; // a hand-rolled candlestick body (Wave D)
 const ANALYST = '[data-slot="analyst-target"]'; // the analyst-target range bar (DOM, Wave D)
 const FUNDAMENTALS = '[data-slot="fundamentals"]'; // the fundamentals snapshot (DOM, Wave D)
+const HOLDINGS_TABLE = '[data-slot="holdings-table"]'; // the sortable holdings table (Wave F)
+const SPARK = '[data-slot="sparkline"]'; // a holdings-row trend sparkline (Wave F)
+const EXPOSURE = '[data-slot="exposure-table"]'; // the exposure-by-type table (Wave F)
+const INCOME = '[data-slot="income-split"]'; // the income-character split (DOM, Wave F)
 // nivo (sunburst arcs / treemap tiles) render inside the chart region (role=group),
 // scoped so the query never matches the card's mascot illustration.
 const NIVO_ARC = '[role="group"] svg path';
@@ -240,6 +245,15 @@ for (const locale of LOCALES) {
     await expect(
       scenario.locator(CARD).nth(2).locator(AREA).first()
     ).toHaveAttribute('d', /.+/);
+    // Wave F: the tables are static DOM — the holdings sparkline is a plain SVG path (no
+    // draw-in to gate), and the exposure + income tables have no animation, so all three
+    // are present at once.
+    const tables = page.locator(TABLES);
+    await expect(
+      tables.locator(CARD).nth(0).locator(`${SPARK} path`).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(tables.locator(CARD).nth(1).locator(EXPOSURE)).toBeVisible();
+    await expect(tables.locator(CARD).nth(2).locator(INCOME)).toBeVisible();
     await settleChart(page);
     await shot(page, project, `charts_reduced_${locale}`);
     await scan(page, `charts reduced ${locale} @ ${project}`);
@@ -524,5 +538,66 @@ for (const locale of LOCALES) {
     // ---- E2 rolling returns: show the maths, then the table ----
     await mathsShot(2, 'rolling');
     await tableShot(2, 'rolling');
+  });
+}
+
+/**
+ * Slice 9 · Wave F ("Tables, first-class") gate — the three table cards: a SORTABLE
+ * holdings table (each row with a trend sparkline + a proportional weight bar), a ranked
+ * exposure-by-type table with in-row bars, and an income-character split (which holdings
+ * pay cash out vs reinvest). A table is a first-class chart type here, so each card's rich
+ * "Visual" view is the artifact and the ChartCard's "Plain" table is the fallback (no
+ * horizon, no maths — only the view switch). Screenshots the section default, the holdings
+ * sort interaction (click a header → aria-sort flips + the rows re-rank), and each card's
+ * plain-table fallback, axe-scanning each (zero serious/critical WCAG-AA — this also gates
+ * the sortable-header + split-bar a11y). EN + FR × every viewport.
+ */
+for (const locale of LOCALES) {
+  test(`charts ${locale} · tables section (holdings / exposure / income)`, async ({
+    page
+  }, testInfo) => {
+    const project = testInfo.project.name;
+    await ready(page, `/${locale}/charts-demo`);
+    const tables = page.locator(TABLES);
+    await expect(tables).toBeVisible();
+    const cards = tables.locator(CARD);
+
+    // ---- Default: the holdings sparkline drew (a real SVG path), and the exposure +
+    //      income artifacts are up ----
+    await expect(
+      cards.nth(0).locator(`${SPARK} path`).first()
+    ).toHaveAttribute('d', /.+/);
+    await expect(cards.nth(1).locator(EXPOSURE)).toBeVisible();
+    await expect(cards.nth(2).locator(INCOME)).toBeVisible();
+    await shot(page, project, `tables_default_${locale}`);
+    await scan(page, `tables default ${locale} @ ${project}`);
+
+    // ---- F1 holdings: sort by Risk (the 4th header cell) — aria-sort flips to descending
+    //      and the table re-ranks (the interactive, accessible sort) ----
+    const holdings = cards.nth(0);
+    const riskHead = holdings.locator(`${HOLDINGS_TABLE} thead th`).nth(3);
+    await riskHead.locator('button').click();
+    await expect(riskHead).toHaveAttribute('aria-sort', 'descending');
+    await shot(page, project, `tables_holdings_sorted_${locale}`);
+    await scan(page, `tables holdings sorted ${locale} @ ${project}`);
+
+    // helper: flip a card's only view switch to the plain table, shot + scan, flip back
+    // (remounts the visual artifact, so its sort state resets — fine, it ran above).
+    async function tableShot(cardIndex: number, name: string) {
+      const card = cards.nth(cardIndex);
+      const view = card.locator(SEGMENTED).last();
+      await view.locator(SEG_ITEM).nth(1).click();
+      await expect(card.locator(TABLE)).toBeVisible();
+      await shot(page, project, `tables_${name}_table_${locale}`);
+      await scan(page, `tables ${name} table ${locale} @ ${project}`);
+      await view.locator(SEG_ITEM).nth(0).click();
+    }
+
+    // ---- F1 holdings (plain-table fallback) ----
+    await tableShot(0, 'holdings');
+    // ---- F2 exposure-by-type (plain-table fallback) ----
+    await tableShot(1, 'exposure');
+    // ---- F3 income split (plain-table fallback) ----
+    await tableShot(2, 'income');
   });
 }

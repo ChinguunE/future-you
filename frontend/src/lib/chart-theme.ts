@@ -307,5 +307,21 @@ export const chartTheme = {
     you: 'var(--green-700)', // E3 — your expected path (the hero line, AA on light)
     reference: 'var(--text-muted)', // E3 — the 60/40 reference path (muted, dashed)
     gap: 'var(--green-500)' // E3 — the "you're ahead" gap fill
+  },
+
+  /* Tables — first-class (Slice 9, Wave F). F1 holdings: a row's trend sparkline is
+     stroked --pos rising / --neg falling / --text-muted flat, and ALWAYS paired with a
+     labelled signed % + ▲/▼ so meaning never rests on the line or colour alone (§11). F3
+     income split: --gold marks the income a holding pays OUT to you (coins), --green the
+     growth it reinvests INTERNALLY; each split segment is also directly labelled. F1/F2
+     weight + type bars reuse the sleeve hues (sleeveColor). Tokens only (non-negotiable #3). */
+  tables: {
+    up: 'var(--pos)', // a rising sparkline (paired with ▲ + a signed %)
+    down: 'var(--neg)', // a falling sparkline (paired with ▼ + a signed %)
+    flat: 'var(--text-muted)', // little/no change (paired with → + a signed %)
+    riskBar: 'var(--text)', // F1 risk magnitude bar — a neutral tone, so it reads as
+    // "how much risk" and never conflates with the sleeve-coloured weight bar (category)
+    distributes: 'var(--gold)', // income paid out to you
+    reinvests: 'var(--green-500)' // growth reinvested internally
   }
 } as const;

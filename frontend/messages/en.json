@@ -908,6 +908,76 @@
         "eqWhyLabel": "Why compare at all",
         "eqWhy": "A plain 60/40 is a fair, low-effort benchmark. Beating it on the expected path is only worth it if you're comfortable with the extra risk — which the rough-year and rolling-return cards show."
       }
+    },
+    "tablesSectionTitle": "Your holdings",
+    "tablesSectionIntro": "The plan as tables you can read line by line: every holding sorted the way you want, where your money sits by type, and which holdings pay you cash along the way. Sample numbers; your real holdings arrive with your plan.",
+    "tables": {
+      "viewVisual": "Visual",
+      "viewPlain": "Plain",
+      "viewGroup": "Switch between the visual table and a plain table of the same numbers",
+      "role": {
+        "core": "Core",
+        "satellite": "Satellite"
+      },
+      "holdings": {
+        "title": "What exactly do you hold?",
+        "caption": "Every holding in one sortable table — tap a column heading to rank by weight, risk, or trend. The little line is an illustrative path from each holding's own expected return and swing, not a real market move, with its net change spelled out beside it.",
+        "tableCaption": "Your holdings with their weight, share of risk, and illustrative trend.",
+        "colHolding": "Holding",
+        "colType": "Type",
+        "colWeight": "Weight",
+        "colRisk": "Risk",
+        "colTrend": "Trend",
+        "ariaLabel": "A sortable table of your holdings, each with its weight, its share of risk, and an illustrative-trend sparkline. Tap a column heading to sort.",
+        "stats": {
+          "biggestLabel": "Biggest position",
+          "biggestNote": "{weight} of your money",
+          "countLabel": "Holdings",
+          "countNote": "across your whole plan",
+          "splitLabel": "Core / satellite",
+          "splitNote": "steady core vs your tilts"
+        }
+      },
+      "exposure": {
+        "title": "Where does your money sit?",
+        "caption": "Your money grouped by investment type — global equity, bonds, gold, and the rest — ranked biggest first. (Detailed industry sectors aren't in our data yet.)",
+        "tableCaption": "Your exposure by investment type, biggest first.",
+        "colType": "Type",
+        "colShare": "Share",
+        "colHoldings": "Holdings",
+        "ariaLabel": "A ranked table of your exposure by investment type, each with its share of the plan and how many holdings make it up.",
+        "stats": {
+          "biggestLabel": "Biggest exposure",
+          "biggestNote": "{share} of the plan",
+          "typesLabel": "Investment types",
+          "typesNote": "distinct kinds you hold",
+          "equityLabel": "In equities",
+          "equityNote": "your growth engine"
+        }
+      },
+      "income": {
+        "title": "Which holdings pay you?",
+        "caption": "Some holdings pay cash out to you (a dividend); others reinvest it for you inside the fund. This shows which is which — we don't hold yield figures, so there are no percentages to promise.",
+        "tableCaption": "Each holding — whether it pays you income or reinvests it — and its weight.",
+        "colHolding": "Holding",
+        "colCharacter": "Income",
+        "colWeight": "Weight",
+        "ariaLabel": "How your holdings split between those that pay income out and those that reinvest it, with each side's share of the plan.",
+        "barAria": "{income} of the plan pays income out to you; {reinvest} reinvests it.",
+        "distributesLabel": "Pays you income",
+        "reinvestsLabel": "Reinvests it for you",
+        "distributesShort": "Pays income",
+        "reinvestsShort": "Reinvests",
+        "stats": {
+          "payingLabel": "Pays income",
+          "payingNote": "cash paid out to you along the way",
+          "reinvestLabel": "Reinvested",
+          "reinvestNote": "grows inside the fund",
+          "payersLabel": "Income payers",
+          "payersNote": "holdings that pay a dividend"
+        }
+      },
+      "sortBy": "Sort by {column}"
     }
   },
   "Illustrations": {

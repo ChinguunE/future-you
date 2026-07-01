@@ -1,4 +1,5 @@
 import {ALLOCATION} from './allocation-data';
+import {hash, shock} from './noise';
 
 /**
  * SAMPLE per-stock data for the dev-only charts demo (Slice 9, Wave D — "Your stocks").
@@ -53,23 +54,8 @@ const TRADING_DAYS = 252;
 const HISTORY_YEARS = 6; // depth of the "Max" range
 const N_DAYS = Math.round(HISTORY_YEARS * TRADING_DAYS);
 
-/* ------------------------------------------------------------------------- *
- * Deterministic "tape" noise. A hashed-sine gives a jagged, real-looking     *
- * walk with NO Math.random and NO Date — identical on the server and the     *
- * client (so an SSR-rendered figure can't tear on hydration). Three hashes    *
- * summed approximate a standard-normal shock (a gentle central-limit blur).   *
- * ------------------------------------------------------------------------- */
-
-/** A deterministic pseudo-random value in [−1, 1] from an index (fractional sine). */
-function hash(i: number): number {
-  const s = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
-  return 2 * (s - Math.floor(s)) - 1;
-}
-
-/** An approx standard-normal shock for day i (sum of three decorrelated hashes). */
-function shock(i: number): number {
-  return (hash(i) + hash(i * 2.13 + 5.1) + hash(i * 0.73 + 11.7)) / Math.sqrt(3);
-}
+/* The deterministic "tape" noise (hash / shock) now lives in ./noise, shared with the
+ * Wave-F sparklines — same behaviour, one definition. */
 
 export type Ohlc = {
   /** fractional calendar year (the x value): AS_OF_YEAR − days-ago / 252 */
